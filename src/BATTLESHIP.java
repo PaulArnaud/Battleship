@@ -69,12 +69,12 @@ public class BATTLESHIP {
 	
 		newgame.setActivePlayer(player1);
 		newgame.setOppositePlayer(player2);
+		PLAYER activeplayer = newgame.getActivePlayer();
+		PLAYER oppositeplayer = newgame.getOppositePlayer();
 		String shoot;
 		int s;
 		SHIP[] battlecrew;
 		while (!newgame.IsOver()) {
-			PLAYER activeplayer = newgame.getActivePlayer();
-			PLAYER oppositeplayer = newgame.getOppositePlayer();
 			System.out.println( newgame.ActivetoString()  +  " Choisissez une position à attaquer(exemple: A1, J10)" );
 			shoot = reader.next("Shoot = ");
 			s = conversion(shoot);
@@ -86,29 +86,35 @@ public class BATTLESHIP {
 			
 			battlecrew = oppositeplayer.getBattlecrew();
 			int i = 0;
-			String res = "A l’eau";
+			String res="A l’eau";
 			SHIP ship;
-			while ((i < oppositeplayer.length())&&(res == "A l’eau")) {
+			while ((i<(oppositeplayer.length()))&&(res == "A l’eau")) {
 				ship = battlecrew[i];
-				if ship.isHit(s) 
-					if ship.isDestroyed()
-						res ="Touché Coulé";
+				if (ship.isHit(s)) {
+					if (ship.isDestroyed()) {
+						res="Touché Coulé";
 						oppositeplayer.removeShip(ship);
-					else
-						res = "Touché";
+					}
+					else {
+						res="Touché";
+					}
+				}
 				i = i+1;
 			}
-			System.out.pintln(res);
+			System.out.println(res);
 			newgame.changePlayer();
 		}
-		if (activeplayer.length() == 0)
-				System.out.println( newgame.OppositetoString() + "a gagné");
-		
-		else
+		if (activeplayer.length()==0) {
+			System.out.println( newgame.OppositetoString() + "a gagné");
+		}
+		else {
 			System.out.println( newgame.ActivetoString() + "a gagné");
-		
+		}
+		}
 	
-	public static int conversion(String a) {
-		return 0;
-	}
+	
+		public static int conversion(String a) {
+			return 0;
+		}
+	
 }
