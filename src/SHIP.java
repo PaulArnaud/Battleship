@@ -23,6 +23,7 @@ public class SHIP {
 	public List getLocalisation() {
 		return localisation;
 	}
+	
 	/*public void setLocalisation(int row,int col) {
 		
 		this.localisation = localisation;

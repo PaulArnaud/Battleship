@@ -5,6 +5,7 @@ import java.util.ListIterator;
 
 
 public class BATTLESHIP {
+	
 	public static Scanner reader = new Scanner(System.in);
 
 	public static void main(){
@@ -66,6 +67,7 @@ public class BATTLESHIP {
 		// cB = int(coordB)
 		SHIP destroyer = new SHIP();
 		player1.setDestroyer(destroyer);
+		player1.setBattlecrew();
 	
 		newgame.setActivePlayer(player1);
 		newgame.setOppositePlayer(player2);

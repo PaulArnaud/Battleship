@@ -57,8 +57,12 @@ public class PLAYER {
 		return Battlecrew;
 	}
 
-	public void setBattlecrew(SHIP[] battlecrew) {
-		Battlecrew = battlecrew;
+	public void setBattlecrew() {
+		Battlecrew[0]= Carier;
+		Battlecrew[1]= Destroyer;
+		Battlecrew[2]= Subbmarine;
+		Battlecrew[3]= Cruiser;
+		Battlecrew[4]= Battleship;	
 	}
 
 	public List getMyShoots() {
