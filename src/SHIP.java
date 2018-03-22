@@ -4,9 +4,9 @@ import java.util.ListIterator;
 
 
 public class SHIP {
-    private int row;
-    private int col;
-    private List localisation;
+    public int row;
+    public int col;
+    public List localisation;
     
 	public int getRow() {
 		return row;
@@ -35,14 +35,10 @@ public class SHIP {
 			return false;
 	}
 	
-	
 	public boolean isDestroyed(){
 		if (this.localisation.isEmpty())
 			return true;
 		else
 			return false;
 	}
-
-    
-    
 }

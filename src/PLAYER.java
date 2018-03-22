@@ -10,11 +10,9 @@ public class PLAYER {
 	public SHIP Subbmarine;
 	public SHIP Cruiser;
 	public SHIP Battleship;
-	public List Battlecrew;
+	public SHIP[] Battlecrew;
 	public List MyShoots;
 	
-	
-
 	public SHIP getCarier() {
 		return Carier;
 	}
@@ -55,11 +53,11 @@ public class PLAYER {
 		Battleship = battleship;
 	}
 
-	public List getBattlecrew() {
+	public SHIP[] getBattlecrew() {
 		return Battlecrew;
 	}
 
-	public void setBattlecrew(List battlecrew) {
+	public void setBattlecrew(SHIP[] battlecrew) {
 		Battlecrew = battlecrew;
 	}
 
@@ -74,6 +72,15 @@ public class PLAYER {
 	public boolean isDown(){
 		return false;
 	} /* on regarde si Battlecrew est videC*/
+	
+	public boolean hasAlreadyShot(int shoot){
+		return true;
+	}
+	
+	public int length() {
+		return 0;
+	}
 
-
+	public void removeShip(SHIP sp) {
+	}
 }

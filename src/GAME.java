@@ -16,11 +16,21 @@ public class GAME {
 		OppositePlayer = oppositePlayer;
 	}
 	
+	public String ActivetoString() {
+		return "[ActivePlayer=" + ActivePlayer + "]";
+	}
+	
+	public String OppositetoString() {
+		return "[OppositePlayer=" + OppositePlayer + "]";
+	}
 	public void changePlayer() {
 		PLAYER TempPlayer;
 		TempPlayer = this.ActivePlayer;
 		this.ActivePlayer = this.OppositePlayer;
 		this.OppositePlayer = TempPlayer;
 	}
-
+	
+	public boolean IsOver() {
+		return false;
+	}
 }
