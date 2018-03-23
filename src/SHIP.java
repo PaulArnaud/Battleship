@@ -2,30 +2,30 @@
 public class SHIP {
     public String start;
     public String end;
-    public int[] localisation;
+    public String[] localisation;
     
-	public int getStart() {
+	public String getStart() {
 		return start;
 	}
 	public void setStart(String start) {
 		this.start = start;
 	}
-	public int getEnd() {
+	public String getEnd() {
 		return end;
 	}
 	public void setEnd(String end) {
 		this.end = end;
 	}
-	public List getLocalisation() {
+	public String[] getLocalisation() {
 		return localisation;
 	}
 	
 	public void setLocalisation(String start,String end) {
-		int[] loca;
-		String firstletter = start[0];
-		String firstnumber = start[1];
-		String secondletter = end[0];
-		String secondnumber = end[1];
+		String[] loca;
+		String firstletter = start.substring(0, 1);
+		String firstnumber = start.substring(1, 2);
+		String secondletter = end.substring(0, 1);
+		String secondnumber = end.substring(1, 2);
 		if (firstletter == secondletter){
 			for i in ((int)firstnumber,(int)secondnumber) do
 				loca.add(firstletter + "i");
@@ -42,17 +42,21 @@ public class SHIP {
 	}
 	
 	public boolean  isHit(String pos){
-		if (this.localisation.contains(pos))
+		if (this.localisation.contains(pos)) {
 			loca.remove(pos);
 			return true;
-		else 
+		}
+		else {
 			return false;
+		}
 	}
 	
 	public boolean isDestroyed(){
-		if (this.localisation.isEmpty())
+		if (this.localisation.isEmpty()) {
 			return true;
-		else
+		}
+		else {
 			return false;
+		}
 	}
 }

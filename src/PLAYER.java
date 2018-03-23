@@ -1,7 +1,3 @@
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-
 
 public class PLAYER {
 	
@@ -11,7 +7,7 @@ public class PLAYER {
 	public SHIP Cruiser;
 	public SHIP Battleship;
 	public SHIP[] Battlecrew;
-	public List MyShoots;
+	public String[] MyShoots;
 	
 	public SHIP getCarier() {
 		return Carier;
@@ -65,11 +61,11 @@ public class PLAYER {
 		Battlecrew[4]= Battleship;	
 	}
 
-	public List getMyShoots() {
+	public String[] getMyShoots() {
 		return MyShoots;
 	}
 
-	public void setMyShoots(List myShoots) {
+	public void setMyShoots(String[] myShoots) {
 		MyShoots = myShoots;
 	}
 
@@ -77,7 +73,7 @@ public class PLAYER {
 		return false;
 	} /* on regarde si Battlecrew est videC*/
 	
-	public boolean hasAlreadyShot(int shoot){
+	public boolean hasAlreadyShot(String shoot){
 		return true;
 	}
 	
