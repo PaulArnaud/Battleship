@@ -7,11 +7,33 @@ public class SHIP {
     
     
     
-	public SHIP(String start, String end) {
+	public SHIP(String start, String end, String name) {
 		super();
 		this.start = start;
 		this.end = end;
 		this.setLocalisation(start,end);
+		if ((name == "carrier") && ( this.localisation.size() == 5)){
+			System.out.println("OK");
+		}
+		else if ((name == "battleship") && ( this.localisation.size() == 4)){
+			System.out.println("OK");
+		}
+		
+		else if ((name == "cruiser") && ( this.localisation.size() == 3)){
+			System.out.println("OK");
+		}
+		
+		else if ((name == "submarine") && ( this.localisation.size() == 3)){
+			System.out.println("OK");
+		}
+		
+		else if ((name == "destroyer") && ( this.localisation.size() == 2)){
+			System.out.println("OK");
+		}
+		else {
+			System.out.println("Error");
+		}
+		
 	}
 	
 	public String getStart() {
@@ -55,7 +77,7 @@ public class SHIP {
 			}	
 		}
 		else {
-			/*message d'erreur*/;
+			System.out.println("Error");
 		}
 			
 		this.localisation = loca;

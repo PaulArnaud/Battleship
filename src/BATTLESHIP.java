@@ -15,35 +15,35 @@ public class BATTLESHIP {
 		PLAYER player1 = new PLAYER();
 		PLAYER player2 = new PLAYER();
 	
-		System.out.println("Joueur choississez des coordonnées pour votre Carrier");
+		System.out.println("Joueur choississez des coordonnées pour votre Carier");
 		coordA= reader.next("D=");
 		coordB= reader.next("F=");
 		///// il faut vérifier ////
-		SHIP carier = new SHIP(coordA,coordB);
+		SHIP carier = new SHIP(coordA,coordB,"carier");
 		player1.setCarier(carier);
 	
 		System.out.println("Joueur choississez des coordonnées pour votre Battleship");
 		coordA=reader.next("D=");
 		coordB=reader.next("F=");
-		SHIP battleship = new SHIP(coordA,coordB);
+		SHIP battleship = new SHIP(coordA,coordB,"battleship");
 		player1.setBattleship(battleship);
 	
 		System.out.println("Joueur choississez des coordonnées pour votre Cruiser");
 		coordA=reader.next("D=");
 		coordB=reader.next("F=");
-		SHIP cruiser = new SHIP(coordA,coordB);
+		SHIP cruiser = new SHIP(coordA,coordB,"cruiser");
 		player1.setCruiser(cruiser);
 	
 		System.out.println("Joueur choississez des coordonnées pour votre Submarine");
 		coordA=reader.next("D=");
 		coordB=reader.next("F=");
-		SHIP submarine = new SHIP(coordA,coordB);
+		SHIP submarine = new SHIP(coordA,coordB,"submarine");
 		player1.setSubbmarine(submarine);
 	
 		System.out.println("Joueur choississez des coordonnées pour votre Destroyer");
 		coordA=reader.next("D=");
 		coordB=reader.next("F=");
-		SHIP destroyer = new SHIP(coordA,coordB);
+		SHIP destroyer = new SHIP(coordA,coordB,"destroyer");
 		player1.setDestroyer(destroyer);
 		player1.setBattlecrew();
 	

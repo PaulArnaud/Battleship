@@ -1,72 +1,72 @@
 
 public class PLAYER {
 	
-	public SHIP Carier;
-	public SHIP Destroyer;
-	public SHIP Subbmarine;
-	public SHIP Cruiser;
-	public SHIP Battleship;
-	public SHIP[] Battlecrew;
-	public String[] MyShoots;
-	
+	public SHIP carier;
+	public SHIP destroyer;
+	public SHIP submarine;
+	public SHIP cruiser;
+	public SHIP battleship;
+	public SHIP[] battlecrew;
+	public String[] myShoots;
+
 	public SHIP getCarier() {
-		return Carier;
+		return carier;
 	}
 
 	public void setCarier(SHIP carier) {
-		Carier = carier;
-	}
-	
-	public SHIP getDestroyer() {
-		return Destroyer;
-	}
-	
-	public void setDestroyer(SHIP destroyer) {
-		Destroyer = destroyer;
-	}
-	
-	public SHIP getSubbmarine() {
-		return Subbmarine;
+		this.carier = carier;
 	}
 
-	public void setSubbmarine(SHIP subbmarine) {
-		Subbmarine = subbmarine;
+	public SHIP getDestroyer() {
+		return destroyer;
+	}
+
+	public void setDestroyer(SHIP destroyer) {
+		this.destroyer = destroyer;
+	}
+
+	public SHIP getSubmarine() {
+		return submarine;
+	}
+
+	public void setSubmarine(SHIP submarine) {
+		this.submarine = submarine;
 	}
 
 	public SHIP getCruiser() {
-		return Cruiser;
+		return cruiser;
 	}
 
 	public void setCruiser(SHIP cruiser) {
-		Cruiser = cruiser;
+		this.cruiser = cruiser;
 	}
 
 	public SHIP getBattleship() {
-		return Battleship;
+		return battleship;
 	}
 
 	public void setBattleship(SHIP battleship) {
-		Battleship = battleship;
+		this.battleship = battleship;
 	}
 
 	public SHIP[] getBattlecrew() {
-		return Battlecrew;
+		return battlecrew;
 	}
 
 	public void setBattlecrew() {
-		Battlecrew[0]= Carier;
-		Battlecrew[1]= Destroyer;
-		Battlecrew[2]= Subbmarine;
-		Battlecrew[3]= Cruiser;
-		Battlecrew[4]= Battleship;	
+		battlecrew[0]= carier;
+		battlecrew[1]= destroyer;
+		battlecrew[2]= submarine;
+		battlecrew[3]= cruiser;
+		battlecrew[4]= battleship;	
 	}
 
 	public String[] getMyShoots() {
-		return MyShoots;
+		return myShoots;
 	}
 
-	public void setMyShoots(String[] myShoots) {
-		MyShoots = myShoots;
+	public void setMyShoots(String[] myshoots) {
+		myShoots = myshoots;
 	}
 
 	public boolean isDown(){
