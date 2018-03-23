@@ -19,34 +19,35 @@ public class BATTLESHIP {
 		coordA= reader.next("D=");
 		coordB= reader.next("F=");
 		///// il faut vérifier ////
-		SHIP carier = new SHIP();
+		SHIP carier = new SHIP(coordA,coordB);
 		player1.setCarier(carier);
 	
 		System.out.println("Joueur choississez des coordonnées pour votre Battleship");
 		coordA=reader.next("D=");
 		coordB=reader.next("F=");
-		SHIP battleship = new SHIP();
+		SHIP battleship = new SHIP(coordA,coordB);
 		player1.setBattleship(battleship);
 	
 		System.out.println("Joueur choississez des coordonnées pour votre Cruiser");
 		coordA=reader.next("D=");
 		coordB=reader.next("F=");
-		SHIP cruiser = new SHIP();
+		SHIP cruiser = new SHIP(coordA,coordB);
 		player1.setCruiser(cruiser);
 	
 		System.out.println("Joueur choississez des coordonnées pour votre Submarine");
 		coordA=reader.next("D=");
 		coordB=reader.next("F=");
-		SHIP submarine = new SHIP();
+		SHIP submarine = new SHIP(coordA,coordB);
 		player1.setSubbmarine(submarine);
 	
 		System.out.println("Joueur choississez des coordonnées pour votre Destroyer");
 		coordA=reader.next("D=");
 		coordB=reader.next("F=");
-		SHIP destroyer = new SHIP();
+		SHIP destroyer = new SHIP(coordA,coordB);
 		player1.setDestroyer(destroyer);
 		player1.setBattlecrew();
 	
+		
 		newgame.setActivePlayer(player1);
 		newgame.setOppositePlayer(player2);
 		PLAYER activeplayer = newgame.getActivePlayer();
@@ -87,11 +88,6 @@ public class BATTLESHIP {
 		else {
 			System.out.println( newgame.ActivetoString() + "a gagné");
 		}
-		}
-	
-	
-		public static int conversion(String a) {
-			return 0;
 		}
 	
 }

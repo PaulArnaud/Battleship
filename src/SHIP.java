@@ -5,18 +5,31 @@ public class SHIP {
     public String end;
     public ArrayList<String> localisation;
     
+    
+    
+	public SHIP(String start, String end) {
+		super();
+		this.start = start;
+		this.end = end;
+		this.setLocalisation(start,end);
+	}
+	
 	public String getStart() {
 		return start;
 	}
+	
 	public void setStart(String start) {
 		this.start = start;
 	}
+	
 	public String getEnd() {
 		return end;
 	}
+	
 	public void setEnd(String end) {
 		this.end = end;
 	}
+	
 	public ArrayList<String> getLocalisation() {
 		return localisation;
 	}
