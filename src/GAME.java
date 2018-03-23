@@ -31,6 +31,6 @@ public class GAME {
 	}
 	
 	public boolean IsOver() {
-		return false;
+		return ActivePlayer.isDown() || OppositePlayer.isDown();
 	}
 }

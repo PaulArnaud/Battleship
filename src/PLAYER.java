@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class PLAYER {
 	
@@ -6,8 +7,8 @@ public class PLAYER {
 	public SHIP submarine;
 	public SHIP cruiser;
 	public SHIP battleship;
-	public SHIP[] battlecrew;
-	public String[] myShoots;
+	public ArrayList<SHIP> battlecrew;
+	public ArrayList<String> myShoots;
 
 	public SHIP getCarier() {
 		return carier;
@@ -49,36 +50,36 @@ public class PLAYER {
 		this.battleship = battleship;
 	}
 
-	public SHIP[] getBattlecrew() {
+	public ArrayList<SHIP> getBattlecrew() {
 		return battlecrew;
 	}
 
 	public void setBattlecrew() {
-		battlecrew[0]= carier;
-		battlecrew[1]= destroyer;
-		battlecrew[2]= submarine;
-		battlecrew[3]= cruiser;
-		battlecrew[4]= battleship;	
+		battlecrew.add(carier);
+		battlecrew.add(destroyer);
+		battlecrew.add(submarine);
+		battlecrew.add(cruiser);
+		battlecrew.add(battleship);	
 	}
 
-	public String[] getMyShoots() {
+	public ArrayList<String> getMyShoots() {
 		return myShoots;
 	}
 
-	public void setMyShoots(String[] myshoots) {
+	public void setMyShoots(ArrayList<String> myshoots) {
 		myShoots = myshoots;
 	}
 
 	public boolean isDown(){
-		return false;
-	} /* on regarde si Battlecrew est videC*/
+		return battlecrew.isEmpty();
+	} 
 	
 	public boolean hasAlreadyShot(String shoot){
-		return true;
+		return myShoots.contains(shoot);
 	}
 	
 	public int length() {
-		return 0;
+		return battlecrew.size();
 	}
 
 	public void removeShip(SHIP sp) {

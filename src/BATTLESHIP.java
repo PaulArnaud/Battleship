@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BATTLESHIP {
@@ -38,7 +39,7 @@ public class BATTLESHIP {
 		coordA=reader.next("D=");
 		coordB=reader.next("F=");
 		SHIP submarine = new SHIP(coordA,coordB,"submarine");
-		player1.setSubbmarine(submarine);
+		player1.setSubmarine(submarine);
 	
 		System.out.println("Joueur choississez des coordonnées pour votre Destroyer");
 		coordA=reader.next("D=");
@@ -53,7 +54,7 @@ public class BATTLESHIP {
 		PLAYER activeplayer = newgame.getActivePlayer();
 		PLAYER oppositeplayer = newgame.getOppositePlayer();
 		String shoot;
-		SHIP[] battlecrew;
+		ArrayList<SHIP> battlecrew;
 		while (!newgame.IsOver()) {
 			System.out.println( newgame.ActivetoString()  +  " Choisissez une position à attaquer(exemple: A1, J10)" );
 			shoot = reader.next("Shoot = ");
@@ -67,7 +68,7 @@ public class BATTLESHIP {
 			String res="A l’eau";
 			SHIP ship;
 			while ((i<(oppositeplayer.length()))&&(res == "A l’eau")) {
-				ship = battlecrew[i];
+				ship = battlecrew.get(i);
 				if (ship.isHit(shoot)) {
 					if (ship.isDestroyed()) {
 						res="Touché Coulé";
