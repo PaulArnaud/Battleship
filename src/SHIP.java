@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 
 public class SHIP {
     public String start;
     public String end;
-    public String[] localisation;
+    public ArrayList<String> localisation;
     
 	public String getStart() {
 		return start;
@@ -16,34 +17,40 @@ public class SHIP {
 	public void setEnd(String end) {
 		this.end = end;
 	}
-	public String[] getLocalisation() {
+	public ArrayList<String> getLocalisation() {
 		return localisation;
 	}
 	
 	public void setLocalisation(String start,String end) {
-		String[] loca;
+		ArrayList<String> loca = new ArrayList<String>();;
 		String firstletter = start.substring(0, 1);
 		String firstnumber = start.substring(1, 2);
 		String secondletter = end.substring(0, 1);
 		String secondnumber = end.substring(1, 2);
 		if (firstletter == secondletter){
-			for i in ((int)firstnumber,(int)secondnumber) do
+			int fn = convstringtoint(firstnumber);
+			int sn = convstringtoint(secondnumber);
+			for (int i = fn ; i <= sn; i++) {
 				loca.add(firstletter + "i");
+			}
 		}
-		elsif (firstnumber == secondnumber){
-			for i in ((int)firstletter,(int)secondletter) do 
-				loca.add((letter)i + firstnumber);
+		else if (firstnumber == secondnumber){
+			int fl = convstringtoint(firstletter);
+			int sl = convstringtoint(secondletter);
+			for (int i = fl ; i <=sl ; i++) {
+				loca.add(convinttostring(i) + firstnumber);
+			}	
 		}
 		else {
-			return ERROR
+			/*message d'erreur*/;
 		}
 			
 		this.localisation = loca;
 	}
 	
-	public boolean  isHit(String pos){
+	public boolean isHit(String pos){
 		if (this.localisation.contains(pos)) {
-			loca.remove(pos);
+			localisation.remove(pos);
 			return true;
 		}
 		else {
@@ -58,5 +65,12 @@ public class SHIP {
 		else {
 			return false;
 		}
+	}
+	public int convstringtoint(String a) {
+		return 1;
+	}
+	
+	public String convinttostring(int a) {
+		return "a";
 	}
 }
