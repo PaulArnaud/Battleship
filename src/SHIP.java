@@ -1,36 +1,49 @@
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-
 
 public class SHIP {
-    public int row;
-    public int col;
-    public List localisation;
+    public String start;
+    public String end;
+    public int[] localisation;
     
-	public int getRow() {
-		return row;
+	public int getStart() {
+		return start;
 	}
-	public void setRow(int row) {
-		this.row = row;
+	public void setStart(String start) {
+		this.start = start;
 	}
-	public int getCol() {
-		return col;
+	public int getEnd() {
+		return end;
 	}
-	public void setCol(int col) {
-		this.col = col;
+	public void setEnd(String end) {
+		this.end = end;
 	}
 	public List getLocalisation() {
 		return localisation;
 	}
 	
-	/*public void setLocalisation(int row,int col) {
-		
-		this.localisation = localisation;
-	}*/
+	public void setLocalisation(String start,String end) {
+		int[] loca;
+		String firstletter = start[0];
+		String firstnumber = start[1];
+		String secondletter = end[0];
+		String secondnumber = end[1];
+		if (firstletter == secondletter){
+			for i in ((int)firstnumber,(int)secondnumber) do
+				loca.add(firstletter + "i");
+		}
+		elsif (firstnumber == secondnumber){
+			for i in ((int)firstletter,(int)secondletter) do 
+				loca.add((letter)i + firstnumber);
+		}
+		else {
+			return ERROR
+		}
+			
+		this.localisation = loca;
+	}
 	
-	public boolean  isHit(int pos){
+	public boolean  isHit(String pos){
 		if (this.localisation.contains(pos))
+			loca.remove(pos);
 			return true;
 		else 
 			return false;
