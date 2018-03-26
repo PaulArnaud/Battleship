@@ -83,5 +83,6 @@ public class PLAYER {
 	}
 
 	public void removeShip(SHIP sp) {
+		battlecrew.remove(sp);
 	}
 }
