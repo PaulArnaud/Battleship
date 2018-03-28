@@ -54,12 +54,12 @@ public class PLAYER {
 		return battlecrew;
 	}
 
-	public void setBattlecrew() {
-		battlecrew.add(carier);
-		battlecrew.add(destroyer);
-		battlecrew.add(submarine);
-		battlecrew.add(cruiser);
-		battlecrew.add(battleship);	
+	public void setBattlecrew(SHIP a,SHIP b,SHIP c,SHIP d,SHIP e) {
+		this.battlecrew.add(a);
+		this.battlecrew.add(b);
+		this.battlecrew.add(c);
+		this.battlecrew.add(d);
+		this.battlecrew.add(e);	
 	}
 
 	public ArrayList<String> getMyShoots() {

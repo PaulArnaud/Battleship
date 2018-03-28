@@ -9,9 +9,12 @@ public class SHIP {
 	public SHIP(String start, String end, String name) {
 		super();
 		this.start = start;
+		//System.out.println(start);
 		this.end = end;
+		//System.out.println(end);
 		this.setLocalisation(start,end);
-		if ((name == "carrier") && ( this.localisation.size() == 5)){
+		System.out.println(localisation);
+		if ((name == "carier") && ( this.localisation.size() == 5)){
 			System.out.println("OK");
 		}
 		else if ((name == "battleship") && ( this.localisation.size() == 4)){
@@ -30,7 +33,7 @@ public class SHIP {
 			System.out.println("OK");
 		}
 		else {
-			System.out.println("Error");
+			System.out.println("Error constr Ship");
 			localisation = null;
 		}
 		
@@ -59,18 +62,24 @@ public class SHIP {
 	// Fonction pour remplir la liste des coordonnées du bateau
 	public void setLocalisation(String start,String end) {
 		ArrayList<String> loca = new ArrayList<String>();
-		String firstletter = start.substring(0, 1);
-		String firstnumber = start.substring(1, 2);
-		String secondletter = end.substring(0, 1);
-		String secondnumber = end.substring(1, 2);
-		if (firstletter == secondletter){
+		String firstletter = (String)start.substring(0, 1);
+		System.out.println(firstletter);
+		String firstnumber = (String)start.substring(1, 2);
+		System.out.println(firstnumber);
+		String secondletter = (String)end.substring(0, 1);
+		System.out.println(secondletter);
+		String secondnumber = (String)end.substring(1, 2);
+		System.out.println(secondnumber);		
+		if (firstletter.equals(secondletter)){
 			int fn = convstringtoint(firstnumber);
+			System.out.println(fn);	
 			int sn = convstringtoint(secondnumber);
+			System.out.println(sn);	
 			for (int i = fn ; i <= sn; i++) {
-				loca.add(firstletter + "i");
+				loca.add(firstletter + i);
 			}
 		}
-		else if (firstnumber == secondnumber){
+		else if (firstnumber.equals(secondnumber)){
 			int fl = convstringtoint(firstletter);
 			int sl = convstringtoint(secondletter);
 			for (int i = fl ; i <=sl ; i++) {
@@ -78,7 +87,7 @@ public class SHIP {
 			}	
 		}
 		else {
-			System.out.println("Error");
+			System.out.println("ErrorsetLocalisation");
 		}
 			
 		this.localisation = loca;
@@ -105,64 +114,64 @@ public class SHIP {
 	
 	// Fonction de conversion d'un string vers un int
 	public int convstringtoint(String a) {
-		if (a=="1") {
+		if (a.equals("1")) {
 			return 1;
 		}
-		else if (a=="2") {
+		else if (a.equals("2")) {
 			return 2;
 		}
-		else if (a=="3") {
+		else if (a.equals("3")) {
 			return 3;
 		}	
-		else if (a=="4") {
+		else if (a.equals("4")) {
 			return 4;
 		}
-		else if (a=="5") {
+		else if (a.equals("5")) {
 			return 5;
 		}
-		else if (a=="6") {
+		else if (a.equals("6")) {
 			return 6;
 		}
-		else if (a=="7") {
+		else if (a.equals("7")) {
 			return 7;
 		}
-		else if (a=="8") {
+		else if (a.equals("8")) {
 			return 8;
 		}
-		else if (a=="9") {
+		else if (a.equals("9")) {
 			return 9;
 		}
-		else if (a=="10") {
+		else if (a.equals("10")) {
 			return 10;
 		}
-		else if (a=="A") {
+		else if (a.equals("A")) {
 			return 1;
 		}
-		else if (a=="B") {
+		else if (a.equals("B")) {
 			return 2;
 		}
-		else if (a=="C") {
+		else if (a.equals("C")) {
 			return 3;
 		}	
-		else if (a=="D") {
+		else if (a.equals("D")) {
 			return 4;
 		}
-		else if (a=="E") {
+		else if (a.equals("E")) {
 			return 5;
 		}
-		else if (a=="F") {
+		else if (a.equals("F")) {
 			return 6;
 		}
-		else if (a=="G") {
+		else if (a.equals("G")) {
 			return 7;
 		}
-		else if (a=="H") {
+		else if (a.equals("H")) {
 			return 8;
 		}
-		else if (a=="I") {
+		else if (a.equals("I")) {
 			return 9;
 		}
-		else if (a=="J") {
+		else if (a.equals("J")) {
 			return 10;
 		}
 		else {
@@ -203,7 +212,7 @@ public class SHIP {
 			return "J";
 		}
 		else {
-			return "Error";
+			return "Errorconvertionint";
 		}
 	}
 }
