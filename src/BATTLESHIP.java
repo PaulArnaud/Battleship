@@ -10,19 +10,22 @@ public class BATTLESHIP {
 		
 		// Création d'une nouvelle partie
 		GAME newgame = new GAME();
+		
 		// Création des 2 joueurs
 		PLAYER player1 = new PLAYER();
 		PLAYER player2 = new PLAYER();
+		
 		// Création de deux strings pour les input des coordonnées des bateaux
 		String coordA;
 		String coordB;
+		
 		// Mise en place de joueur courant et joueur opposé
 		newgame.setActivePlayer(player1);
 		newgame.setOppositePlayer(player2);
-		PLAYER activeplayer = newgame.getActivePlayer();
-		PLAYER oppositeplayer = newgame.getOppositePlayer();
+		
 		// Création de la variable de tir
 		String shoot;
+		
 		// Création de la variable battlecrew
 		ArrayList<SHIP> battlecrew;
 	
@@ -68,55 +71,29 @@ public class BATTLESHIP {
 		coordB=reader.next();
 		SHIP destroyer1 = new SHIP(coordA,coordB,"destroyer");
 		player1.setDestroyer(destroyer1);
-		System.out.println(player1);
-		System.out.println(player1.battlecrew);
-		player1.battlecrew = new ArrayList<SHIP>() ;
-		player1.setBattlecrew(cruiser1,battleship1,cruiser1,submarine1,destroyer1);
+		player1.setBattlecrew(carier1,battleship1,cruiser1,submarine1,destroyer1);
+		
+		
 		
 		// Mise en place des bateaux du joueur 2
-		System.out.println("Joueur 2 choississez des coordonnées pour votre Carier");
-		System.out.println("Coordonnée de début : ");
-		coordA= reader.next();
-		System.out.println("Coordonnée de fin : ");
-		coordB= reader.next();
 		///// il faut vérifier ////
-		SHIP carier2 = new SHIP(coordA,coordB,"carier");
+		SHIP carier2 = new SHIP("A1","A5","carier");
 		player2.setCarier(carier2);
 	
-		System.out.println("Joueur 2 choississez des coordonnées pour votre Battleship");
-		System.out.println("Coordonnée de début : ");
-		coordA=reader.next();
-		System.out.println("Coordonnée de fin : ");
-		coordB=reader.next();
-		SHIP battleship2 = new SHIP(coordA,coordB,"battleship");
+		SHIP battleship2 = new SHIP("B1","B4","battleship");
 		player2.setBattleship(battleship2);
-	
-		System.out.println("Joueur 2 choississez des coordonnées pour votre Cruiser");
-		System.out.println("Coordonnée de début : ");
-		coordA=reader.next();
-		System.out.println("Coordonnée de fin : ");
-		coordB=reader.next();
-		SHIP cruiser2 = new SHIP(coordA,coordB,"cruiser");
+		
+		SHIP cruiser2 = new SHIP("C1","C3","cruiser");
 		player2.setCruiser(cruiser2);
 	
-		System.out.println("Joueur 2 choississez des coordonnées pour votre Submarine");
-		System.out.println("Coordonnée de début : ");
-		coordA=reader.next();
-		System.out.println("Coordonnée de fin : ");
-		coordB=reader.next();
-		SHIP submarine2 = new SHIP(coordA,coordB,"submarine");
+		SHIP submarine2 = new SHIP("D1","D3","submarine");
 		player2.setSubmarine(submarine2);
 	
-		System.out.println("Joueur 2 choississez des coordonnées pour votre Destroyer");
-		System.out.println("Coordonnée de début : ");
-		coordA=reader.next();
-		System.out.println("Coordonnée de fin : ");
-		coordB=reader.next();
-		SHIP destroyer2 = new SHIP(coordA,coordB,"destroyer");
+		SHIP destroyer2 = new SHIP("E1","E2","destroyer");
 		player2.setDestroyer(destroyer2);
-		player2.battlecrew = new ArrayList<SHIP>();
-		player2.setBattlecrew(cruiser2,battleship2,cruiser2,submarine2,destroyer2);
+		player2.setBattlecrew(carier2,battleship2,cruiser2,submarine2,destroyer2);
 
+		
 		// Début de la partie
 		while (!newgame.IsOver()) {
 			// demande des coordonnées du tir
@@ -124,27 +101,29 @@ public class BATTLESHIP {
 			System.out.println("Coordonnée du tir :");
 			shoot = reader.next();
 			// si le joueur tir sur une case déjà essayée on lui redemande des coordonnées
-			while (activeplayer.hasAlreadyShot(shoot)){
+			while (newgame.ActivePlayer.hasAlreadyShot(shoot)){
 				System.out.println( newgame.ActivetoString() +  " Choisissez une nouvelle position, vous avez déjà attaqué ici(exemple: A1, J10) ");
 				System.out.println("Coordonnée du tir :");
 				shoot = reader.next();
 			}
-			activeplayer.myShoots.add(shoot);
+			newgame.ActivePlayer.myShoots.add(shoot);
+			System.out.println(newgame.ActivePlayer.myShoots);
 			// on instancie le crew du joueur adverse pour savoir si on touche
-			battlecrew = oppositeplayer.getBattlecrew();
+			battlecrew = newgame.OppositePlayer.getBattlecrew();
 			int i = 0 ;
 			String res = "A l’eau" ;
 			SHIP ship;
 			// on boucle tant qu'il y a des bateaux dans la liste et que l'on a pas tout parcouru
 			// et qu'on ne touche pas
-			while ( ( i < ( oppositeplayer.length() ) ) && ( res == "A l’eau" ) ) {
+			while ( ( i < ( newgame.OppositePlayer.length() ) ) && ( res.equals("A l’eau") ) ) {
 				ship = battlecrew.get(i) ;
+				System.out.println(ship);
 				// si c'est touché
 				if ( ship.isHit(shoot) ) {
 					// on regarde si c'est coulé
 					if ( ship.isDestroyed() ) {
 						res = "Touché Coulé" ;
-						oppositeplayer.removeShip(ship) ;
+						newgame.OppositePlayer.removeShip(ship) ;
 					}
 					else {
 						res = "Touché" ;
@@ -156,7 +135,7 @@ public class BATTLESHIP {
 			newgame.changePlayer() ;
 		}
 		// on regarde qui a gagné et qui a perdu
-		if ( activeplayer.length() == 0 ) {
+		if ( newgame.ActivePlayer.length() == 0 ) {
 			System.out.println( newgame.OppositetoString() + "a gagné" ) ;
 		}
 		else {

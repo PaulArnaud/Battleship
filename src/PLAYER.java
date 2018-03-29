@@ -9,6 +9,11 @@ public class PLAYER {
 	public SHIP battleship;
 	public ArrayList<SHIP> battlecrew;
 	public ArrayList<String> myShoots;
+	
+	public PLAYER() {
+		battlecrew = new ArrayList<SHIP>();
+		myShoots = new ArrayList<String>();
+	}
 
 	public SHIP getCarier() {
 		return carier;
@@ -75,7 +80,7 @@ public class PLAYER {
 	} 
 	
 	public boolean hasAlreadyShot(String shoot){
-		return myShoots.contains(shoot);
+		return this.myShoots.contains(shoot);
 	}
 	
 	public int length() {

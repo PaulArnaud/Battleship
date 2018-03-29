@@ -13,7 +13,7 @@ public class SHIP {
 		this.end = end;
 		//System.out.println(end);
 		this.setLocalisation(start,end);
-		System.out.println(localisation);
+		//System.out.println(localisation);
 		if ((name == "carier") && ( this.localisation.size() == 5)){
 			System.out.println("OK");
 		}
@@ -63,18 +63,18 @@ public class SHIP {
 	public void setLocalisation(String start,String end) {
 		ArrayList<String> loca = new ArrayList<String>();
 		String firstletter = (String)start.substring(0, 1);
-		System.out.println(firstletter);
+		//System.out.println(firstletter);
 		String firstnumber = (String)start.substring(1, 2);
-		System.out.println(firstnumber);
+		//System.out.println(firstnumber);
 		String secondletter = (String)end.substring(0, 1);
-		System.out.println(secondletter);
+		//System.out.println(secondletter);
 		String secondnumber = (String)end.substring(1, 2);
-		System.out.println(secondnumber);		
+		//System.out.println(secondnumber);		
 		if (firstletter.equals(secondletter)){
 			int fn = convstringtoint(firstnumber);
-			System.out.println(fn);	
+			
 			int sn = convstringtoint(secondnumber);
-			System.out.println(sn);	
+			
 			for (int i = fn ; i <= sn; i++) {
 				loca.add(firstletter + i);
 			}
