@@ -53,10 +53,14 @@ public class BATTLESHIP {
 						}
 					}
 					if (resu == 0) {
-						verif1 = true;
 						SHIP carier1 = new SHIP(coordA, coordB, "carier");
-						player1.setCarier(carier1);
-						player1.battlecrew.add(carier1);
+						if (carier1.etat.equals("valide")){
+							verif1 = true;
+							player1.setCarier(carier1);
+							player1.battlecrew.add(carier1);
+						}
+						
+
 					}
 				}
 			}
@@ -84,10 +88,13 @@ public class BATTLESHIP {
 						}
 					}
 					if (resu == 0) {
-						verif2 = true;
 						SHIP battleship1 = new SHIP(coordA, coordB, "battleship");
-						player1.setBattleship(battleship1);
-						player1.battlecrew.add(battleship1);
+						if (battleship1.etat.equals("valide")){
+							verif2 = true;
+							player1.setBattleship(battleship1);
+							player1.battlecrew.add(battleship1);
+						}
+
 					}
 				}
 			}
@@ -115,10 +122,12 @@ public class BATTLESHIP {
 						}
 					}
 					if (resu == 0) {
-						verif3 = true;
 						SHIP cruiser1 = new SHIP(coordA, coordB, "cruiser");
-						player1.setCruiser(cruiser1);
-						player1.battlecrew.add(cruiser1);
+						if (cruiser1.etat.equals("valide")){
+							verif3 = true;
+							player1.setCruiser(cruiser1);
+							player1.battlecrew.add(cruiser1);
+						}
 					}
 				}
 			}
@@ -146,10 +155,12 @@ public class BATTLESHIP {
 						}
 					}
 					if (resu == 0) {
-						verif4 = true;
 						SHIP submarine1 = new SHIP(coordA, coordB, "submarine");
-						player1.setSubmarine(submarine1);
-						player1.battlecrew.add(submarine1);
+						if (submarine1.etat.equals("valide")) {
+							verif4 = true;
+							player1.setSubmarine(submarine1);
+							player1.battlecrew.add(submarine1);
+						}
 					}
 				}
 			}
@@ -177,10 +188,12 @@ public class BATTLESHIP {
 						}
 					}
 					if (resu == 0) {
-						verif5 = true;
 						SHIP destroyer1 = new SHIP(coordA, coordB, "destroyer");
-						player1.setDestroyer(destroyer1);
-						player1.battlecrew.add(destroyer1);
+						if (destroyer1.etat.equals("valide")) {
+							verif5 = true;
+							player1.setDestroyer(destroyer1);
+							player1.battlecrew.add(destroyer1);
+						}
 					}
 				}
 			}

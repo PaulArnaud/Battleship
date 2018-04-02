@@ -4,6 +4,7 @@ public class SHIP {
     public String start; // début du bateau
     public String end; // fin du bateau
     public ArrayList<String> localisation; // listes de toutes les cases sur lesquelles le bateau se situe
+    public String etat;
     
     // Fonction de création d'un bateau
 	public SHIP(String start, String end, String name) {
@@ -15,30 +16,30 @@ public class SHIP {
 		this.setLocalisation(start,end);
 		//System.out.println(localisation);
 		if ((name == "carier") && ( this.localisation.size() == 5)){
-			System.out.println("OK");
+			this.etat = "valide";
 		}
 		else if ((name == "battleship") && ( this.localisation.size() == 4)){
-			System.out.println("OK");
+			this.etat = "valide";
 		}
 		
 		else if ((name == "cruiser") && ( this.localisation.size() == 3)){
-			System.out.println("OK");
+			this.etat = "valide";
 		}
 		
 		else if ((name == "submarine") && ( this.localisation.size() == 3)){
-			System.out.println("OK");
+			this.etat = "valide";
 		}
 		
 		else if ((name == "destroyer") && ( this.localisation.size() == 2)){
-			System.out.println("OK");
+			this.etat = "valide";
 		}
 		else {
-			System.out.println("Error constr Ship");
+			this.etat = "invalide";
 			localisation = null;
 		}
 		
 	}
-	
+
 	public String getStart() {
 		return start;
 	}
