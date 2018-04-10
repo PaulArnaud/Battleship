@@ -54,18 +54,17 @@ public class BATTLESHIP {
 					}
 					if (resu == 0) {
 						SHIP carier1 = new SHIP(coordA, coordB, "carier");
-						if (carier1.etat.equals("valide")){
+						if (carier1.etat.equals("valide")) {
 							verif1 = true;
 							player1.setCarier(carier1);
 							player1.battlecrew.add(carier1);
 						}
-						
 
 					}
 				}
 			}
 		}
-		
+
 		System.out.println("Joueur 1 choississez des coordonnées pour votre Battleship");
 		boolean verif2 = false;
 		while (!verif2) {
@@ -89,7 +88,7 @@ public class BATTLESHIP {
 					}
 					if (resu == 0) {
 						SHIP battleship1 = new SHIP(coordA, coordB, "battleship");
-						if (battleship1.etat.equals("valide")){
+						if (battleship1.etat.equals("valide")) {
 							verif2 = true;
 							player1.setBattleship(battleship1);
 							player1.battlecrew.add(battleship1);
@@ -123,7 +122,7 @@ public class BATTLESHIP {
 					}
 					if (resu == 0) {
 						SHIP cruiser1 = new SHIP(coordA, coordB, "cruiser");
-						if (cruiser1.etat.equals("valide")){
+						if (cruiser1.etat.equals("valide")) {
 							verif3 = true;
 							player1.setCruiser(cruiser1);
 							player1.battlecrew.add(cruiser1);
@@ -263,4 +262,73 @@ public class BATTLESHIP {
 		}
 	}
 
+	// Conversion d'un int vers un string
+	public static String convinttostring(int a) {
+		if (a == 0) {
+			return "A";
+		} else if (a == 1) {
+			return "B";
+		} else if (a == 2) {
+			return "C";
+		} else if (a == 3) {
+			return "D";
+		} else if (a == 4) {
+			return "E";
+		} else if (a == 5) {
+			return "F";
+		} else if (a == 6) {
+			return "G";
+		} else if (a == 7) {
+			return "H";
+		} else if (a == 8) {
+			return "I";
+		} else {
+			return "J";
+		}
+	}
+
+	// Fonction de conversion d'un string vers un int
+	public static int convstringtoint(String a) {
+		if (a.equals("1")) {
+			return 1;
+		} else if (a.equals("2")) {
+			return 2;
+		} else if (a.equals("3")) {
+			return 3;
+		} else if (a.equals("4")) {
+			return 4;
+		} else if (a.equals("5")) {
+			return 5;
+		} else if (a.equals("6")) {
+			return 6;
+		} else if (a.equals("7")) {
+			return 7;
+		} else if (a.equals("8")) {
+			return 8;
+		} else if (a.equals("9")) {
+			return 9;
+		} else if (a.equals("10")) {
+			return 10;
+		} else if (a.equals("A")) {
+			return 1;
+		} else if (a.equals("B")) {
+			return 2;
+		} else if (a.equals("C")) {
+			return 3;
+		} else if (a.equals("D")) {
+			return 4;
+		} else if (a.equals("E")) {
+			return 5;
+		} else if (a.equals("F")) {
+			return 6;
+		} else if (a.equals("G")) {
+			return 7;
+		} else if (a.equals("H")) {
+			return 8;
+		} else if (a.equals("I")) {
+			return 9;
+		} else {
+			return 10;
+		}
+	}
 }
