@@ -7,7 +7,6 @@ public class BATTLESHIP {
 	public static Scanner reader = new Scanner(System.in);
 
 	public static void main(String[] args) {
-
 		// Création d'une nouvelle partie
 		GAME newgame = new GAME();
 		newgame.setGrille();
@@ -330,5 +329,23 @@ public class BATTLESHIP {
 		} else {
 			return 10;
 		}
+	}
+	
+	public static String compfonc(String a,int b) {
+		String end = "" ;
+		int j = (int)(Math.random());
+		if (j == 1) {
+			String firstletter = (String) a.substring(0, 1);
+			String firstnumber = (String) a.substring(1, 2);
+			int fn = BATTLESHIP.convstringtoint(firstnumber);
+			end = firstletter + String.valueOf(fn + b);
+		}
+		else {
+			String firstletter = (String) a.substring(0, 1);
+			String firstnumber = (String) a.substring(1, 2);
+			int fl = BATTLESHIP.convstringtoint(firstletter);
+			end = convinttostring(fl+b) + firstnumber;
+		}
+		return end;
 	}
 }
