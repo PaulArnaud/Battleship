@@ -4,7 +4,8 @@ public class COMPUTER extends PLAYER {
 	// attaque
 	public ArrayList<String> myshoots;
 	public ArrayList<String> currentboat;
-	public String state;
+	public String state = "chasse";// chasse ou tir
+	public String dirstate = "haut"; // haut,droite,bas,gauche
 	// "défense"
 	public ArrayList<SHIP> battlecrew;
 	public SHIP carier;
@@ -12,8 +13,7 @@ public class COMPUTER extends PLAYER {
 	public SHIP submarine;
 	public SHIP cruiser;
 	public SHIP battleship;
-	public ArrayList<String> gril;
-	
+
 	public ArrayList<String> getMyshoots() {
 		return myshoots;
 	}
@@ -38,47 +38,178 @@ public class COMPUTER extends PLAYER {
 		this.state = state;
 	}
 
-	public void setBattlecrew(ArrayList<SHIP> battlecrew) {
-		this.battlecrew.add(carier);
-		this.battlecrew.add(battleship);
-		this.battlecrew.add(cruiser);
-		this.battlecrew.add(submarine);
-		this.battlecrew.add(destroyer);
+	public String getDirstate() {
+		return dirstate;
 	}
-	/// constructeur
 
-	public SHIP hasardcontruc(GAME n,String name) {
-		String posfinal;
-		if (name.equals("carier")){
-			int i = (int)(Math.random() *36) ;
+	public void setDirstate(String dirstate) {
+		this.dirstate = dirstate;
+	}
+
+	public SHIP hasardcontruc(GAME n, String name) {
+		String posfinal = null;
+		if (name.equals("carier")) {
+			int i = (int) (Math.random() * 36);
 			String a = n.Grille.get(i);
-			posfinal = BATTLESHIP.compfonc(a,5);
-			return new SHIP(a,posfinal,"carier");
-		}
-		else if (name.equals("battleship")) {
-			int i = (int)(Math.random() *49) ;
+			posfinal = BATTLESHIP.compfonc(a, 5);
+			return new SHIP(a, posfinal, "carier");
+		} else if (name.equals("battleship")) {
+			int i = (int) (Math.random() * 49);
 			String a = n.Grille.get(i);
-			posfinal = BATTLESHIP.compfonc(a,4);
-			return new SHIP(a,posfinal,"battleship");
-		}
-		else if (name.equals("cruiser")) {
-			int i = (int)(Math.random() *64) ;
+			posfinal = BATTLESHIP.compfonc(a, 4);
+			return new SHIP(a, posfinal, "battleship");
+		} else if (name.equals("cruiser")) {
+			int i = (int) (Math.random() * 64);
 			String a = n.Grille.get(i);
-			posfinal = BATTLESHIP.compfonc(a,3);
-			return new SHIP(a,posfinal,"cruiser");
-		}
-		else if (name.equals("submarine")) {
-			int i = (int)(Math.random() *64) ;
+			posfinal = BATTLESHIP.compfonc(a, 3);
+			return new SHIP(a, posfinal, "cruiser");
+		} else if (name.equals("submarine")) {
+			int i = (int) (Math.random() * 64);
 			String a = n.Grille.get(i);
-			posfinal = BATTLESHIP.compfonc(a,3);
-			return new SHIP(a,posfinal,"submarine");
-		}
-		else  {
-			int i = (int)(Math.random() *81) ;
+			posfinal = BATTLESHIP.compfonc(a, 3);
+			return new SHIP(a, posfinal, "submarine");
+		} else {
+			int i = (int) (Math.random() * 81);
 			String a = n.Grille.get(i);
-			posfinal = BATTLESHIP.compfonc(a,2);
-			return new SHIP(a,posfinal,"destroyer");
+			posfinal = BATTLESHIP.compfonc(a, 2);
+			return new SHIP(a, posfinal, "destroyer");
 		}
+	}
+
+	public String tir(GAME game) {
+		String pos = "";
+		if (this.state.equals("chasse")) {
+			pos = hasardtir(game);
+		} else {
+			if (this.currentboat.size() > 1 && this.currentboat.size() < 6) {
+				pos = calcul();
+			} else if (this.currentboat.size() < 2) {
+				if (dirstate.equals("haut")) {
+					pos = casehaut(this.currentboat.get(0));
+					if (!game.Grille.contains(pos)) {
+						this.dirstate = "droite";
+						pos = tir(game);
+					}
+				} else if (dirstate.equals("droite")) {
+					pos = casedroite(this.currentboat.get(0));
+					if (!game.Grille.contains(pos)) {
+						this.dirstate = "bas";
+						pos = tir(game);
+					}
+				} else if (dirstate.equals("bas")) {
+					pos = casebas(this.currentboat.get(0));
+					if (!game.Grille.contains(pos)) {
+						this.dirstate = "gauche";
+						pos = tir(game);
+					}
+				} else {
+					pos = casegauche(this.currentboat.get(0));
+					if (!game.Grille.contains(pos)) {
+						this.dirstate = "haut";
+						pos = tir(game);
+					}
+				}
+			} else {
+				pos = hasardtir(game);
+			}
+		}
+		return pos;
+	}
+
+	public String calcul() {
+		String pos = "";
+		String firstpos = this.currentboat.get(0);
+		String secondpos = this.currentboat.get(this.currentboat.size() - 1);
+		int dir = direction();
+		int choix = (int) (Math.random());
+		if (dir == 0) {
+			if (choix == 0) {
+				pos = casebas(firstpos);
+			} else {
+				pos = casehaut(secondpos);
+			}
+		} else {
+			if (choix == 0) {
+				pos = casegauche(firstpos);
+			} else {
+				pos = casedroite(secondpos);
+			}
+		}
+		return pos;
+	}
+
+	public String hasardtir(GAME game) {
+		String pos = "";
+		int i = (int) (Math.random() * 100);
+		pos = game.Grille.get(i);
+		while (myshoots.contains(pos)) {
+			i = (int) (Math.random() * 100);
+			pos = game.Grille.get(i);
+		}
+		return pos;
+	}
+
+	public String casehaut(String a) {
+		String pos = "";
+		String start = a;
+		String letter = (String) start.substring(0, 1);
+		String number = (String) start.substring(1, 2);
+		if (letter.equals("A")) {
+			return ("Z0");
+		} else {
+			pos = BATTLESHIP.convinttostring(BATTLESHIP.convstringtoint(letter) + 1) + number;
+			return pos;
+		}
+
+	}
+
+	public String casedroite(String a) {
+		String pos = "";
+		String start = a;
+		String letter = (String) start.substring(0, 1);
+		String number = (String) start.substring(1, 2);
+		if (number.equals("9")) {
+			return ("Z0");
+		} else {
+			pos = letter + BATTLESHIP.convinttostring(BATTLESHIP.convstringtoint(number) + 1);
+			return pos;
+		}
+	}
+
+	public String casebas(String a) {
+		String pos = "";
+		String start = a;
+		String letter = (String) start.substring(0, 1);
+		String number = (String) start.substring(1, 2);
+		if (letter.equals("J")) {
+			return ("Z0");
+		} else {
+			pos = BATTLESHIP.convinttostring(BATTLESHIP.convstringtoint(letter) - 1) + number;
+			return pos;
+		}
+	}
+
+	public String casegauche(String a) {
+		String pos = "";
+		String start = a;
+		String letter = (String) start.substring(0, 1);
+		String number = (String) start.substring(1, 2);
+		if (number.equals("1")) {
+			return ("Z0");
+		} else {
+			pos = letter + BATTLESHIP.convinttostring(BATTLESHIP.convstringtoint(number) - 1);
+			return pos;
+		}
+	}
+
+	public int direction() {
+		int direction = 0;
+		String firstletter = (String) this.currentboat.get(0).substring(0, 1);
+		String secondletter = (String) this.currentboat.get(1).substring(0, 1);
+		if (firstletter.equals(secondletter)) {
+			direction = 1;
+		}
+		return direction;
 	}
 
 }

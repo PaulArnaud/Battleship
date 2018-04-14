@@ -13,12 +13,9 @@ public class BATTLESHIP {
 
 		// Création des 2 joueurs
 		PLAYER player1 = new PLAYER();
-		PLAYER player2 = new PLAYER();
+		COMPUTER player2 = new COMPUTER();
 
 		// Création de deux strings pour les input des coordonnées des bateaux
-		String coordA;
-		String coordB;
-
 		// Mise en place de joueur courant et joueur opposé
 		newgame.setActivePlayer(player1);
 		newgame.setOppositePlayer(player2);
@@ -28,188 +25,38 @@ public class BATTLESHIP {
 
 		// Création de la variable battlecrew
 		ArrayList<SHIP> battlecrew;
-
+		
+		///////testing
+		SHIP carier2 = player2.hasardcontruc(newgame,"carier");
+		player2.setCarier(carier2);
+		System.out.println(carier2.getLocalisation());
+		/*SHIP battleship2 = player2.hasardcontruc(newgame,"battleship");
+		player2.setBattleship(battleship2);
+		System.out.println(battleship2.getLocalisation());
+		SHIP cruiser2 = player2.hasardcontruc(newgame,"cruiser");
+		player2.setCruiser(cruiser2);
+		System.out.println(cruiser2.getLocalisation());
+		SHIP submarine2 = player2.hasardcontruc(newgame,"submarine");
+		player2.setSubmarine(submarine2);
+		System.out.println(submarine2.getLocalisation());
+		SHIP destroyer2 = player2.hasardcontruc(newgame,"destroyer");
+		player2.setDestroyer(destroyer2);
+		System.out.println(destroyer2.getLocalisation());
+		player2.setBattlecrew();*/
+		////// fin test 
+		
 		// Mise en place de tous les bateaux du joueur 1
-		System.out.println("Joueur 1 choississez des coordonnées pour votre Carier");
-		boolean verif1 = false;
-		while (!verif1) {
-			System.out.println("Coordonnée de début : ");
-			coordA = reader.next();
-			if (newgame.Grille.contains(coordA)) {
-				System.out.println("Coordonnée de fin : ");
-				coordB = reader.next();
-				if (newgame.Grille.contains(coordB)) {
-					ArrayList<String> test = newgame.test(coordA, coordB);
-					int resu = 0;
-					for (String a : test) {
-						int i = 0;
-						while ((resu < 1) && (i < (newgame.ActivePlayer.length()))) {
-							SHIP ship = newgame.ActivePlayer.battlecrew.get(i);
-							if (ship.localisation.contains(a)) {
-								resu = +1;
-							}
-							i++;
-						}
-					}
-					if (resu == 0) {
-						SHIP carier1 = new SHIP(coordA, coordB, "carier");
-						if (carier1.etat.equals("valide")) {
-							verif1 = true;
-							player1.setCarier(carier1);
-							player1.battlecrew.add(carier1);
-						}
-
-					}
-				}
-			}
-		}
-
-		System.out.println("Joueur 1 choississez des coordonnées pour votre Battleship");
-		boolean verif2 = false;
-		while (!verif2) {
-			System.out.println("Coordonnée de début : ");
-			coordA = reader.next();
-			if (newgame.Grille.contains(coordA)) {
-				System.out.println("Coordonnée de fin : ");
-				coordB = reader.next();
-				if (newgame.Grille.contains(coordB)) {
-					ArrayList<String> test = newgame.test(coordA, coordB);
-					int resu = 0;
-					for (String a : test) {
-						int i = 0;
-						while ((resu < 1) && (i < (newgame.ActivePlayer.length()))) {
-							SHIP ship = newgame.ActivePlayer.battlecrew.get(i);
-							if (ship.localisation.contains(a)) {
-								resu = +1;
-							}
-							i++;
-						}
-					}
-					if (resu == 0) {
-						SHIP battleship1 = new SHIP(coordA, coordB, "battleship");
-						if (battleship1.etat.equals("valide")) {
-							verif2 = true;
-							player1.setBattleship(battleship1);
-							player1.battlecrew.add(battleship1);
-						}
-
-					}
-				}
-			}
-		}
-
-		System.out.println("Joueur 1 choississez des coordonnées pour votre Cruiser");
-		boolean verif3 = false;
-		while (!verif3) {
-			System.out.println("Coordonnée de début : ");
-			coordA = reader.next();
-			if (newgame.Grille.contains(coordA)) {
-				System.out.println("Coordonnée de fin : ");
-				coordB = reader.next();
-				if (newgame.Grille.contains(coordB)) {
-					ArrayList<String> test = newgame.test(coordA, coordB);
-					int resu = 0;
-					for (String a : test) {
-						int i = 0;
-						while ((resu < 1) && (i < (newgame.ActivePlayer.length()))) {
-							SHIP ship = newgame.ActivePlayer.battlecrew.get(i);
-							if (ship.localisation.contains(a)) {
-								resu = +1;
-							}
-							i++;
-						}
-					}
-					if (resu == 0) {
-						SHIP cruiser1 = new SHIP(coordA, coordB, "cruiser");
-						if (cruiser1.etat.equals("valide")) {
-							verif3 = true;
-							player1.setCruiser(cruiser1);
-							player1.battlecrew.add(cruiser1);
-						}
-					}
-				}
-			}
-		}
-
-		System.out.println("Joueur 1 choississez des coordonnées pour votre Submarine");
-		boolean verif4 = false;
-		while (!verif4) {
-			System.out.println("Coordonnée de début : ");
-			coordA = reader.next();
-			if (newgame.Grille.contains(coordA)) {
-				System.out.println("Coordonnée de fin : ");
-				coordB = reader.next();
-				if (newgame.Grille.contains(coordB)) {
-					ArrayList<String> test = newgame.test(coordA, coordB);
-					int resu = 0;
-					for (String a : test) {
-						int i = 0;
-						while ((resu < 1) && (i < (newgame.ActivePlayer.length()))) {
-							SHIP ship = newgame.ActivePlayer.battlecrew.get(i);
-							if (ship.localisation.contains(a)) {
-								resu = +1;
-							}
-							i++;
-						}
-					}
-					if (resu == 0) {
-						SHIP submarine1 = new SHIP(coordA, coordB, "submarine");
-						if (submarine1.etat.equals("valide")) {
-							verif4 = true;
-							player1.setSubmarine(submarine1);
-							player1.battlecrew.add(submarine1);
-						}
-					}
-				}
-			}
-		}
-
-		System.out.println("Joueur 1 choississez des coordonnées pour votre Destroyer");
-		boolean verif5 = false;
-		while (!verif5) {
-			System.out.println("Coordonnée de début : ");
-			coordA = reader.next();
-			if (newgame.Grille.contains(coordA)) {
-				System.out.println("Coordonnée de fin : ");
-				coordB = reader.next();
-				if (newgame.Grille.contains(coordB)) {
-					ArrayList<String> test = newgame.test(coordA, coordB);
-					int resu = 0;
-					for (String a : test) {
-						int i = 0;
-						while ((resu < 1) && (i < (newgame.ActivePlayer.length()))) {
-							SHIP ship = newgame.ActivePlayer.battlecrew.get(i);
-							if (ship.localisation.contains(a)) {
-								resu = +1;
-							}
-							i++;
-						}
-					}
-					if (resu == 0) {
-						SHIP destroyer1 = new SHIP(coordA, coordB, "destroyer");
-						if (destroyer1.etat.equals("valide")) {
-							verif5 = true;
-							player1.setDestroyer(destroyer1);
-							player1.battlecrew.add(destroyer1);
-						}
-					}
-				}
-			}
-		}
-
+		System.out.println("la grille est composée de A0 , .... , A9 jusque J0,....,J9");
+		misenplace(newgame,"carier");
+		misenplace(newgame,"battleship");
+		misenplace(newgame,"cruiser");
+		misenplace(newgame,"submarine");
+		misenplace(newgame,"destroyer");
+		
 		// Mise en place des bateaux du joueur 2
 		///// il faut vérifier ////
-		SHIP carier2 = new SHIP("A1", "A5", "carier");
-		player2.setCarier(carier2);
-		SHIP battleship2 = new SHIP("B1", "B4", "battleship");
-		player2.setBattleship(battleship2);
-		SHIP cruiser2 = new SHIP("C1", "C3", "cruiser");
-		player2.setCruiser(cruiser2);
-		SHIP submarine2 = new SHIP("D1", "D3", "submarine");
-		player2.setSubmarine(submarine2);
-		SHIP destroyer2 = new SHIP("E1", "E2", "destroyer");
-		player2.setDestroyer(destroyer2);
-		player2.setBattlecrew();
+		
+
 
 		// Début de la partie
 		while (!newgame.IsOver()) {
@@ -306,46 +153,116 @@ public class BATTLESHIP {
 			return 8;
 		} else if (a.equals("9")) {
 			return 9;
-		} else if (a.equals("10")) {
-			return 10;
+		} else if (a.equals("0")) {
+			return 0;
 		} else if (a.equals("A")) {
-			return 1;
+			return 0;
 		} else if (a.equals("B")) {
-			return 2;
+			return 1;
 		} else if (a.equals("C")) {
-			return 3;
+			return 2;
 		} else if (a.equals("D")) {
-			return 4;
+			return 3;
 		} else if (a.equals("E")) {
-			return 5;
+			return 4;
 		} else if (a.equals("F")) {
-			return 6;
+			return 5;
 		} else if (a.equals("G")) {
-			return 7;
+			return 6;
 		} else if (a.equals("H")) {
-			return 8;
+			return 7;
 		} else if (a.equals("I")) {
-			return 9;
+			return 8;
 		} else {
-			return 10;
+			return 9;
 		}
 	}
-	
-	public static String compfonc(String a,int b) {
-		String end = "" ;
-		int j = (int)(Math.random());
-		if (j == 1) {
+
+	public static String compfonc(String a, int b) {
+		String end = "";
+		int j = (int) (Math.random()*10);
+		if (j >= 5) {
 			String firstletter = (String) a.substring(0, 1);
 			String firstnumber = (String) a.substring(1, 2);
 			int fn = BATTLESHIP.convstringtoint(firstnumber);
-			end = firstletter + String.valueOf(fn + b);
-		}
-		else {
+			end = firstletter + String.valueOf(fn + b-1);
+		} else {
 			String firstletter = (String) a.substring(0, 1);
 			String firstnumber = (String) a.substring(1, 2);
 			int fl = BATTLESHIP.convstringtoint(firstletter);
-			end = convinttostring(fl+b) + firstnumber;
+			end = convinttostring(fl + b-1) + firstnumber;
 		}
 		return end;
 	}
+
+	public static void misenplace(GAME game, String nombateau) {
+		System.out.println(game.ActivetoString() + "choississez des coordonnées pour votre " + nombateau);
+		boolean verif = false;
+		while (!verif) {
+			System.out.println("Coordonnée de début : ");
+			String coordA = reader.next();
+			if (game.Grille.contains(coordA)) {
+				System.out.println("Coordonnée de fin : ");
+				String coordB = reader.next();
+				if (game.Grille.contains(coordB)) {
+					ArrayList<String> test = game.test(coordA, coordB);
+					int resu = 0;
+					for (String a : test) {
+						int i = 0;
+						while ((resu < 1) && (i < (game.ActivePlayer.length()))) {
+							SHIP ship = game.ActivePlayer.battlecrew.get(i);
+							if (ship.localisation.contains(a)) {
+								resu = +1;
+							}
+							i++;
+						}
+					}
+					if (resu == 0) {
+						if (nombateau.equals("carier")) {
+							SHIP carier = new SHIP(coordA, coordB, "carier");
+							if (carier.etat.equals("valide")) {
+								verif = true;
+								game.ActivePlayer.setCarier(carier);
+								game.ActivePlayer.battlecrew.add(carier);
+							}
+						} else if (nombateau.equals("battleship")) {
+							SHIP battleship = new SHIP(coordA, coordB, "battleship");
+							if (battleship.etat.equals("valide")) {
+								verif = true;
+								game.ActivePlayer.setBattleship(battleship);
+								game.ActivePlayer.battlecrew.add(battleship);
+							}
+						} else if (nombateau.equals("cruiser")) {
+							SHIP cruiser = new SHIP(coordA, coordB, "cruiser");
+							if (cruiser.etat.equals("valide")) {
+								verif = true;
+								game.ActivePlayer.setCruiser(cruiser);
+								game.ActivePlayer.battlecrew.add(cruiser);
+							}
+						}
+
+						else if (nombateau.equals("destroyer")) {
+							SHIP destroyer = new SHIP(coordA, coordB, "destroyer");
+							if (destroyer.etat.equals("valide")) {
+								verif = true;
+								game.ActivePlayer.setDestroyer(destroyer);
+								game.ActivePlayer.battlecrew.add(destroyer);
+							}
+						}
+
+						else if (nombateau.equals("submarine")) {
+							SHIP submarine = new SHIP(coordA, coordB, "submarine");
+							if (submarine.etat.equals("valide")) {
+								verif = true;
+								game.ActivePlayer.setSubmarine(submarine);
+								game.ActivePlayer.battlecrew.add(submarine);
+							}
+						}
+
+					}
+				}
+			}
+		}
+	}
+
 }
