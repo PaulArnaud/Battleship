@@ -126,7 +126,6 @@ public class GAME {
 		Grille.add("I6");
 		Grille.add("I7");
 		Grille.add("I8");
-		
 		// 4ème partie 36 +13 +15 + 17 positions
 		Grille.add("I9");
 		Grille.add("A9");

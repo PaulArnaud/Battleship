@@ -7,12 +7,6 @@ public class COMPUTER extends PLAYER {
 	public String state = "chasse";// chasse ou tir
 	public String dirstate = "haut"; // haut,droite,bas,gauche
 	// "défense"
-	public ArrayList<SHIP> battlecrew;
-	public SHIP carier;
-	public SHIP destroyer;
-	public SHIP submarine;
-	public SHIP cruiser;
-	public SHIP battleship;
 
 	public ArrayList<String> getMyshoots() {
 		return myshoots;
@@ -46,33 +40,39 @@ public class COMPUTER extends PLAYER {
 		this.dirstate = dirstate;
 	}
 
-	public SHIP hasardcontruc(GAME n, String name) {
+	public static ArrayList<String> hasardcontruc(GAME n, String name) {
 		String posfinal = null;
+		ArrayList<String> loca = new ArrayList<String>();
 		if (name.equals("carier")) {
 			int i = (int) (Math.random() * 36);
 			String a = n.Grille.get(i);
 			posfinal = BATTLESHIP.compfonc(a, 5);
-			return new SHIP(a, posfinal, "carier");
+			loca = n.test(a, posfinal);
+			return loca;
 		} else if (name.equals("battleship")) {
 			int i = (int) (Math.random() * 49);
 			String a = n.Grille.get(i);
 			posfinal = BATTLESHIP.compfonc(a, 4);
-			return new SHIP(a, posfinal, "battleship");
+			loca = n.test(a, posfinal);
+			return loca;
 		} else if (name.equals("cruiser")) {
 			int i = (int) (Math.random() * 64);
 			String a = n.Grille.get(i);
 			posfinal = BATTLESHIP.compfonc(a, 3);
-			return new SHIP(a, posfinal, "cruiser");
+			loca = n.test(a, posfinal);
+			return loca;
 		} else if (name.equals("submarine")) {
 			int i = (int) (Math.random() * 64);
 			String a = n.Grille.get(i);
 			posfinal = BATTLESHIP.compfonc(a, 3);
-			return new SHIP(a, posfinal, "submarine");
+			loca = n.test(a, posfinal);
+			return loca;
 		} else {
 			int i = (int) (Math.random() * 81);
 			String a = n.Grille.get(i);
 			posfinal = BATTLESHIP.compfonc(a, 2);
-			return new SHIP(a, posfinal, "destroyer");
+			loca = n.test(a, posfinal);
+			return loca;
 		}
 	}
 
