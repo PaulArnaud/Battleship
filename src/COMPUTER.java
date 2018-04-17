@@ -5,8 +5,10 @@ public class COMPUTER extends PLAYER {
 	public ArrayList<String> currentboat;
 	public String state = "chasse";// chasse ou tir
 	public String dirstate = "haut"; // haut,droite,bas,gauche
-	// "défense"
-
+	
+	public COMPUTER() {
+		this.currentboat = new ArrayList<String>();
+	}
 	public ArrayList<String> getCurrentboat() {
 		return currentboat;
 	}
@@ -69,11 +71,13 @@ public class COMPUTER extends PLAYER {
 
 	public String tir(GAME game) {
 		String pos = "";
-		if (this.state.equals("chasse")) {
+		if (this.state.equals("chasse") || this.currentboat.size()  == 0) {
 			pos = hasardtir(game);
 		} else {
+			System.out.println("mode tir");
 			if (this.currentboat.size() > 1 && this.currentboat.size() < 6) {
 				pos = calcul();
+				System.out.println("tir intelligent");
 			} else if (this.currentboat.size() < 2) {
 				if (dirstate.equals("haut")) {
 					pos = casehaut(this.currentboat.get(0));

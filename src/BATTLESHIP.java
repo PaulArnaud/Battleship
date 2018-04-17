@@ -80,7 +80,7 @@ public class BATTLESHIP {
 			}
 			System.out.println(res);
 			if (!newgame.IsOver()) {
-				shoot = newgame.OppositePlayer.hasardtir(newgame);
+				shoot = player2.tir(newgame);
 				newgame.OppositePlayer.myShoots.add(shoot);
 				System.out.println("l'ennemi a frappé en " + shoot);
 				battlecrew = newgame.ActivePlayer.getBattlecrew();
@@ -91,12 +91,16 @@ public class BATTLESHIP {
 					// System.out.println(ship);
 					// si c'est touché
 					if (ship.isHit(shoot)) {
+						player2.setState("tir");
 						// on regarde si c'est coulé
 						if (ship.isDestroyed()) {
 							res = "Touché Coulé";
+							player2.setCurrentboat(new ArrayList<String>());
 							newgame.ActivePlayer.removeShip(ship);
+							player2.setState("chasse");
 						} else {
 							res = "Touché";
+							player2.getCurrentboat().add(shoot);
 						}
 					}
 					i = i + 1;
