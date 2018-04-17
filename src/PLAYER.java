@@ -90,4 +90,15 @@ public class PLAYER {
 	public void removeShip(SHIP sp) {
 		battlecrew.remove(sp);
 	}
+	
+	public String hasardtir(GAME game) {
+		String pos = "";
+		int i = (int) (Math.random() * 100);
+		pos = game.Grille.get(i);
+		while (myShoots.contains(pos)) {
+			i = (int) (Math.random() * 100);
+			pos = game.Grille.get(i);
+		}
+		return pos;
+	}
 }

@@ -2,19 +2,10 @@ import java.util.ArrayList;
 
 public class COMPUTER extends PLAYER {
 	// attaque
-	public ArrayList<String> myshoots;
 	public ArrayList<String> currentboat;
 	public String state = "chasse";// chasse ou tir
 	public String dirstate = "haut"; // haut,droite,bas,gauche
 	// "défense"
-
-	public ArrayList<String> getMyshoots() {
-		return myshoots;
-	}
-
-	public void setMyshoots(ArrayList<String> myshoots) {
-		this.myshoots = myshoots;
-	}
 
 	public ArrayList<String> getCurrentboat() {
 		return currentboat;
@@ -138,16 +129,7 @@ public class COMPUTER extends PLAYER {
 		return pos;
 	}
 
-	public String hasardtir(GAME game) {
-		String pos = "";
-		int i = (int) (Math.random() * 100);
-		pos = game.Grille.get(i);
-		while (myshoots.contains(pos)) {
-			i = (int) (Math.random() * 100);
-			pos = game.Grille.get(i);
-		}
-		return pos;
-	}
+
 
 	public String casehaut(String a) {
 		String pos = "";
