@@ -17,7 +17,7 @@ public class BATTLESHIP {
 		// Mise en place de joueur courant et joueur opposé
 		newgame.setActivePlayer(player1);
 		newgame.setOppositePlayer(player2);
-
+		
 		// Création de la variable de tir
 		String shoot;
 
@@ -85,6 +85,7 @@ public class BATTLESHIP {
 			}
 			System.out.println(res);
 			if (!newgame.IsOver()) {
+				
 				shoot = player2.tir(newgame);
 				newgame.OppositePlayer.myShoots.add(shoot);
 				System.out.println("l'ennemi a frappé en " + shoot);

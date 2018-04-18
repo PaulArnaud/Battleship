@@ -74,7 +74,7 @@ public class COMPUTER extends PLAYER {
 		if (this.state.equals("chasse") || this.currentboat.size()  == 0) {
 			pos = hasardtir(game);
 		} else {
-			if (this.currentboat.size() > 1 && this.currentboat.size() < 6) {
+			if (this.currentboat.size() > 1 && this.currentboat.size() < 5) {
 				pos = calcul(game);
 				while ((game.OppositePlayer.hasAlreadyShot(pos)) || (!game.Grille.contains(pos))) {
 					pos = calcul(game);
@@ -116,6 +116,7 @@ public class COMPUTER extends PLAYER {
 
 	public String calcul(GAME game) {
 		String pos = "";
+		tricurrentboat();
 		String firstpos = this.currentboat.get(0);
 		String secondpos = this.currentboat.get(this.currentboat.size() - 1);
 		int dir = direction();
@@ -206,6 +207,37 @@ public class COMPUTER extends PLAYER {
 			direction = 1;
 		}
 		return direction;
+	}
+	
+	public void tricurrentboat() {
+		int dir = direction();
+		ArrayList<String> battri  = new ArrayList<String>();
+		if ( dir == 1 ) {//Même ligne
+			while (!this.currentboat.isEmpty()) {
+				String min = this.currentboat.get(0);
+				for (int i = 0;i< this.currentboat.size();i = i+1){
+					if (BATTLESHIP.convstringtoint(min.substring(1, 2))> BATTLESHIP.convstringtoint(this.currentboat.get(i).substring(1, 2))){
+						min = this.currentboat.get(i);
+					}
+				}
+				battri.add(min);
+				this.currentboat.remove(min);
+			}
+			this.currentboat = battri;
+		}
+		else {
+			while (!this.currentboat.isEmpty()) {
+				String min = this.currentboat.get(0);
+				for (int i = 0;i< this.currentboat.size();i = i+1){
+					if (BATTLESHIP.convstringtoint(min.substring(0, 1))> BATTLESHIP.convstringtoint(this.currentboat.get(i).substring(0, 1))){
+						min = this.currentboat.get(i);
+					}
+				}
+				battri.add(min);
+				this.currentboat.remove(min);
+			}
+			this.currentboat = battri;
+		}
 	}
 
 }
