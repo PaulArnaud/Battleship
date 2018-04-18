@@ -5,10 +5,13 @@ public class COMPUTER extends PLAYER {
 	public ArrayList<String> currentboat;
 	public String state = "chasse";// chasse ou tir
 	public String dirstate = "haut"; // haut,droite,bas,gauche
-	public String choix ="avant";
+	public String choix = "avant";
+	public int nberreurs = 0;
+
 	public COMPUTER() {
 		this.currentboat = new ArrayList<String>();
 	}
+
 	public ArrayList<String> getCurrentboat() {
 		return currentboat;
 	}
@@ -76,11 +79,21 @@ public class COMPUTER extends PLAYER {
 		} else {
 			if (this.currentboat.size() > 1 && this.currentboat.size() < 5) {
 				pos = calcul(game);
-				while ((game.OppositePlayer.hasAlreadyShot(pos)) || (!game.Grille.contains(pos))) {
+				System.out.println(pos);
+				while ((this.nberreurs < 2) && (game.OppositePlayer.hasAlreadyShot(pos)) || (!game.Grille.contains(pos))) {
+					this.nberreurs = this.nberreurs +1 ;
+					System.out.println("error");
 					pos = calcul(game);
 				}
-				System.out.println(pos + " = position");
-				System.out.println("tir intelligent");
+				if (this.nberreurs > 1) {
+					System.out.println("error 2");
+					setState("chasse");
+					setDirstate("haut");
+					pos = hasardtir(game);
+					this.nberreurs = 0;
+					this.currentboat = new ArrayList<String>();
+				}
+
 			} else if (this.currentboat.size() < 2) {
 				if (dirstate.equals("haut")) {
 					pos = casehaut(this.currentboat.get(0));
@@ -110,8 +123,7 @@ public class COMPUTER extends PLAYER {
 			} else {
 				pos = hasardtir(game);
 			}
-		}
-		return pos;
+		}return pos;
 	}
 
 	public String calcul(GAME game) {
@@ -122,29 +134,23 @@ public class COMPUTER extends PLAYER {
 		int dir = direction();
 		if (dir == 0) {
 			if (choix.equals("avant")) {
-				System.out.println("étape1");
 				pos = casebas(firstpos);
 				this.choix = "apres";
 			} else {
-				System.out.println("étape2");
 				pos = casehaut(secondpos);
 				this.choix = "avant";
 			}
 		} else {
 			if (choix.equals("avant")) {
-				System.out.println("étape3");
 				pos = casegauche(firstpos);
 				this.choix = "apres";
 			} else {
-				System.out.println("étape4");
 				pos = casedroite(secondpos);
 				this.choix = "avant";
 			}
 		}
 		return pos;
 	}
-
-
 
 	public String casehaut(String a) {
 		String pos = "";
@@ -191,7 +197,7 @@ public class COMPUTER extends PLAYER {
 		String start = a;
 		String letter = (String) start.substring(0, 1);
 		String number = (String) start.substring(1, 2);
-		if (number.equals("1")) {
+		if (number.equals("0")) {
 			return ("Z0");
 		} else {
 			pos = letter + String.valueOf(BATTLESHIP.convstringtoint(number) - 1);
@@ -208,15 +214,16 @@ public class COMPUTER extends PLAYER {
 		}
 		return direction;
 	}
-	
+
 	public void tricurrentboat() {
 		int dir = direction();
-		ArrayList<String> battri  = new ArrayList<String>();
-		if ( dir == 1 ) {//Même ligne
+		ArrayList<String> battri = new ArrayList<String>();
+		if (dir == 1) {// Même ligne
 			while (!this.currentboat.isEmpty()) {
 				String min = this.currentboat.get(0);
-				for (int i = 0;i< this.currentboat.size();i = i+1){
-					if (BATTLESHIP.convstringtoint(min.substring(1, 2))> BATTLESHIP.convstringtoint(this.currentboat.get(i).substring(1, 2))){
+				for (int i = 0; i < this.currentboat.size(); i = i + 1) {
+					if (BATTLESHIP.convstringtoint(min.substring(1, 2)) > BATTLESHIP
+							.convstringtoint(this.currentboat.get(i).substring(1, 2))) {
 						min = this.currentboat.get(i);
 					}
 				}
@@ -224,12 +231,12 @@ public class COMPUTER extends PLAYER {
 				this.currentboat.remove(min);
 			}
 			this.currentboat = battri;
-		}
-		else {
+		} else {
 			while (!this.currentboat.isEmpty()) {
 				String min = this.currentboat.get(0);
-				for (int i = 0;i< this.currentboat.size();i = i+1){
-					if (BATTLESHIP.convstringtoint(min.substring(0, 1))> BATTLESHIP.convstringtoint(this.currentboat.get(i).substring(0, 1))){
+				for (int i = 0; i < this.currentboat.size(); i = i + 1) {
+					if (BATTLESHIP.convstringtoint(min.substring(0, 1)) > BATTLESHIP
+							.convstringtoint(this.currentboat.get(i).substring(0, 1))) {
 						min = this.currentboat.get(i);
 					}
 				}
