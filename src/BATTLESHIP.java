@@ -23,14 +23,19 @@ public class BATTLESHIP {
 
 		// Création de la variable battlecrew
 		ArrayList<SHIP> battlecrew;
-
-		System.out.println("début de l'étape ordi");
+		
+		System.out.println("Mise en place des bateaux de l'ordinateur");
 		misenplaceordi(newgame, "carier");
+		System.out.println("Carier Done");
 		misenplaceordi(newgame, "battleship");
+		System.out.println("Battleship Done");
 		misenplaceordi(newgame, "cruiser");
+		System.out.println("Cruiser Done");
 		misenplaceordi(newgame, "submarine");
+		System.out.println("Submarine Done");
 		misenplaceordi(newgame, "destroyer");
-		System.out.println("fin de l'étape ordi");
+		System.out.println("Destroyer Done");
+		System.out.println("Fin de la mise en place des bateaux de l'ordinateur");
 
 		System.out.println("Mise en place des bateaux du joueur");
 		System.out.println("la grille est composée de A0 , .... , A9 jusque J0,....,J9");
@@ -47,7 +52,7 @@ public class BATTLESHIP {
 			System.out.println("Coordonnée du tir :");
 			shoot = reader.next();
 			// si le joueur tir sur une case déjà essayée on lui redemande des coordonnées
-			while (newgame.ActivePlayer.hasAlreadyShot(shoot)) {
+			while (newgame.ActivePlayer.hasAlreadyShot(shoot) || (!newgame.Grille.contains(shoot))) {
 				System.out.println(newgame.ActivetoString()
 						+ " Choisissez une nouvelle position, vous avez déjà attaqué ici(exemple: A0, J9) ");
 				System.out.println("Coordonnée du tir :");
@@ -83,6 +88,7 @@ public class BATTLESHIP {
 				shoot = player2.tir(newgame);
 				newgame.OppositePlayer.myShoots.add(shoot);
 				System.out.println("l'ennemi a frappé en " + shoot);
+				System.out.println(player2.currentboat);
 				battlecrew = newgame.ActivePlayer.getBattlecrew();
 				i = 0;
 				res = "A l’eau";
@@ -98,6 +104,7 @@ public class BATTLESHIP {
 							player2.setCurrentboat(new ArrayList<String>());
 							newgame.ActivePlayer.removeShip(ship);
 							player2.setState("chasse");
+							player2.setDirstate("haut");
 						} else {
 							res = "Touché";
 							player2.getCurrentboat().add(shoot);
@@ -233,7 +240,6 @@ public class BATTLESHIP {
 							if (carier.etat.equals("valide")) {
 								verif = true;
 								game.ActivePlayer.setCarier(carier);
-								System.out.println(carier.getLocalisation());
 								game.ActivePlayer.battlecrew.add(carier);
 							}
 						} else if (nombateau.equals("battleship")) {
@@ -241,7 +247,6 @@ public class BATTLESHIP {
 							if (battleship.etat.equals("valide")) {
 								verif = true;
 								game.ActivePlayer.setBattleship(battleship);
-								System.out.println(battleship.getLocalisation());
 								game.ActivePlayer.battlecrew.add(battleship);
 							}
 						} else if (nombateau.equals("cruiser")) {
@@ -249,7 +254,6 @@ public class BATTLESHIP {
 							if (cruiser.etat.equals("valide")) {
 								verif = true;
 								game.ActivePlayer.setCruiser(cruiser);
-								System.out.println(cruiser.getLocalisation());
 								game.ActivePlayer.battlecrew.add(cruiser);
 							}
 						} else if (nombateau.equals("destroyer")) {
@@ -257,7 +261,6 @@ public class BATTLESHIP {
 							if (destroyer.etat.equals("valide")) {
 								verif = true;
 								game.ActivePlayer.setDestroyer(destroyer);
-								System.out.println(destroyer.getLocalisation());
 								game.ActivePlayer.battlecrew.add(destroyer);
 							}
 						} else if (nombateau.equals("submarine")) {
@@ -265,7 +268,6 @@ public class BATTLESHIP {
 							if (submarine.etat.equals("valide")) {
 								verif = true;
 								game.ActivePlayer.setSubmarine(submarine);
-								System.out.println(submarine.getLocalisation());
 								game.ActivePlayer.battlecrew.add(submarine);
 							}
 						}

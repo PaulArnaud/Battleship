@@ -5,7 +5,7 @@ public class COMPUTER extends PLAYER {
 	public ArrayList<String> currentboat;
 	public String state = "chasse";// chasse ou tir
 	public String dirstate = "haut"; // haut,droite,bas,gauche
-	
+	public String choix ="avant";
 	public COMPUTER() {
 		this.currentboat = new ArrayList<String>();
 	}
@@ -74,33 +74,36 @@ public class COMPUTER extends PLAYER {
 		if (this.state.equals("chasse") || this.currentboat.size()  == 0) {
 			pos = hasardtir(game);
 		} else {
-			System.out.println("mode tir");
 			if (this.currentboat.size() > 1 && this.currentboat.size() < 6) {
-				pos = calcul();
+				pos = calcul(game);
+				while ((game.OppositePlayer.hasAlreadyShot(pos)) || (!game.Grille.contains(pos))) {
+					pos = calcul(game);
+				}
+				System.out.println(pos + " = position");
 				System.out.println("tir intelligent");
 			} else if (this.currentboat.size() < 2) {
 				if (dirstate.equals("haut")) {
 					pos = casehaut(this.currentboat.get(0));
-					if (!game.Grille.contains(pos)) {
-						this.dirstate = "droite";
+					this.dirstate = "droite";
+					if (!game.Grille.contains(pos) || (super.myShoots.contains(pos))) {
 						pos = tir(game);
 					}
 				} else if (dirstate.equals("droite")) {
 					pos = casedroite(this.currentboat.get(0));
-					if (!game.Grille.contains(pos)) {
-						this.dirstate = "bas";
+					this.dirstate = "bas";
+					if (!game.Grille.contains(pos)|| (super.myShoots.contains(pos))) {
 						pos = tir(game);
 					}
 				} else if (dirstate.equals("bas")) {
 					pos = casebas(this.currentboat.get(0));
-					if (!game.Grille.contains(pos)) {
-						this.dirstate = "gauche";
+					this.dirstate = "gauche";
+					if (!game.Grille.contains(pos)|| (super.myShoots.contains(pos))) {
 						pos = tir(game);
 					}
 				} else {
 					pos = casegauche(this.currentboat.get(0));
-					if (!game.Grille.contains(pos)) {
-						this.dirstate = "haut";
+					this.dirstate = "haut";
+					if (!game.Grille.contains(pos)||(super.myShoots.contains(pos))) {
 						pos = tir(game);
 					}
 				}
@@ -111,23 +114,30 @@ public class COMPUTER extends PLAYER {
 		return pos;
 	}
 
-	public String calcul() {
+	public String calcul(GAME game) {
 		String pos = "";
 		String firstpos = this.currentboat.get(0);
 		String secondpos = this.currentboat.get(this.currentboat.size() - 1);
 		int dir = direction();
-		int choix = (int) (Math.random());
 		if (dir == 0) {
-			if (choix == 0) {
+			if (choix.equals("avant")) {
+				System.out.println("étape1");
 				pos = casebas(firstpos);
+				this.choix = "apres";
 			} else {
+				System.out.println("étape2");
 				pos = casehaut(secondpos);
+				this.choix = "avant";
 			}
 		} else {
-			if (choix == 0) {
+			if (choix.equals("avant")) {
+				System.out.println("étape3");
 				pos = casegauche(firstpos);
+				this.choix = "apres";
 			} else {
+				System.out.println("étape4");
 				pos = casedroite(secondpos);
+				this.choix = "avant";
 			}
 		}
 		return pos;
@@ -143,7 +153,7 @@ public class COMPUTER extends PLAYER {
 		if (letter.equals("A")) {
 			return ("Z0");
 		} else {
-			pos = BATTLESHIP.convinttostring(BATTLESHIP.convstringtoint(letter) + 1) + number;
+			pos = BATTLESHIP.convinttostring(BATTLESHIP.convstringtoint(letter) - 1) + number;
 			return pos;
 		}
 
@@ -157,7 +167,7 @@ public class COMPUTER extends PLAYER {
 		if (number.equals("9")) {
 			return ("Z0");
 		} else {
-			pos = letter + BATTLESHIP.convinttostring(BATTLESHIP.convstringtoint(number) + 1);
+			pos = letter + String.valueOf(BATTLESHIP.convstringtoint(number) + 1);
 			return pos;
 		}
 	}
@@ -170,7 +180,7 @@ public class COMPUTER extends PLAYER {
 		if (letter.equals("J")) {
 			return ("Z0");
 		} else {
-			pos = BATTLESHIP.convinttostring(BATTLESHIP.convstringtoint(letter) - 1) + number;
+			pos = BATTLESHIP.convinttostring(BATTLESHIP.convstringtoint(letter) + 1) + number;
 			return pos;
 		}
 	}
@@ -183,7 +193,7 @@ public class COMPUTER extends PLAYER {
 		if (number.equals("1")) {
 			return ("Z0");
 		} else {
-			pos = letter + BATTLESHIP.convinttostring(BATTLESHIP.convstringtoint(number) - 1);
+			pos = letter + String.valueOf(BATTLESHIP.convstringtoint(number) - 1);
 			return pos;
 		}
 	}
