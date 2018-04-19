@@ -79,10 +79,8 @@ public class COMPUTER extends PLAYER {
 		} else {
 			if (this.currentboat.size() > 1 && this.currentboat.size() < 5) {
 				pos = calcul(game);
-				System.out.println(pos);
 				while ((this.nberreurs < 2) && (game.OppositePlayer.hasAlreadyShot(pos)) || (!game.Grille.contains(pos))) {
 					this.nberreurs = this.nberreurs +1 ;
-					System.out.println("error");
 					pos = calcul(game);
 				}
 				if (this.nberreurs > 1) {

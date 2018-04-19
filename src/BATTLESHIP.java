@@ -6,124 +6,137 @@ public class BATTLESHIP {
 	public static Scanner reader = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		// Création d'une nouvelle partie
-		GAME newgame = new GAME();
-		newgame.setGrille();
-
-		// Création des 2 joueurs
-		PLAYER player1 = new PLAYER();
-		COMPUTER player2 = new COMPUTER();
-
-		// Mise en place de joueur courant et joueur opposé
-		newgame.setActivePlayer(player1);
-		newgame.setOppositePlayer(player2);
+		System.out.println("Voulez faire une nouvelle partie ? oui/non");
+		String avis = reader.next();
 		
-		// Création de la variable de tir
-		String shoot;
-
-		// Création de la variable battlecrew
-		ArrayList<SHIP> battlecrew;
-		
-		System.out.println("Mise en place des bateaux de l'ordinateur");
-		misenplaceordi(newgame, "carier");
-		System.out.println("Carier Done");
-		misenplaceordi(newgame, "battleship");
-		System.out.println("Battleship Done");
-		misenplaceordi(newgame, "cruiser");
-		System.out.println("Cruiser Done");
-		misenplaceordi(newgame, "submarine");
-		System.out.println("Submarine Done");
-		misenplaceordi(newgame, "destroyer");
-		System.out.println("Destroyer Done");
-		System.out.println("Fin de la mise en place des bateaux de l'ordinateur");
-
-		System.out.println("Mise en place des bateaux du joueur");
-		System.out.println("la grille est composée de A0 , .... , A9 jusque J0,....,J9");
-		misenplace(newgame, "carier");
-		misenplace(newgame, "battleship");
-		misenplace(newgame, "cruiser");
-		misenplace(newgame, "submarine");
-		misenplace(newgame, "destroyer");
-
-		// Début de la partie
-		while (!newgame.IsOver()) {
-			// demande des coordonnées du tir
-			System.out.println(newgame.ActivetoString() + " Choisissez une position à attaquer(exemple: A1, J10)");
-			System.out.println("Coordonnée du tir :");
-			shoot = reader.next();
-			// si le joueur tir sur une case déjà essayée on lui redemande des coordonnées
-			while (newgame.ActivePlayer.hasAlreadyShot(shoot) || (!newgame.Grille.contains(shoot))) {
-				System.out.println(newgame.ActivetoString()
-						+ " Choisissez une nouvelle position, vous avez déjà attaqué ici(exemple: A0, J9) ");
+		while (avis.equals("oui")){
+			// Création d'une nouvelle partie
+			GAME newgame = new GAME();
+			newgame.setGrille();
+	
+			// Création des 2 joueurs
+			PLAYER player1 = new PLAYER();
+			COMPUTER player2 = new COMPUTER();
+			System.out.println("Veuillez saisir un nom pour le joueur");
+			String nomdujoueur = reader.next();
+			player1.setPlayername(nomdujoueur);
+			player2.setPlayername("Computer");
+			// Mise en place de joueur courant et joueur opposé
+			newgame.setActivePlayer(player1);
+			newgame.setOppositePlayer(player2);
+			
+			// Création de la variable de tir
+			String shoot;
+	
+			// Création de la variable battlecrew
+			ArrayList<SHIP> battlecrew;
+			
+			System.out.println("Mise en place des bateaux de l'ordinateur !! ");
+			misenplaceordi(newgame, "carier");
+			System.out.println("Carier Done");
+			misenplaceordi(newgame, "battleship");
+			System.out.println("Battleship Done");
+			misenplaceordi(newgame, "cruiser");
+			System.out.println("Cruiser Done");
+			misenplaceordi(newgame, "submarine");
+			System.out.println("Submarine Done");
+			misenplaceordi(newgame, "destroyer");
+			System.out.println("Destroyer Done");
+			System.out.println("Fin de la mise en place des bateaux de l'ordinateur !! ");
+	
+			System.out.println("Mise en place des bateaux du joueur");
+			System.out.println("La grille est composée de A0 , .... , A9 jusque J0,....,J9");
+			misenplace(newgame, "carier");
+			misenplace(newgame, "battleship");
+			misenplace(newgame, "cruiser");
+			misenplace(newgame, "submarine");
+			misenplace(newgame, "destroyer");
+			System.out.println("Début de la partie !!!!!!!!!");
+			
+			
+			// Début de la partie
+			while (!newgame.IsOver()) {
+				// demande des coordonnées du tir
+				System.out.println(player1.getPlayername() + " ,choisissez une position à attaquer(exemple: A0, J9)");
 				System.out.println("Coordonnée du tir :");
 				shoot = reader.next();
-			}
-			newgame.ActivePlayer.myShoots.add(shoot);
-			System.out.println(newgame.ActivePlayer.myShoots);
-			// on instancie le crew du joueur adverse pour savoir si on touche
-			battlecrew = newgame.OppositePlayer.getBattlecrew();
-			int i = 0;
-			String res = "A l’eau";
-			SHIP ship;
-			// on boucle tant qu'il y a des bateaux dans la liste et que l'on a pas tout
-			// parcouru
-			// et qu'on ne touche pas
-			while ((i < (newgame.OppositePlayer.length())) && (res.equals("A l’eau"))) {
-				ship = battlecrew.get(i);
-				// System.out.println(ship);
-				// si c'est touché
-				if (ship.isHit(shoot)) {
-					// on regarde si c'est coulé
-					if (ship.isDestroyed()) {
-						res = "Touché Coulé";
-						newgame.OppositePlayer.removeShip(ship);
-					} else {
-						res = "Touché";
-					}
+				// si le joueur tir sur une case déjà essayée on lui redemande des coordonnées
+				while (newgame.ActivePlayer.hasAlreadyShot(shoot) || (!newgame.Grille.contains(shoot))) {
+					System.out.println(player1.getPlayername()
+							+ " ,choisissez une nouvelle position, vous avez déjà attaqué ici(exemple: A0, J9) ");
+					System.out.println("Coordonnée du tir :");
+					shoot = reader.next();
 				}
-				i = i + 1;
-			}
-			System.out.println(res);
-			if (!newgame.IsOver()) {
-				
-				shoot = player2.tir(newgame);
-				newgame.OppositePlayer.myShoots.add(shoot);
-				System.out.println("l'ennemi a frappé en " + shoot);
-				System.out.println(player2.currentboat);
-				battlecrew = newgame.ActivePlayer.getBattlecrew();
-				i = 0;
-				res = "A l’eau";
-				while ((i < (newgame.ActivePlayer.length())) && (res.equals("A l’eau"))) {
+				newgame.ActivePlayer.myShoots.add(shoot);
+				System.out.println(newgame.ActivePlayer.myShoots);
+				// on instancie le crew du joueur adverse pour savoir si on touche
+				battlecrew = newgame.OppositePlayer.getBattlecrew();
+				int i = 0;
+				String res = "A l’eau";
+				SHIP ship;
+				// on boucle tant qu'il y a des bateaux dans la liste et que l'on a pas tout
+				// parcouru
+				// et qu'on ne touche pas
+				while ((i < (newgame.OppositePlayer.length())) && (res.equals("A l’eau"))) {
 					ship = battlecrew.get(i);
 					// System.out.println(ship);
 					// si c'est touché
 					if (ship.isHit(shoot)) {
-						player2.setState("tir");
 						// on regarde si c'est coulé
 						if (ship.isDestroyed()) {
 							res = "Touché Coulé";
-							player2.setCurrentboat(new ArrayList<String>());
-							newgame.ActivePlayer.removeShip(ship);
-							player2.setState("chasse");
-							player2.setDirstate("haut");
+							newgame.OppositePlayer.removeShip(ship);
 						} else {
 							res = "Touché";
-							player2.getCurrentboat().add(shoot);
 						}
 					}
 					i = i + 1;
 				}
-				System.out.println(res);
+				System.out.println("C'est : " + res);
 				// newgame.changePlayer();
+				if (!newgame.IsOver()) {
+					System.out.println("C'est à l'ordinateur de jouer : ");
+					shoot = player2.tir(newgame);
+					newgame.OppositePlayer.myShoots.add(shoot);
+					System.out.println("l'ordinateur a frappé en " + shoot);
+					battlecrew = newgame.ActivePlayer.getBattlecrew();
+					i = 0;
+					res = "A l’eau";
+					while ((i < (newgame.ActivePlayer.length())) && (res.equals("A l’eau"))) {
+						ship = battlecrew.get(i);
+						// System.out.println(ship);
+						// si c'est touché
+						if (ship.isHit(shoot)) {
+							player2.setState("tir");
+							// on regarde si c'est coulé
+							if (ship.isDestroyed()) {
+								res = "Touché Coulé";
+								player2.setCurrentboat(new ArrayList<String>());
+								newgame.ActivePlayer.removeShip(ship);
+								player2.setState("chasse");
+								player2.setDirstate("haut");
+							} else {
+								res = "Touché";
+								player2.getCurrentboat().add(shoot);
+							}
+						}
+						i = i + 1;
+					}
+					System.out.println("C'est : " + res);
+					System.out.println("Fin du tour de l'ordinateur");
+				}
 			}
+	
+			// on regarde qui a gagné et qui a perdu
+			if (newgame.ActivePlayer.length() == 0) {
+				System.out.println(player2.getPlayername() + " a gagné");
+			} else {
+				System.out.println(player1.getPlayername() + " a gagné");
+			}
+			System.out.println("Voulez faire une nouvelle partie ? oui/non");
+			avis = reader.next();
 		}
-
-		// on regarde qui a gagné et qui a perdu
-		if (newgame.ActivePlayer.length() == 0) {
-			System.out.println(newgame.OppositetoString() + "a gagné");
-		} else {
-			System.out.println(newgame.ActivetoString() + "a gagné");
-		}
+		System.out.println("Session terminée");
 	}
 
 	// Conversion d'un int vers un string
@@ -214,7 +227,7 @@ public class BATTLESHIP {
 	}
 
 	public static void misenplace(GAME game, String nombateau) {
-		System.out.println(game.ActivetoString() + "choississez des coordonnées pour votre " + nombateau);
+		System.out.println(game.ActivePlayer.getPlayername() + " , choississez des coordonnées pour votre " + nombateau);
 		boolean verif = false;
 		while (!verif) {
 			System.out.println("Coordonnée de début : ");

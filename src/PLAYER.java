@@ -9,12 +9,20 @@ public class PLAYER {
 	public SHIP battleship;
 	public ArrayList<SHIP> battlecrew;
 	public ArrayList<String> myShoots;
+	public String playername;
 	
 	public PLAYER() {
 		battlecrew = new ArrayList<SHIP>();
 		myShoots = new ArrayList<String>();
 	}
-
+	public void setPlayername(String a) {
+		this.playername = a;
+	}
+	
+	public String getPlayername() {
+		return playername;
+	}
+	
 	public SHIP getCarier() {
 		return carier;
 	}
