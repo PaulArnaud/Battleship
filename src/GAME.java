@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class GAME {
+	// notion de joueur actif et opposé ( seulement pour le mode 2joueur) sinon le joueur est le joueur actif de façon permanente contre l'ordi
 	public PLAYER ActivePlayer;
 	public PLAYER OppositePlayer;
 	public ArrayList<String> Grille;
@@ -35,11 +36,11 @@ public class GAME {
 		this.ActivePlayer = this.OppositePlayer;
 		this.OppositePlayer = TempPlayer;
 	}
-
+	// fonction vraie ou fausse si la partie est terminée ou non
 	public boolean IsOver() {
 		return ActivePlayer.isDown() || OppositePlayer.isDown();
 	}
-
+	// initialise la liste des positions possibles
 	public void setGrille() {
 		ArrayList<String> Grille = new ArrayList<String>();
 		Grille.add("A0");
@@ -148,17 +149,13 @@ public class GAME {
 		Grille.add("J0");
 		this.Grille = Grille;
 	}
-
+	// fonction qui construit la liste des positions d'un bateau
 	public ArrayList<String> test(String start, String end) {
 		ArrayList<String> loca = new ArrayList<String>();
 		String firstletter = (String) start.substring(0, 1);
-		// System.out.println(firstletter);
 		String firstnumber = (String) start.substring(1, 2);
-		// System.out.println(firstnumber);
 		String secondletter = (String) end.substring(0, 1);
-		// System.out.println(secondletter);
 		String secondnumber = (String) end.substring(1, 2);
-		// System.out.println(secondnumber);
 		if (firstletter.equals(secondletter)) {
 			int fn = BATTLESHIP.convstringtoint(firstnumber);
 			int sn = BATTLESHIP.convstringtoint(secondnumber);

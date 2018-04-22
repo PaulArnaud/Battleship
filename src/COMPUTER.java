@@ -6,7 +6,6 @@ public class COMPUTER extends PLAYER {
 	public String state = "chasse";// chasse ou tir
 	public String dirstate = "haut"; // haut,droite,bas,gauche
 	public String choix = "avant";
-	public int nberreurs = 0;
 
 	public COMPUTER() {
 		this.currentboat = new ArrayList<String>();
@@ -35,7 +34,7 @@ public class COMPUTER extends PLAYER {
 	public void setDirstate(String dirstate) {
 		this.dirstate = dirstate;
 	}
-
+	//fonction qui renvoit la construction hasardeuse d'un bateau 
 	public static ArrayList<String> hasardcontruc(GAME n, String name) {
 		String posfinal = null;
 		ArrayList<String> loca = new ArrayList<String>();
@@ -71,27 +70,18 @@ public class COMPUTER extends PLAYER {
 			return loca;
 		}
 	}
-
+	// fonction principal du tir de l'ordinateur chaque cas expliquer en détails à l'intérieur
 	public String tir(GAME game) {
 		String pos = "";
 		if (this.state.equals("chasse") || this.currentboat.size()  == 0) {
+			// si on est dans le mode chasse ou que l'on a pas encore trouvé de bateau on tire au hasard
 			pos = hasardtir(game);
 		} else {
 			if (this.currentboat.size() > 1 && this.currentboat.size() < 5) {
+				//partie principal, ici c'est le tir intelligent, expliquer dans la fonction calcul !
 				pos = calcul(game);
-				while ((this.nberreurs < 2) && (game.OppositePlayer.hasAlreadyShot(pos)) || (!game.Grille.contains(pos))) {
-					this.nberreurs = this.nberreurs +1 ;
-					pos = calcul(game);
-				}
-				if (this.nberreurs > 1) {
-					setState("chasse");
-					setDirstate("haut");
-					pos = hasardtir(game);
-					this.nberreurs = 0;
-					this.currentboat = new ArrayList<String>();
-				}
-
 			} else if (this.currentboat.size() < 2) {
+				//ici on a trouvé un bateau mais on sait pas encore sa direction donc on cherche en haut,puis à droite,puis en bas, puis à gauche
 				if (dirstate.equals("haut")) {
 					pos = casehaut(this.currentboat.get(0));
 					this.dirstate = "droite";
@@ -118,12 +108,13 @@ public class COMPUTER extends PLAYER {
 					}
 				}
 			} else {
-				pos = hasardtir(game);
+				pos = réétablissement(game);
 			}
 		}return pos;
 	}
 
 	public String calcul(GAME game) {
+		// fonction très très importante : quand on a au moins deux positions dans currentboat, on a la direction, on tire donc soit avant soit après
 		String pos = "";
 		tricurrentboat();
 		String firstpos = this.currentboat.get(0);
@@ -134,12 +125,18 @@ public class COMPUTER extends PLAYER {
 				pos = casehaut(firstpos);
 				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
 					pos = casebas(secondpos);
+					if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)){
+						pos = réétablissement(game);
+					}
 				}
 				this.choix = "apres";
 			} else {
 				pos = casebas(secondpos);
 				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
 					pos = casehaut(firstpos);
+					if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)){
+						pos = réétablissement(game);
+					}
 				}
 				this.choix = "avant";
 			}
@@ -148,12 +145,18 @@ public class COMPUTER extends PLAYER {
 				pos = casegauche(firstpos);
 				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
 					pos = casedroite(secondpos);
+					if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)){
+						pos = réétablissement(game);
+					}
 				}
 				this.choix = "apres";
 			} else {
 				pos = casedroite(secondpos);
 				if (super.myShoots.contains(pos) || !game.Grille.contains(pos)) {
 					pos = casegauche(firstpos);
+					if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)){
+						pos = réétablissement(game);
+					}
 				}
 				this.choix = "avant";
 			}
@@ -162,6 +165,7 @@ public class COMPUTER extends PLAYER {
 	}
 
 	public String casehaut(String a) {
+		// retourne la position au dessus de la position entrée en paramètre
 		String pos = "";
 		String start = a;
 		String letter = (String) start.substring(0, 1);
@@ -176,6 +180,7 @@ public class COMPUTER extends PLAYER {
 	}
 
 	public String casedroite(String a) {
+		// retourne la position à droite de la position entrée en paramètre
 		String pos = "";
 		String start = a;
 		String letter = (String) start.substring(0, 1);
@@ -189,6 +194,7 @@ public class COMPUTER extends PLAYER {
 	}
 
 	public String casebas(String a) {
+		// retourne la position en dessous de la position entrée en paramètre
 		String pos = "";
 		String start = a;
 		String letter = (String) start.substring(0, 1);
@@ -202,6 +208,7 @@ public class COMPUTER extends PLAYER {
 	}
 
 	public String casegauche(String a) {
+		// retourne la position à gauche de la position entrée en paramètre
 		String pos = "";
 		String start = a;
 		String letter = (String) start.substring(0, 1);
@@ -215,6 +222,7 @@ public class COMPUTER extends PLAYER {
 	}
 
 	public int direction() {
+		// renvoit la direction du bateau surlequel on est en train de tirer : 1 si horizontal, 0 si vertical.
 		int direction = 0;
 		String firstletter = (String) this.currentboat.get(0).substring(0, 1);
 		String secondletter = (String) this.currentboat.get(1).substring(0, 1);
@@ -225,6 +233,7 @@ public class COMPUTER extends PLAYER {
 	}
 
 	public void tricurrentboat() {
+		// fonction de tri de currentboat pour pouvoir tirer avant ou après ( avant c'est par rapport à la première position après ...etc)
 		int dir = direction();
 		ArrayList<String> battri = new ArrayList<String>();
 		if (dir == 1) {// Même ligne
@@ -255,5 +264,25 @@ public class COMPUTER extends PLAYER {
 			this.currentboat = battri;
 		}
 	}
-
+	
+	public String réétablissement(GAME game) {
+		// lorsqu'on ne peut plus tirer ni avant ni après on se remet en position initiale soit mode chasse,etc)
+		this.currentboat = new ArrayList<String>();
+		this.state = "chasse";
+		this.dirstate ="haut";
+		this.choix ="avant";
+		return hasardtir(game);
+	}
+	
+	public String hasardtir(GAME game) {
+		// renvoit une position au hasard qui n'a pas déjà été essayée
+		String pos = "";
+		int i = (int) (Math.random() * 100);
+		pos = game.Grille.get(i);
+		while (super.myShoots.contains(pos)) {
+			i = (int) (Math.random() * 100);
+			pos = game.Grille.get(i);
+		}
+		return pos;
+	}
 }

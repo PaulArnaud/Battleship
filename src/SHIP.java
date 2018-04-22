@@ -80,7 +80,7 @@ public class SHIP {
 
 		this.localisation = loca;
 	}
-
+	//fonction pour savoir si le bateau est touché
 	public boolean isHit(String pos) {
 		if (this.localisation.contains(pos)) {
 			localisation.remove(pos);
@@ -89,7 +89,7 @@ public class SHIP {
 			return false;
 		}
 	}
-
+	// fonction pour savoir si le bateau est détruit
 	public boolean isDestroyed() {
 		if (this.localisation.isEmpty()) {
 			return true;

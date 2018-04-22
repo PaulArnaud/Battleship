@@ -96,6 +96,7 @@ public class BATTLESHIP {
 				// newgame.changePlayer();
 				if (!newgame.IsOver()) {
 					System.out.println("C'est à l'ordinateur de jouer : ");
+					System.out.println(player2.currentboat);
 					shoot = player2.tir(newgame);
 					newgame.OppositePlayer.myShoots.add(shoot);
 					System.out.println("l'ordinateur a frappé en " + shoot);
@@ -209,7 +210,7 @@ public class BATTLESHIP {
 		}
 	}
 
-	public static String compfonc(String a, int b) {
+	public static String compfonc(String a, int b) {//fonction qui retourne la position qui se situe une distance b de la position a
 		String end = "";
 		int j = (int) (Math.random() * 10);
 		if (j >= 5) {
@@ -227,6 +228,7 @@ public class BATTLESHIP {
 	}
 
 	public static void misenplace(GAME game, String nombateau) {
+		//mise en place des bateaux pour le joueur, elle vérifie si les choix faits par le joueur sont possibles
 		System.out.println(game.ActivePlayer.getPlayername() + " , choississez des coordonnées pour votre " + nombateau);
 		boolean verif = false;
 		while (!verif) {
@@ -293,6 +295,7 @@ public class BATTLESHIP {
 	}
 
 	public static void misenplaceordi(GAME game, String nombateau) {
+		// fonction qui place les bateaux de l'ordi au hasard
 		boolean verif = false;
 		while (!verif) {
 			ArrayList<String> liste = COMPUTER.hasardcontruc(game, nombateau);

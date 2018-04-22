@@ -90,23 +90,12 @@ public class PLAYER {
 	public boolean hasAlreadyShot(String shoot){
 		return this.myShoots.contains(shoot);
 	}
-	
+	//fonction qui renvoie le nb de bateau restant du joueur
 	public int length() {
 		return battlecrew.size();
 	}
-
+	// fonction qui supprime un bateau de la liste des bateaux du joueur
 	public void removeShip(SHIP sp) {
 		battlecrew.remove(sp);
-	}
-	
-	public String hasardtir(GAME game) {
-		String pos = "";
-		int i = (int) (Math.random() * 100);
-		pos = game.Grille.get(i);
-		while (myShoots.contains(pos)) {
-			i = (int) (Math.random() * 100);
-			pos = game.Grille.get(i);
-		}
-		return pos;
 	}
 }
