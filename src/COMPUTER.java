@@ -84,7 +84,6 @@ public class COMPUTER extends PLAYER {
 					pos = calcul(game);
 				}
 				if (this.nberreurs > 1) {
-					System.out.println("error 2");
 					setState("chasse");
 					setDirstate("haut");
 					pos = hasardtir(game);
@@ -132,18 +131,30 @@ public class COMPUTER extends PLAYER {
 		int dir = direction();
 		if (dir == 0) {
 			if (choix.equals("avant")) {
-				pos = casebas(firstpos);
+				pos = casehaut(firstpos);
+				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
+					pos = casebas(secondpos);
+				}
 				this.choix = "apres";
 			} else {
-				pos = casehaut(secondpos);
+				pos = casebas(secondpos);
+				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
+					pos = casehaut(firstpos);
+				}
 				this.choix = "avant";
 			}
 		} else {
 			if (choix.equals("avant")) {
 				pos = casegauche(firstpos);
+				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
+					pos = casedroite(secondpos);
+				}
 				this.choix = "apres";
 			} else {
 				pos = casedroite(secondpos);
+				if (super.myShoots.contains(pos) || !game.Grille.contains(pos)) {
+					pos = casegauche(firstpos);
+				}
 				this.choix = "avant";
 			}
 		}
