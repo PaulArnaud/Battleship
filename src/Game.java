@@ -1,24 +1,24 @@
 import java.util.ArrayList;
 
-public class GAME {
-	// notion de joueur actif et opposé ( seulement pour le mode 2joueur) sinon le joueur est le joueur actif de façon permanente contre l'ordi
-	public PLAYER ActivePlayer;
-	public PLAYER OppositePlayer;
+public class Game {
+	// notion de joueur actif et opposï¿½ ( seulement pour le mode 2joueur) sinon le joueur est le joueur actif de faï¿½on permanente contre l'ordi
+	public Player ActivePlayer;
+	public Player OppositePlayer;
 	public ArrayList<String> Grille;
 
-	public PLAYER getActivePlayer() {
+	public Player getActivePlayer() {
 		return ActivePlayer;
 	}
 
-	public void setActivePlayer(PLAYER activePlayer) {
+	public void setActivePlayer(Player activePlayer) {
 		ActivePlayer = activePlayer;
 	}
 
-	public PLAYER getOppositePlayer() {
+	public Player getOppositePlayer() {
 		return OppositePlayer;
 	}
 
-	public void setOppositePlayer(PLAYER oppositePlayer) {
+	public void setOppositePlayer(Player oppositePlayer) {
 		OppositePlayer = oppositePlayer;
 	}
 
@@ -31,12 +31,12 @@ public class GAME {
 	}
 
 	public void changePlayer() {
-		PLAYER TempPlayer;
+		Player TempPlayer;
 		TempPlayer = this.ActivePlayer;
 		this.ActivePlayer = this.OppositePlayer;
 		this.OppositePlayer = TempPlayer;
 	}
-	// fonction vraie ou fausse si la partie est terminée ou non
+	// fonction vraie ou fausse si la partie est terminï¿½e ou non
 	public boolean IsOver() {
 		return ActivePlayer.isDown() || OppositePlayer.isDown();
 	}
@@ -79,7 +79,7 @@ public class GAME {
 		Grille.add("F3");
 		Grille.add("F4");
 		Grille.add("F5");
-		//1ère partie 36 positions
+		//1ï¿½re partie 36 positions
 		Grille.add("G0");
 		Grille.add("G1");
 		Grille.add("G2");
@@ -93,7 +93,7 @@ public class GAME {
 		Grille.add("D6");		
 		Grille.add("E6");		
 		Grille.add("F6");
-		//2ème partie 36 + 13 positions
+		//2ï¿½me partie 36 + 13 positions
 		Grille.add("G7");
 		Grille.add("A7");
 		Grille.add("B7");
@@ -109,7 +109,7 @@ public class GAME {
 		Grille.add("H5");
 		Grille.add("H6");
 		Grille.add("H7");
-		// 3ème partie  36 +13 + 15 positions
+		// 3ï¿½me partie  36 +13 + 15 positions
 		Grille.add("A8");
 		Grille.add("B8");
 		Grille.add("C8");
@@ -127,7 +127,7 @@ public class GAME {
 		Grille.add("I6");
 		Grille.add("I7");
 		Grille.add("I8");
-		// 4ème partie 36 +13 +15 + 17 positions
+		// 4ï¿½me partie 36 +13 +15 + 17 positions
 		Grille.add("I9");
 		Grille.add("A9");
 		Grille.add("B9");
@@ -157,16 +157,16 @@ public class GAME {
 		String secondletter = (String) end.substring(0, 1);
 		String secondnumber = (String) end.substring(1, 2);
 		if (firstletter.equals(secondletter)) {
-			int fn = BATTLESHIP.convstringtoint(firstnumber);
-			int sn = BATTLESHIP.convstringtoint(secondnumber);
+			int fn = Battleship.convstringtoint(firstnumber);
+			int sn = Battleship.convstringtoint(secondnumber);
 			for (int i = fn; i <= sn; i++) {
 				loca.add(firstletter + i);
 			}
 		} else if (firstnumber.equals(secondnumber)) {
-			int fl = BATTLESHIP.convstringtoint(firstletter);
-			int sl = BATTLESHIP.convstringtoint(secondletter);
+			int fl = Battleship.convstringtoint(firstletter);
+			int sl = Battleship.convstringtoint(secondletter);
 			for (int i = fl; i <= sl; i++) {
-				loca.add(BATTLESHIP.convinttostring(i) + firstnumber);
+				loca.add(Battleship.convinttostring(i) + firstnumber);
 			}
 		} else {
 			System.out.println("ErrorTest");

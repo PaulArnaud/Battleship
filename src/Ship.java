@@ -1,16 +1,16 @@
 import java.util.ArrayList;
 
-public class SHIP {
-	public String start; // début du bateau
-	public String end; // fin du bateau
+public class Ship {
+	public String startCoordonate; // dï¿½but du bateau
+	public String endCoordonate; // fin du bateau
 	public ArrayList<String> localisation; // listes de toutes les cases sur lesquelles le bateau se situe
 	public String etat;
 
-	// Fonction de création d'un bateau
-	public SHIP(String start, String end, String name) {
+	// Fonction de crï¿½ation d'un bateau
+	public Ship(String start, String end, String name) {
 		super();
-		this.start = start;
-		this.end = end;
+		this.startCoordonate = start;
+		this.endCoordonate = end;
 		this.setLocalisation(start, end);
 		if ((name == "carier") && (this.localisation.size() == 5)) {
 			this.etat = "valide";
@@ -36,26 +36,26 @@ public class SHIP {
 	}
 
 	public String getStart() {
-		return start;
+		return startCoordonate;
 	}
 
 	public void setStart(String start) {
-		this.start = start;
+		this.startCoordonate = start;
 	}
 
 	public String getEnd() {
-		return end;
+		return endCoordonate;
 	}
 
 	public void setEnd(String end) {
-		this.end = end;
+		this.endCoordonate = end;
 	}
 
 	public ArrayList<String> getLocalisation() {
 		return localisation;
 	}
 
-	// Fonction pour remplir la liste des coordonnées du bateau
+	// Fonction pour remplir la liste des coordonnï¿½es du bateau
 	public void setLocalisation(String start, String end) {
 		ArrayList<String> loca = new ArrayList<String>();
 		String firstletter = (String) start.substring(0, 1);
@@ -63,16 +63,16 @@ public class SHIP {
 		String secondletter = (String) end.substring(0, 1);
 		String secondnumber = (String) end.substring(1, 2);
 		if (firstletter.equals(secondletter)) {
-			int fn = BATTLESHIP.convstringtoint(firstnumber);
-			int sn = BATTLESHIP.convstringtoint(secondnumber);
+			int fn = Battleship.convstringtoint(firstnumber);
+			int sn = Battleship.convstringtoint(secondnumber);
 			for (int i = fn; i <= sn; i++) {
 				loca.add(firstletter + i);
 			}
 		} else if (firstnumber.equals(secondnumber)) {
-			int fl = BATTLESHIP.convstringtoint(firstletter);
-			int sl = BATTLESHIP.convstringtoint(secondletter);
+			int fl = Battleship.convstringtoint(firstletter);
+			int sl = Battleship.convstringtoint(secondletter);
 			for (int i = fl; i <= sl; i++) {
-				loca.add(BATTLESHIP.convinttostring(i) + firstnumber);
+				loca.add(Battleship.convinttostring(i) + firstnumber);
 			}
 		} else {
 			System.out.println("ErrorsetLocalisation");
@@ -80,22 +80,25 @@ public class SHIP {
 
 		this.localisation = loca;
 	}
-	//fonction pour savoir si le bateau est touché
+	//fonction pour savoir si le bateau est touchï¿½
 	public boolean isHit(String pos) {
 		if (this.localisation.contains(pos)) {
-			localisation.remove(pos);
 			return true;
 		} else {
 			return false;
 		}
 	}
-	// fonction pour savoir si le bateau est détruit
+	// fonction pour savoir si le bateau est dï¿½truit
 	public boolean isDestroyed() {
 		if (this.localisation.isEmpty()) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	public void removepos(String pos){
+		this.localisation.remove(pos);
 	}
 
 }

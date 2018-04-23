@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
-public class COMPUTER extends PLAYER {
+public class Computer extends Player {
 	// attaque
 	public ArrayList<String> currentboat;
 	public String state = "chasse";// chasse ou tir
 	public String dirstate = "haut"; // haut,droite,bas,gauche
 	public String choix = "avant";
 
-	public COMPUTER() {
+	public Computer() {
 		this.currentboat = new ArrayList<String>();
 	}
 
@@ -35,53 +35,53 @@ public class COMPUTER extends PLAYER {
 		this.dirstate = dirstate;
 	}
 	//fonction qui renvoit la construction hasardeuse d'un bateau 
-	public static ArrayList<String> hasardcontruc(GAME n, String name) {
+	public static ArrayList<String> hasardcontruc(Game n, String name) {
 		String posfinal = null;
 		ArrayList<String> loca = new ArrayList<String>();
 		if (name.equals("carier")) {
 			int i = (int) (Math.random() * 36);
 			String a = n.Grille.get(i);
-			posfinal = BATTLESHIP.compfonc(a, 5);
+			posfinal = Battleship.compfonc(a, 5);
 			loca = n.test(a, posfinal);
 			return loca;
 		} else if (name.equals("battleship")) {
 			int i = (int) (Math.random() * 49);
 			String a = n.Grille.get(i);
-			posfinal = BATTLESHIP.compfonc(a, 4);
+			posfinal = Battleship.compfonc(a, 4);
 			loca = n.test(a, posfinal);
 			return loca;
 		} else if (name.equals("cruiser")) {
 			int i = (int) (Math.random() * 64);
 			String a = n.Grille.get(i);
-			posfinal = BATTLESHIP.compfonc(a, 3);
+			posfinal = Battleship.compfonc(a, 3);
 			loca = n.test(a, posfinal);
 			return loca;
 		} else if (name.equals("submarine")) {
 			int i = (int) (Math.random() * 64);
 			String a = n.Grille.get(i);
-			posfinal = BATTLESHIP.compfonc(a, 3);
+			posfinal = Battleship.compfonc(a, 3);
 			loca = n.test(a, posfinal);
 			return loca;
 		} else {
 			int i = (int) (Math.random() * 81);
 			String a = n.Grille.get(i);
-			posfinal = BATTLESHIP.compfonc(a, 2);
+			posfinal = Battleship.compfonc(a, 2);
 			loca = n.test(a, posfinal);
 			return loca;
 		}
 	}
-	// fonction principal du tir de l'ordinateur chaque cas expliquer en détails à l'intérieur
-	public String tir(GAME game) {
+	// fonction principal du tir de l'ordinateur chaque cas expliquer en dÃ©tails Ã  l'intÃ©rieur
+	public String tir(Game game) {
 		String pos = "";
 		if (this.state.equals("chasse") || this.currentboat.size()  == 0) {
-			// si on est dans le mode chasse ou que l'on a pas encore trouvé de bateau on tire au hasard
+			// si on est dans le mode chasse ou que l'on a pas encore trouvÃ© de bateau on tire au hasard
 			pos = hasardtir(game);
 		} else {
 			if (this.currentboat.size() > 1 && this.currentboat.size() < 5) {
 				//partie principal, ici c'est le tir intelligent, expliquer dans la fonction calcul !
 				pos = calcul(game);
 			} else if (this.currentboat.size() < 2) {
-				//ici on a trouvé un bateau mais on sait pas encore sa direction donc on cherche en haut,puis à droite,puis en bas, puis à gauche
+				//ici on a trouvÃ© un bateau mais on sait pas encore sa direction donc on cherche en haut,puis Ã  droite,puis en bas, puis Ã  gauche
 				if (dirstate.equals("haut")) {
 					pos = casehaut(this.currentboat.get(0));
 					this.dirstate = "droite";
@@ -108,13 +108,13 @@ public class COMPUTER extends PLAYER {
 					}
 				}
 			} else {
-				pos = réétablissement(game);
+				pos = reetablissement(game);
 			}
 		}return pos;
 	}
 
-	public String calcul(GAME game) {
-		// fonction très très importante : quand on a au moins deux positions dans currentboat, on a la direction, on tire donc soit avant soit après
+	public String calcul(Game game) {
+		// fonction trÃ©s trÃ©s importante : quand on a au moins deux positions dans currentboat, on a la direction, on tire donc soit avant soit aprÃ©s
 		String pos = "";
 		tricurrentboat();
 		String firstpos = this.currentboat.get(0);
@@ -126,7 +126,7 @@ public class COMPUTER extends PLAYER {
 				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
 					pos = casebas(secondpos);
 					if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)){
-						pos = réétablissement(game);
+						pos = reetablissement(game);
 					}
 				}
 				this.choix = "apres";
@@ -135,7 +135,7 @@ public class COMPUTER extends PLAYER {
 				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
 					pos = casehaut(firstpos);
 					if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)){
-						pos = réétablissement(game);
+						pos = reetablissement(game);
 					}
 				}
 				this.choix = "avant";
@@ -146,7 +146,7 @@ public class COMPUTER extends PLAYER {
 				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
 					pos = casedroite(secondpos);
 					if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)){
-						pos = réétablissement(game);
+						pos = reetablissement(game);
 					}
 				}
 				this.choix = "apres";
@@ -155,7 +155,7 @@ public class COMPUTER extends PLAYER {
 				if (super.myShoots.contains(pos) || !game.Grille.contains(pos)) {
 					pos = casegauche(firstpos);
 					if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)){
-						pos = réétablissement(game);
+						pos = reetablissement(game);
 					}
 				}
 				this.choix = "avant";
@@ -165,7 +165,7 @@ public class COMPUTER extends PLAYER {
 	}
 
 	public String casehaut(String a) {
-		// retourne la position au dessus de la position entrée en paramètre
+		// retourne la position au dessus de la position entrÃ©e en paramÃ©tre
 		String pos = "";
 		String start = a;
 		String letter = (String) start.substring(0, 1);
@@ -173,14 +173,14 @@ public class COMPUTER extends PLAYER {
 		if (letter.equals("A")) {
 			return ("Z0");
 		} else {
-			pos = BATTLESHIP.convinttostring(BATTLESHIP.convstringtoint(letter) - 1) + number;
+			pos = Battleship.convinttostring(Battleship.convstringtoint(letter) - 1) + number;
 			return pos;
 		}
 
 	}
 
 	public String casedroite(String a) {
-		// retourne la position à droite de la position entrée en paramètre
+		// retourne la position Ã© droite de la position entrÃ©e en paramÃ©tre
 		String pos = "";
 		String start = a;
 		String letter = (String) start.substring(0, 1);
@@ -188,13 +188,13 @@ public class COMPUTER extends PLAYER {
 		if (number.equals("9")) {
 			return ("Z0");
 		} else {
-			pos = letter + String.valueOf(BATTLESHIP.convstringtoint(number) + 1);
+			pos = letter + String.valueOf(Battleship.convstringtoint(number) + 1);
 			return pos;
 		}
 	}
 
 	public String casebas(String a) {
-		// retourne la position en dessous de la position entrée en paramètre
+		// retourne la position en dessous de la position entrÃ©e en paramÃ©tre
 		String pos = "";
 		String start = a;
 		String letter = (String) start.substring(0, 1);
@@ -202,13 +202,13 @@ public class COMPUTER extends PLAYER {
 		if (letter.equals("J")) {
 			return ("Z0");
 		} else {
-			pos = BATTLESHIP.convinttostring(BATTLESHIP.convstringtoint(letter) + 1) + number;
+			pos = Battleship.convinttostring(Battleship.convstringtoint(letter) + 1) + number;
 			return pos;
 		}
 	}
 
 	public String casegauche(String a) {
-		// retourne la position à gauche de la position entrée en paramètre
+		// retourne la position Ã© gauche de la position entrÃ©e en paramÃ©tre
 		String pos = "";
 		String start = a;
 		String letter = (String) start.substring(0, 1);
@@ -216,7 +216,7 @@ public class COMPUTER extends PLAYER {
 		if (number.equals("0")) {
 			return ("Z0");
 		} else {
-			pos = letter + String.valueOf(BATTLESHIP.convstringtoint(number) - 1);
+			pos = letter + String.valueOf(Battleship.convstringtoint(number) - 1);
 			return pos;
 		}
 	}
@@ -233,14 +233,14 @@ public class COMPUTER extends PLAYER {
 	}
 
 	public void tricurrentboat() {
-		// fonction de tri de currentboat pour pouvoir tirer avant ou après ( avant c'est par rapport à la première position après ...etc)
+		// fonction de tri de currentboat pour pouvoir tirer avant ou aprÃ©s ( avant c'est par rapport Ã© la premiÃ©re position aprÃ©s ...etc)
 		int dir = direction();
 		ArrayList<String> battri = new ArrayList<String>();
-		if (dir == 1) {// Même ligne
+		if (dir == 1) {// MÃ©me ligne
 			while (!this.currentboat.isEmpty()) {
 				String min = this.currentboat.get(0);
 				for (int i = 0; i < this.currentboat.size(); i = i + 1) {
-					if (BATTLESHIP.convstringtoint(min.substring(1, 2)) > BATTLESHIP
+					if (Battleship.convstringtoint(min.substring(1, 2)) > Battleship
 							.convstringtoint(this.currentboat.get(i).substring(1, 2))) {
 						min = this.currentboat.get(i);
 					}
@@ -253,7 +253,7 @@ public class COMPUTER extends PLAYER {
 			while (!this.currentboat.isEmpty()) {
 				String min = this.currentboat.get(0);
 				for (int i = 0; i < this.currentboat.size(); i = i + 1) {
-					if (BATTLESHIP.convstringtoint(min.substring(0, 1)) > BATTLESHIP
+					if (Battleship.convstringtoint(min.substring(0, 1)) > Battleship
 							.convstringtoint(this.currentboat.get(i).substring(0, 1))) {
 						min = this.currentboat.get(i);
 					}
@@ -265,8 +265,8 @@ public class COMPUTER extends PLAYER {
 		}
 	}
 	
-	public String réétablissement(GAME game) {
-		// lorsqu'on ne peut plus tirer ni avant ni après on se remet en position initiale soit mode chasse,etc)
+	public String reetablissement(Game game) {
+		// lorsqu'on ne peut plus tirer ni avant ni aprÃ©s on se remet en position initiale soit mode chasse,etc)
 		this.currentboat = new ArrayList<String>();
 		this.state = "chasse";
 		this.dirstate ="haut";
@@ -274,8 +274,8 @@ public class COMPUTER extends PLAYER {
 		return hasardtir(game);
 	}
 	
-	public String hasardtir(GAME game) {
-		// renvoit une position au hasard qui n'a pas déjà été essayée
+	public String hasardtir(Game game) {
+		// renvoit une position au hasard qui n'a pas dÃ©jÃ© Ã©tÃ© essayÃ©e
 		String pos = "";
 		int i = (int) (Math.random() * 100);
 		pos = game.Grille.get(i);
