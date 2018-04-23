@@ -171,7 +171,6 @@ public class Game {
 		} else {
 			System.out.println("ErrorTest");
 		}
-
 		return loca;
 	}
 }

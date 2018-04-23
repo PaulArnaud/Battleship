@@ -20,8 +20,8 @@ public class Battleship {
 			Player player1 = new Player();
 			Computer player2 = new Computer();
 			System.out.println("Veuillez saisir un nom pour le joueur");
-			String nomdujoueur = reader.next();
-			player1.setPlayername(nomdujoueur);
+			String playername = reader.next();
+			player1.setPlayername(playername);
 			player2.setPlayername("Computer");
 			// Mise en place de joueur courant et joueur opposé
 			newgame.setActivePlayer(player1);
@@ -60,7 +60,7 @@ public class Battleship {
 			while (!newgame.IsOver()) {
 				// demande des coordonnées du tir
 				System.out.println("Voici la carte des vos tirs");
-				player1.affichageGrilleTir();
+				player1.showGrilleTir();
 				System.out.println(player1.getPlayername() + " ,choisissez une position à attaquer(exemple: A0, J9)");
 				System.out.println("Coordonnée du tir :");
 				shoot = reader.next();
@@ -263,35 +263,30 @@ public class Battleship {
 							Ship carier = new Ship(coordA, coordB, "carier");
 							if (carier.etat.equals("valide")) {
 								verif = true;
-								game.ActivePlayer.setCarier(carier);
 								game.ActivePlayer.battlecrew.add(carier);
 							}
 						} else if (nombateau.equals("battleship")) {
 							Ship battleship = new Ship(coordA, coordB, "battleship");
 							if (battleship.etat.equals("valide")) {
 								verif = true;
-								game.ActivePlayer.setBattleship(battleship);
 								game.ActivePlayer.battlecrew.add(battleship);
 							}
 						} else if (nombateau.equals("cruiser")) {
 							Ship cruiser = new Ship(coordA, coordB, "cruiser");
 							if (cruiser.etat.equals("valide")) {
 								verif = true;
-								game.ActivePlayer.setCruiser(cruiser);
 								game.ActivePlayer.battlecrew.add(cruiser);
 							}
 						} else if (nombateau.equals("destroyer")) {
 							Ship destroyer = new Ship(coordA, coordB, "destroyer");
 							if (destroyer.etat.equals("valide")) {
 								verif = true;
-								game.ActivePlayer.setDestroyer(destroyer);
 								game.ActivePlayer.battlecrew.add(destroyer);
 							}
 						} else if (nombateau.equals("submarine")) {
 							Ship submarine = new Ship(coordA, coordB, "submarine");
 							if (submarine.etat.equals("valide")) {
 								verif = true;
-								game.ActivePlayer.setSubmarine(submarine);
 								game.ActivePlayer.battlecrew.add(submarine);
 							}
 						}
@@ -323,7 +318,6 @@ public class Battleship {
 					Ship carier = new Ship(liste.get(0), liste.get(4), "carier");
 					if (carier.etat.equals("valide")) {
 						verif = true;
-						game.OppositePlayer.setCarier(carier);
 						//System.out.println(carier.getLocalisation());
 						game.OppositePlayer.battlecrew.add(carier);
 					}
@@ -331,7 +325,6 @@ public class Battleship {
 					Ship battleship = new Ship(liste.get(0), liste.get(3), "battleship");
 					if (battleship.etat.equals("valide")) {
 						verif = true;
-						game.OppositePlayer.setBattleship(battleship);
 						//System.out.println(battleship.getLocalisation());
 						game.OppositePlayer.battlecrew.add(battleship);
 					}
@@ -339,7 +332,6 @@ public class Battleship {
 					Ship cruiser = new Ship(liste.get(0), liste.get(2), "cruiser");
 					if (cruiser.etat.equals("valide")) {
 						verif = true;
-						game.OppositePlayer.setCruiser(cruiser);
 						//System.out.println(cruiser.getLocalisation());
 						game.OppositePlayer.battlecrew.add(cruiser);
 					}
@@ -347,7 +339,6 @@ public class Battleship {
 					Ship destroyer = new Ship(liste.get(0), liste.get(1), "destroyer");
 					if (destroyer.etat.equals("valide")) {
 						verif = true;
-						game.OppositePlayer.setDestroyer(destroyer);
 						//System.out.println(destroyer.getLocalisation());
 						game.OppositePlayer.battlecrew.add(destroyer);
 					}
@@ -355,7 +346,6 @@ public class Battleship {
 					Ship submarine = new Ship(liste.get(0), liste.get(2), "submarine");
 					if (submarine.etat.equals("valide")) {
 						verif = true;
-						game.OppositePlayer.setSubmarine(submarine);
 						//System.out.println(submarine.getLocalisation());
 						game.OppositePlayer.battlecrew.add(submarine);
 					}

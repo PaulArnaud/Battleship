@@ -1,12 +1,7 @@
 import java.util.ArrayList;
 
 public class Player {
-	
-	public Ship carier;
-	public Ship destroyer;
-	public Ship submarine;
-	public Ship cruiser;
-	public Ship battleship;
+
 	public ArrayList<Ship> battlecrew;
 	public ArrayList<String> myShoots;
 	public String playername;
@@ -33,56 +28,8 @@ public class Player {
 		return playername;
 	}
 	
-	public Ship getCarier() {
-		return carier;
-	}
-
-	public void setCarier(Ship carier) {
-		this.carier = carier;
-	}
-
-	public Ship getDestroyer() {
-		return destroyer;
-	}
-
-	public void setDestroyer(Ship destroyer) {
-		this.destroyer = destroyer;
-	}
-
-	public Ship getSubmarine() {
-		return submarine;
-	}
-
-	public void setSubmarine(Ship submarine) {
-		this.submarine = submarine;
-	}
-
-	public Ship getCruiser() {
-		return cruiser;
-	}
-
-	public void setCruiser(Ship cruiser) {
-		this.cruiser = cruiser;
-	}
-
-	public Ship getBattleship() {
-		return battleship;
-	}
-
-	public void setBattleship(Ship battleship) {
-		this.battleship = battleship;
-	}
-
 	public ArrayList<Ship> getBattlecrew() {
 		return battlecrew;
-	}
-
-	public void setBattlecrew() {
-		this.battlecrew.add(carier);
-		this.battlecrew.add(battleship);
-		this.battlecrew.add(cruiser);
-		this.battlecrew.add(submarine);
-		this.battlecrew.add(destroyer);	
 	}
 
 	public ArrayList<String> getMyShoots() {
@@ -109,7 +56,7 @@ public class Player {
 		battlecrew.remove(sp);
 	}
 	
-	public void affichageGrilleTir(){
+	public void showGrilleTir(){
 		String res = "";
 		int square;
 		System.out.println("  A B C D E F G H I J");
