@@ -12,27 +12,26 @@ public class Ship {
 		this.startCoordonate = start;
 		this.endCoordonate = end;
 		this.setLocalisation(start, end);
-		if ((name == "carier") && (this.localisation.size() == 5)) {
+		if ((name.equals("carrier")) && (this.localisation.size() == 5)) {
 			this.etat = "valide";
-		} else if ((name == "battleship") && (this.localisation.size() == 4)) {
-			this.etat = "valide";
-		}
-
-		else if ((name == "cruiser") && (this.localisation.size() == 3)) {
+		} else if ((name.equals("battleship")) && (this.localisation.size() == 4)) {
 			this.etat = "valide";
 		}
 
-		else if ((name == "submarine") && (this.localisation.size() == 3)) {
+		else if ((name.equals("cruiser")) && (this.localisation.size() == 3)) {
 			this.etat = "valide";
 		}
 
-		else if ((name == "destroyer") && (this.localisation.size() == 2)) {
+		else if ((name.equals("submarine")) && (this.localisation.size() == 3)) {
+			this.etat = "valide";
+		}
+
+		else if ((name.equals("destroyer")) && (this.localisation.size() == 2)) {
 			this.etat = "valide";
 		} else {
 			this.etat = "invalide";
 			localisation = null;
 		}
-
 	}
 
 	public String getStart() {
@@ -77,10 +76,10 @@ public class Ship {
 		} else {
 			System.out.println("ErrorsetLocalisation");
 		}
-
 		this.localisation = loca;
 	}
-	//fonction pour savoir si le bateau est touch�
+
+	// fonction pour savoir si le bateau est touch�
 	public boolean isHit(String pos) {
 		if (this.localisation.contains(pos)) {
 			return true;
@@ -88,6 +87,7 @@ public class Ship {
 			return false;
 		}
 	}
+
 	// fonction pour savoir si le bateau est d�truit
 	public boolean isDestroyed() {
 		if (this.localisation.isEmpty()) {
@@ -96,8 +96,8 @@ public class Ship {
 			return false;
 		}
 	}
-	
-	public void removepos(String pos){
+
+	public void removepos(String pos) {
 		this.localisation.remove(pos);
 	}
 

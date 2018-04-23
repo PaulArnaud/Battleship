@@ -38,7 +38,7 @@ public class Computer extends Player {
 	public static ArrayList<String> hasardcontruc(Game n, String name) {
 		String posfinal = null;
 		ArrayList<String> loca = new ArrayList<String>();
-		if (name.equals("carier")) {
+		if (name.equals("carrier")) {
 			int i = (int) (Math.random() * 36);
 			String a = n.Grille.get(i);
 			posfinal = Battleship.compfonc(a, 5);

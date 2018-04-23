@@ -34,8 +34,8 @@ public class Battleship {
 			ArrayList<Ship> battlecrew;
 			
 			System.out.println("Mise en place des bateaux de l'ordinateur !! ");
-			misenplaceordi(newgame, "carier");
-			System.out.println("Carier Done");
+			misenplaceordi(newgame, "carrier");
+			System.out.println("carrier Done");
 			misenplaceordi(newgame, "battleship");
 			System.out.println("Battleship Done");
 			misenplaceordi(newgame, "cruiser");
@@ -48,7 +48,7 @@ public class Battleship {
 	
 			System.out.println("Mise en place des bateaux du joueur");
 			System.out.println("La grille est composée de A0 , .... , A9 jusque J0,....,J9");
-			misenplace(newgame, "carier");
+			misenplace(newgame, "carrier");
 			misenplace(newgame, "battleship");
 			misenplace(newgame, "cruiser");
 			misenplace(newgame, "submarine");
@@ -59,7 +59,7 @@ public class Battleship {
 			// Début de la partie
 			while (!newgame.IsOver()) {
 				// demande des coordonnées du tir
-				System.out.println("Voici la carte des vos tirs");
+				System.out.println("Voici la carte de vos tirs");
 				player1.showGrilleTir();
 				System.out.println(player1.getPlayername() + " ,choisissez une position à attaquer(exemple: A0, J9)");
 				System.out.println("Coordonnée du tir :");
@@ -102,8 +102,7 @@ public class Battleship {
 				System.out.println("C'est : " + res);
 				// newgame.changePlayer();
 				if (!newgame.IsOver()) {
-					System.out.println("C'est é l'ordinateur de jouer : ");
-					System.out.println(player2.currentboat);
+					System.out.println("C'est à l'ordinateur de jouer : ");
 					shoot = player2.tir(newgame);
 					newgame.OppositePlayer.myShoots.add(shoot);
 					System.out.println("l'ordinateur a frappé en " + shoot);
@@ -259,11 +258,11 @@ public class Battleship {
 						}
 					}
 					if (resu == 0) {
-						if (nombateau.equals("carier")) {
-							Ship carier = new Ship(coordA, coordB, "carier");
-							if (carier.etat.equals("valide")) {
+						if (nombateau.equals("carrier")) {
+							Ship carrier = new Ship(coordA, coordB, "carrier");
+							if (carrier.etat.equals("valide")) {
 								verif = true;
-								game.ActivePlayer.battlecrew.add(carier);
+								game.ActivePlayer.battlecrew.add(carrier);
 							}
 						} else if (nombateau.equals("battleship")) {
 							Ship battleship = new Ship(coordA, coordB, "battleship");
@@ -314,12 +313,12 @@ public class Battleship {
 				}
 			}
 			if (resu == 0) {
-				if (nombateau.equals("carier")) {
-					Ship carier = new Ship(liste.get(0), liste.get(4), "carier");
-					if (carier.etat.equals("valide")) {
+				if (nombateau.equals("carrier")) {
+					Ship carrier = new Ship(liste.get(0), liste.get(4), "carrier");
+					if (carrier.etat.equals("valide")) {
 						verif = true;
-						//System.out.println(carier.getLocalisation());
-						game.OppositePlayer.battlecrew.add(carier);
+						//System.out.println(carrier.getLocalisation());
+						game.OppositePlayer.battlecrew.add(carrier);
 					}
 				} else if (nombateau.equals("battleship")) {
 					Ship battleship = new Ship(liste.get(0), liste.get(3), "battleship");
