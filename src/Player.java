@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Player {
-
+	public ArrayList<Ship> savebattlecrew;
 	public ArrayList<Ship> battlecrew;
 	public ArrayList<String> myShoots;
 	public String playername;
@@ -17,11 +17,17 @@ public class Player {
 	}
 	public Player() {
 		battlecrew = new ArrayList<Ship>();
+		savebattlecrew = new ArrayList<Ship>();
 		myShoots = new ArrayList<String>();
 		loadMap();
 	}
 	public void setPlayername(String a) {
 		this.playername = a;
+	}
+	public void SaveBattlecrew() {
+		for (int i = 0; i<battlecrew.size();i++) {
+			this.savebattlecrew.add(this.battlecrew.get(i).clone());
+		}
 	}
 	
 	public String getPlayername() {
@@ -59,10 +65,10 @@ public class Player {
 	public void showGrilleTir(){
 		String res = "";
 		int square;
-		System.out.println("  A B C D E F G H I J");
-		for (int i = 0; i < 10;i++){
+		System.out.println("  A B C D E F G H I J");///////////////////ligne à modifier en cas de modification de la carte
+		for (int i = 0; i < 10;i++){//////////////ligne à modifier 10 correspond à la hauteur
 			res = String.valueOf(i);
-			for (int j =0; j<10;j++){
+			for (int j =0; j<10;j++){///////////ligne à modifier 10 correspond à la longueur
 				square = map[j][i];
 				if (square == 2){
 					res = res + " " + "x" ;
@@ -79,8 +85,8 @@ public class Player {
 	}
 	
 	public void updatemap(String pos,int res){
-		int i = Battleship.convstringtoint(pos.substring(0,1)); 
-		int j = Battleship.convstringtoint(pos.substring(1,2));
+		int i = Config.convstringtoint(Config.getLetter(pos)); 
+		int j = Config.getNumber(pos);
 		if (res == 0){
 			map[i][j] = 1;
 		}

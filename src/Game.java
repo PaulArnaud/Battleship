@@ -149,28 +149,4 @@ public class Game {
 		Grille.add("J0");
 		this.Grille = Grille;
 	}
-	// fonction qui construit la liste des positions d'un bateau
-	public ArrayList<String> test(String start, String end) {
-		ArrayList<String> loca = new ArrayList<String>();
-		String firstletter = (String) start.substring(0, 1);
-		String firstnumber = (String) start.substring(1, 2);
-		String secondletter = (String) end.substring(0, 1);
-		String secondnumber = (String) end.substring(1, 2);
-		if (firstletter.equals(secondletter)) {
-			int fn = Battleship.convstringtoint(firstnumber);
-			int sn = Battleship.convstringtoint(secondnumber);
-			for (int i = fn; i <= sn; i++) {
-				loca.add(firstletter + i);
-			}
-		} else if (firstnumber.equals(secondnumber)) {
-			int fl = Battleship.convstringtoint(firstletter);
-			int sl = Battleship.convstringtoint(secondletter);
-			for (int i = fl; i <= sl; i++) {
-				loca.add(Battleship.convinttostring(i) + firstnumber);
-			}
-		} else {
-			System.out.println("ErrorTest");
-		}
-		return loca;
-	}
 }

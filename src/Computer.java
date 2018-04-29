@@ -4,8 +4,8 @@ public class Computer extends Player {
 	// attaque
 	public ArrayList<String> currentboat;
 	public String state = "chasse";// chasse ou tir
-	public String dirstate = "haut"; // haut,droite,bas,gauche
-	public String choix = "avant";
+	public String dirstate = "top"; // haut,droite,bas,gauche
+	public String choice = "before";
 
 	public Computer() {
 		this.currentboat = new ArrayList<String>();
@@ -36,79 +36,79 @@ public class Computer extends Player {
 	}
 	//fonction qui renvoit la construction hasardeuse d'un bateau 
 	public static ArrayList<String> hasardcontruc(Game n, String name) {
-		String posfinal = null;
+		String finalpos = null;
 		ArrayList<String> loca = new ArrayList<String>();
 		if (name.equals("carrier")) {
 			int i = (int) (Math.random() * 36);
 			String a = n.Grille.get(i);
-			posfinal = Battleship.compfonc(a, 5);
-			loca = n.test(a, posfinal);
+			finalpos = Config.compfonc(a, 5);
+			loca = Config.locacalcul(a, finalpos);
 			return loca;
 		} else if (name.equals("battleship")) {
 			int i = (int) (Math.random() * 49);
 			String a = n.Grille.get(i);
-			posfinal = Battleship.compfonc(a, 4);
-			loca = n.test(a, posfinal);
+			finalpos = Config.compfonc(a, 4);
+			loca = Config.locacalcul(a, finalpos);
 			return loca;
 		} else if (name.equals("cruiser")) {
 			int i = (int) (Math.random() * 64);
 			String a = n.Grille.get(i);
-			posfinal = Battleship.compfonc(a, 3);
-			loca = n.test(a, posfinal);
+			finalpos = Config.compfonc(a, 3);
+			loca = Config.locacalcul(a, finalpos);
 			return loca;
 		} else if (name.equals("submarine")) {
 			int i = (int) (Math.random() * 64);
 			String a = n.Grille.get(i);
-			posfinal = Battleship.compfonc(a, 3);
-			loca = n.test(a, posfinal);
+			finalpos = Config.compfonc(a, 3);
+			loca = Config.locacalcul(a, finalpos);
 			return loca;
 		} else {
 			int i = (int) (Math.random() * 81);
 			String a = n.Grille.get(i);
-			posfinal = Battleship.compfonc(a, 2);
-			loca = n.test(a, posfinal);
+			finalpos = Config.compfonc(a, 2);
+			loca = Config.locacalcul(a, finalpos);
 			return loca;
 		}
 	}
 	// fonction principal du tir de l'ordinateur chaque cas expliquer en détails à l'intérieur
-	public String tir(Game game) {
+	public String shoot(Game game) {
 		String pos = "";
 		if (this.state.equals("chasse") || this.currentboat.size()  == 0) {
 			// si on est dans le mode chasse ou que l'on a pas encore trouvé de bateau on tire au hasard
-			pos = hasardtir(game);
+			pos = hasardshoot(game);
 		} else {
 			if (this.currentboat.size() > 1 && this.currentboat.size() < 5) {
 				//partie principal, ici c'est le tir intelligent, expliquer dans la fonction calcul !
 				pos = calcul(game);
 			} else if (this.currentboat.size() < 2) {
 				//ici on a trouvé un bateau mais on sait pas encore sa direction donc on cherche en haut,puis à droite,puis en bas, puis à gauche
-				if (dirstate.equals("haut")) {
-					pos = casehaut(this.currentboat.get(0));
-					this.dirstate = "droite";
+				if (dirstate.equals("top")) {
+					pos = topcase(this.currentboat.get(0));
+					this.dirstate = "right";
 					if (!game.Grille.contains(pos) || (super.myShoots.contains(pos))) {
-						pos = tir(game);
+						pos = shoot(game);
 					}
-				} else if (dirstate.equals("droite")) {
-					pos = casedroite(this.currentboat.get(0));
-					this.dirstate = "bas";
+				} else if (dirstate.equals("right")) {
+					pos = rigthcase(this.currentboat.get(0));
+					this.dirstate = "bottom";
 					if (!game.Grille.contains(pos)|| (super.myShoots.contains(pos))) {
-						pos = tir(game);
+						pos = shoot(game);
 					}
-				} else if (dirstate.equals("bas")) {
-					pos = casebas(this.currentboat.get(0));
-					this.dirstate = "gauche";
+				} else if (dirstate.equals("bottom")) {
+					pos = bottomcase(this.currentboat.get(0));
+					this.dirstate = "left";
 					if (!game.Grille.contains(pos)|| (super.myShoots.contains(pos))) {
-						pos = tir(game);
+						pos = shoot(game);
 					}
 				} else {
-					pos = casegauche(this.currentboat.get(0));
-					this.dirstate = "haut";
+					pos = leftcase(this.currentboat.get(0));
+					this.dirstate = "top";
 					if (!game.Grille.contains(pos)||(super.myShoots.contains(pos))) {
-						pos = tir(game);
+						pos = shoot(game);
 					}
 				}
 			} else {
-				pos = reetablissement(game);
+				pos = recovery(game);
 			}
 		}return pos;
 	}
@@ -121,102 +121,98 @@ public class Computer extends Player {
 		String secondpos = this.currentboat.get(this.currentboat.size() - 1);
 		int dir = direction();
 		if (dir == 0) {
-			if (choix.equals("avant")) {
-				pos = casehaut(firstpos);
+			if (choice.equals("before")) {
+				pos = topcase(firstpos);
 				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
-					pos = casebas(secondpos);
+					pos = bottomcase(secondpos);
 					if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)){
-						pos = reetablissement(game);
+						pos = recovery(game);
 					}
 				}
-				this.choix = "apres";
+				this.choice = "after";
 			} else {
-				pos = casebas(secondpos);
+				pos = bottomcase(secondpos);
 				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
-					pos = casehaut(firstpos);
+					pos = topcase(firstpos);
 					if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)){
-						pos = reetablissement(game);
+						pos = recovery(game);
 					}
 				}
-				this.choix = "avant";
+				this.choice = "before";
 			}
 		} else {
-			if (choix.equals("avant")) {
-				pos = casegauche(firstpos);
+			if (choice.equals("before")) {
+				pos = leftcase(firstpos);
 				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
-					pos = casedroite(secondpos);
+					pos = rigthcase(secondpos);
 					if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)){
-						pos = reetablissement(game);
+						pos = recovery(game);
 					}
 				}
-				this.choix = "apres";
+				this.choice = "after";
 			} else {
-				pos = casedroite(secondpos);
+				pos = rigthcase(secondpos);
 				if (super.myShoots.contains(pos) || !game.Grille.contains(pos)) {
-					pos = casegauche(firstpos);
+					pos = leftcase(firstpos);
 					if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)){
-						pos = reetablissement(game);
+						pos = recovery(game);
 					}
 				}
-				this.choix = "avant";
+				this.choice = "before";
 			}
 		}
 		return pos;
 	}
 
-	public String casehaut(String a) {
+	public String topcase(String a) {
 		// retourne la position au dessus de la position entrée en paramétre
 		String pos = "";
-		String start = a;
-		String letter = (String) start.substring(0, 1);
-		String number = (String) start.substring(1, 2);
-		if (letter.equals("A")) {
-			return ("Z0");
+		String letter = Config.getLetter(a);
+		String number = String.valueOf(Config.getNumber(a));
+		if (letter.equals(Config.limittop)) {
+			return ("hors limite");
 		} else {
-			pos = Battleship.convinttostring(Battleship.convstringtoint(letter) - 1) + number;
+			pos = Config.convinttostring(Config.convstringtoint(letter) - 1) + number;
 			return pos;
 		}
 
 	}
 
-	public String casedroite(String a) {
+	public String rigthcase(String a) {
 		// retourne la position é droite de la position entrée en paramétre
 		String pos = "";
-		String start = a;
-		String letter = (String) start.substring(0, 1);
-		String number = (String) start.substring(1, 2);
-		if (number.equals("9")) {
-			return ("Z0");
+		String letter = Config.getLetter(a);
+		String number = String.valueOf(Config.getNumber(a));
+		if (number.equals(Config.limitright)) {
+			return ("hors limite");
 		} else {
-			pos = letter + String.valueOf(Battleship.convstringtoint(number) + 1);
+			pos = letter + String.valueOf(Config.convstringtoint(number) + 1);
 			return pos;
 		}
 	}
 
-	public String casebas(String a) {
+	public String bottomcase(String a) {
 		// retourne la position en dessous de la position entrée en paramétre
 		String pos = "";
-		String start = a;
-		String letter = (String) start.substring(0, 1);
-		String number = (String) start.substring(1, 2);
-		if (letter.equals("J")) {
-			return ("Z0");
+		String letter = Config.getLetter(a);
+		String number = String.valueOf(Config.getNumber(a));
+		if (letter.equals(Config.limitbottom)) {
+			return ("hors limite");
 		} else {
-			pos = Battleship.convinttostring(Battleship.convstringtoint(letter) + 1) + number;
+			pos = Config.convinttostring(Config.convstringtoint(letter) + 1) + number;
 			return pos;
 		}
 	}
 
-	public String casegauche(String a) {
+	public String leftcase(String a) {
 		// retourne la position é gauche de la position entrée en paramétre
 		String pos = "";
-		String start = a;
-		String letter = (String) start.substring(0, 1);
-		String number = (String) start.substring(1, 2);
-		if (number.equals("0")) {
-			return ("Z0");
+		String letter = Config.getLetter(a);
+		String number = String.valueOf(Config.getNumber(a));
+		if (number.equals(Config.limitleft)) {
+			return ("hors limite");
 		} else {
-			pos = letter + String.valueOf(Battleship.convstringtoint(number) - 1);
+			pos = letter + String.valueOf(Config.convstringtoint(number) - 1);
 			return pos;
 		}
 	}
@@ -224,8 +220,8 @@ public class Computer extends Player {
 	public int direction() {
 		// renvoit la direction du bateau surlequel on est en train de tirer : 1 si horizontal, 0 si vertical.
 		int direction = 0;
-		String firstletter = (String) this.currentboat.get(0).substring(0, 1);
-		String secondletter = (String) this.currentboat.get(1).substring(0, 1);
+		String firstletter = Config.getLetter(this.currentboat.get(0));
+		String secondletter = Config.getLetter(this.currentboat.get(1));
 		if (firstletter.equals(secondletter)) {
 			direction = 1;
 		}
@@ -240,8 +236,7 @@ public class Computer extends Player {
 			while (!this.currentboat.isEmpty()) {
 				String min = this.currentboat.get(0);
 				for (int i = 0; i < this.currentboat.size(); i = i + 1) {
-					if (Battleship.convstringtoint(min.substring(1, 2)) > Battleship
-							.convstringtoint(this.currentboat.get(i).substring(1, 2))) {
+					if (Config.getNumber(min) > Config.getNumber(this.currentboat.get(i))) {
 						min = this.currentboat.get(i);
 					}
 				}
@@ -253,8 +248,7 @@ public class Computer extends Player {
 			while (!this.currentboat.isEmpty()) {
 				String min = this.currentboat.get(0);
 				for (int i = 0; i < this.currentboat.size(); i = i + 1) {
-					if (Battleship.convstringtoint(min.substring(0, 1)) > Battleship
-							.convstringtoint(this.currentboat.get(i).substring(0, 1))) {
+					if (Config.convstringtoint(Config.getLetter(min)) > Config.convstringtoint(Config.getLetter(this.currentboat.get(i)))) {
 						min = this.currentboat.get(i);
 					}
 				}
@@ -265,16 +259,16 @@ public class Computer extends Player {
 		}
 	}
 	
-	public String reetablissement(Game game) {
+	public String recovery(Game game) {
 		// lorsqu'on ne peut plus tirer ni avant ni aprés on se remet en position initiale soit mode chasse,etc)
 		this.currentboat = new ArrayList<String>();
 		this.state = "chasse";
-		this.dirstate ="haut";
-		this.choix ="avant";
-		return hasardtir(game);
+		this.dirstate ="top";
+		this.choice ="before";
+		return hasardshoot(game);
 	}
 	
-	public String hasardtir(Game game) {
+	public String hasardshoot(Game game) {
 		// renvoit une position au hasard qui n'a pas déjé été essayée
 		String pos = "";
 		int i = (int) (Math.random() * 100);
