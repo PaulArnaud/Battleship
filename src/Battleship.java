@@ -47,7 +47,7 @@ public class Battleship {
 			System.out.println("Fin de la mise en place des bateaux de l'ordinateur !! ");
 
 			System.out.println("Mise en place des bateaux du joueur");
-			System.out.println("La grille est composée de A0 , .... , A9 jusque J0,....,J9");
+			System.out.println("La grille est composée de "+Config.limittop+Config.limitleft+", .... ,"+Config.limittop + Config.limitright+" jusque " +Config.limitbottom+Config.limitleft+",....,"+Config.limitbottom+Config.limitright);
 			misenplace(newgame, "carrier");
 			misenplace(newgame, "battleship");
 			misenplace(newgame, "cruiser");
@@ -61,13 +61,13 @@ public class Battleship {
 				// demande des coordonnées du tir
 				System.out.println("Voici la carte de vos tirs");
 				player1.showGrilleTir();
-				System.out.println(player1.getPlayername() + " ,choisissez une position à attaquer(exemple: A0, J9)");
+				System.out.println(player1.getPlayername() + " ,choisissez une position à attaquer(exemple:"+Config.limittop + Config.limitright+","+Config.limitbottom+Config.limitright);
 				System.out.println("Coordonnée du tir :");
 				shoot = reader.next();
 				// si le joueur tir sur une case déjé essayée on lui redemande des coordonnées
 				while (newgame.ActivePlayer.hasAlreadyShot(shoot) || (!newgame.Grille.contains(shoot))) {
 					System.out.println(player1.getPlayername()
-							+ " ,choisissez une nouvelle position, vous avez déjé attaqué ici(exemple: A0, J9) ");
+							+ " ,choisissez une nouvelle position, vous avez déjé attaqué ici ou la position n'est pas valide ! ");
 					System.out.println("Coordonnée du tir :");
 					shoot = reader.next();
 				}

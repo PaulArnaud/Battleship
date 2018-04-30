@@ -225,19 +225,19 @@ public class Config {
 		
 		public static String boatsize(String a) {
 			if (a.equals("carrier")){
-				return "( size = 5 )";
+				return "(size = 5)";
 			}
 			else if (a.equals("battleship")){
-				return "( size = 4 )";
+				return "(size = 4)";
 			}
 			else if (a.equals("submarine") || a.equals("cruiser")){
-				return "( size = 3 )";
+				return "(size = 3)";
 			}
 			else if (a.equals("destroyer")) {
-				return "( size = 2 )";
+				return "(size = 2)";
 			}
 			else {
-				return "( size = unknown )";
+				return "(size = unknown)";
 			}
 		}
 }
