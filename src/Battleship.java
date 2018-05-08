@@ -14,7 +14,6 @@ public class Battleship {
 			// Création d'une nouvelle partie
 			Game newgame = new Game();
 			newgame.createGrille();
-			System.out.println(newgame.Grille);
 			// Création des 2 joueurs
 			Player player1 = new Player();
 			Computer player2 = new Computer();
@@ -45,23 +44,26 @@ public class Battleship {
 			System.out.println("Destroyer Done");
 			player2.SaveBattlecrew();
 			System.out.println("Fin de la mise en place des bateaux de l'ordinateur !! ");
+			System.out.println(player2.savebattlecrew.get(4).getLocalisation());
 
 			System.out.println("Mise en place des bateaux du joueur");
 			System.out.println("La grille est composée de "+Config.limittop+Config.limitleft+", .... ,"+Config.limittop + Config.limitright+" jusque " +Config.limitbottom+Config.limitleft+",....,"+Config.limitbottom+Config.limitright);
-			implementboatplayer(newgame, "carrier");
-			implementboatplayer(newgame, "battleship");
-			implementboatplayer(newgame, "cruiser");
-			implementboatplayer(newgame, "submarine");
+			//implementboatplayer(newgame, "carrier");
+			//implementboatplayer(newgame, "battleship");
+			//implementboatplayer(newgame, "cruiser");
+			//implementboatplayer(newgame, "submarine");
 			implementboatplayer(newgame, "destroyer");
 			player1.SaveBattlecrew();
 			System.out.println("Début de la partie !!!!!!!!!");
+		
 
+			
 			// Début de la partie
 			while (!newgame.IsOver()) {
 				// demande des coordonnées du tir
 				System.out.println("Voici la carte de vos tirs");
-				player1.showGrilleTir();
-				System.out.println(player1.getPlayername() + " ,choisissez une position à attaquer(exemple:"+Config.limittop + Config.limitright+","+Config.limitbottom+Config.limitright);
+				showshoot(player1,player2);
+				System.out.println(player1.getPlayername() + " ,choisissez une position à attaquer(exemple:"+Config.limittop + Config.limitright+","+Config.limitbottom+Config.limitright+")");
 				System.out.println("Coordonnée du tir :");
 				shoot = reader.next();
 				// si le joueur tir sur une case déjé essayée on lui redemande des coordonnées
@@ -72,8 +74,6 @@ public class Battleship {
 					shoot = reader.next();
 				}
 				newgame.ActivePlayer.myShoots.add(shoot);
-				newgame.ActivePlayer.updatemap(shoot, 0);
-				System.out.println(newgame.ActivePlayer.myShoots);
 				// on instancie le crew du joueur adverse pour savoir si on touche
 				battlecrew = newgame.OppositePlayer.getBattlecrew();
 				int i = 0;
@@ -88,7 +88,6 @@ public class Battleship {
 					// si c'est touché
 					if (ship.isHit(shoot)) {
 						ship.removepos(shoot);
-						newgame.ActivePlayer.updatemap(shoot, 1);
 						// on regarde si c'est coulé
 						if (ship.isDestroyed()) {
 							res = "Touché Coulé";
@@ -262,6 +261,30 @@ public class Battleship {
 					}
 				}
 			}
+		}
+	}
+	
+	public static void showshoot(Player active,Player opposite) {
+		String res = "";
+		String coord ="";
+		System.out.println("  A B C D E F G H I J");
+		for (int i = Config.convstringtoint(Config.limitleft);i<= Config.convstringtoint(Config.limitright);i++) {
+			res = String.valueOf(i);
+			for (int j = Config.convstringtoint(Config.limittop);j<= Config.convstringtoint(Config.limitbottom);j++) {
+				coord = Config.convinttostring(j)+String.valueOf(i);
+				if (active.myShoots.contains(coord)){
+					if (opposite.isIn(coord)){
+						res = res + " " + "x" ;
+					}
+					else {
+						res = res + " " + "o" ;
+					}
+				}	
+				else {
+					res = res + " " + "~" ;
+				} 
+			}
+			System.out.println(res);
 		}
 	}
 }

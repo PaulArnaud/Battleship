@@ -7,7 +7,15 @@ public class Ship implements Cloneable {
 	public String etat;
 
 	public Ship clone() {
-		Ship newship = new Ship(this.startCoordonate, this.endCoordonate,this.localisation, "copy");
+		String a = this.startCoordonate ;
+		String b = this.endCoordonate;
+		
+		ArrayList<String>  list = new ArrayList<String>() ;
+		int n = this.localisation.size();
+		for (int i = 0;i<n;i++) {
+			list.add(this.localisation.get(i));
+		}
+		Ship newship = new Ship(a, b,list, "copy");
 		return newship;
 	}
 

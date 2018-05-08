@@ -5,21 +5,11 @@ public class Player {
 	public ArrayList<Ship> battlecrew;
 	public ArrayList<String> myShoots;
 	public String playername;
-	public int[][] map;
 	
-	public void loadMap(){
-		map = new int[10][10];
-		for (int i=0;i<10;i++){
-			for (int j=0;j<10;j++){
-				map[i][j] = 0;
-			}
-		}
-	}
 	public Player() {
 		battlecrew = new ArrayList<Ship>();
 		savebattlecrew = new ArrayList<Ship>();
 		myShoots = new ArrayList<String>();
-		loadMap();
 	}
 	public void setPlayername(String a) {
 		this.playername = a;
@@ -62,36 +52,14 @@ public class Player {
 		battlecrew.remove(sp);
 	}
 	
-	public void showGrilleTir(){
-		String res = "";
-		int square;
-		System.out.println("  A B C D E F G H I J");//ligne à modifier en cas de modification de la carte
-		for (int i = Config.convstringtoint(Config.limitleft);i<= Config.convstringtoint(Config.limitright);i++) {
-			res = String.valueOf(i);
-			for (int j = Config.convstringtoint(Config.limittop);j<= Config.convstringtoint(Config.limitbottom);j++) {
-				square = map[j][i];
-				if (square == 2){
-					res = res + " " + "x" ;
-				}
-				else if (square == 1){
-					res = res + " " + "o";
-				}
-				else {
-					res = res + " " + "~" ;
-				}
+	public boolean isIn(String a) {
+		int n = this.savebattlecrew.size();
+		boolean res = false;
+		for (int i =0; i<n;i++) {
+			if (this.savebattlecrew.get(i).isHit(a)) {
+				res = true;
 			}
-			System.out.println(res);
 		}
-	}
-	
-	public void updatemap(String pos,int res){
-		int i = Config.convstringtoint(Config.getLetter(pos)); 
-		int j = Config.getNumber(pos);
-		if (res == 0){
-			map[i][j] = 1;
-		}
-		else{
-			map[i][j] = 2;
-		}
+		return res;
 	}
 }
