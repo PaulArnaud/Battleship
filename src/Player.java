@@ -65,10 +65,10 @@ public class Player {
 	public void showGrilleTir(){
 		String res = "";
 		int square;
-		System.out.println("  A B C D E F G H I J");///////////////////ligne à modifier en cas de modification de la carte
-		for (int i = 0; i < 10;i++){//////////////ligne à modifier 10 correspond à la hauteur
+		System.out.println("  A B C D E F G H I J");//ligne à modifier en cas de modification de la carte
+		for (int i = Config.convstringtoint(Config.limitleft);i<= Config.convstringtoint(Config.limitright);i++) {
 			res = String.valueOf(i);
-			for (int j =0; j<10;j++){///////////ligne à modifier 10 correspond à la longueur
+			for (int j = Config.convstringtoint(Config.limittop);j<= Config.convstringtoint(Config.limitbottom);j++) {
 				square = map[j][i];
 				if (square == 2){
 					res = res + " " + "x" ;

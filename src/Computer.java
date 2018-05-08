@@ -38,36 +38,57 @@ public class Computer extends Player {
 	public static ArrayList<String> hasardcontruc(Game n, String name) {
 		String finalpos = null;
 		ArrayList<String> loca = new ArrayList<String>();
+		int i = (int) (Math.random() * n.Grille.size());
 		if (name.equals("carrier")) {
-			int i = (int) (Math.random() * 36);
 			String a = n.Grille.get(i);
 			finalpos = Config.compfonc(a, 5);
-			loca = Config.locacalcul(a, finalpos);
-			return loca;
+			if (!n.Grille.contains(finalpos)){
+				return hasardcontruc(n,name);
+			}
+			else {
+				loca = Config.locacalcul(a, finalpos);
+				return loca;				
+			}
 		} else if (name.equals("battleship")) {
-			int i = (int) (Math.random() * 49);
 			String a = n.Grille.get(i);
 			finalpos = Config.compfonc(a, 4);
-			loca = Config.locacalcul(a, finalpos);
-			return loca;
+			if (!n.Grille.contains(finalpos)){
+				return hasardcontruc(n,name);
+			}
+			else {
+				loca = Config.locacalcul(a, finalpos);
+				return loca;				
+			}
 		} else if (name.equals("cruiser")) {
-			int i = (int) (Math.random() * 64);
 			String a = n.Grille.get(i);
 			finalpos = Config.compfonc(a, 3);
-			loca = Config.locacalcul(a, finalpos);
-			return loca;
+			if (!n.Grille.contains(finalpos)){
+				return hasardcontruc(n,name);
+			}
+			else {
+				loca = Config.locacalcul(a, finalpos);
+				return loca;				
+			}
 		} else if (name.equals("submarine")) {
-			int i = (int) (Math.random() * 64);
 			String a = n.Grille.get(i);
 			finalpos = Config.compfonc(a, 3);
-			loca = Config.locacalcul(a, finalpos);
-			return loca;
+			if (!n.Grille.contains(finalpos)){
+				return hasardcontruc(n,name);
+			}
+			else {
+				loca = Config.locacalcul(a, finalpos);
+				return loca;				
+			}
 		} else {
-			int i = (int) (Math.random() * 81);
 			String a = n.Grille.get(i);
 			finalpos = Config.compfonc(a, 2);
-			loca = Config.locacalcul(a, finalpos);
-			return loca;
+			if (!n.Grille.contains(finalpos)){
+				return hasardcontruc(n,name);
+			}
+			else {
+				loca = Config.locacalcul(a, finalpos);
+				return loca;				
+			}
 		}
 	}
 	// fonction principal du tir de l'ordinateur chaque cas expliquer en détails à l'intérieur
