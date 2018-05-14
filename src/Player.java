@@ -1,23 +1,18 @@
 import java.util.ArrayList;
 
 public class Player {
-	public ArrayList<Ship> savebattlecrew;
 	public ArrayList<Ship> battlecrew;
+	public ArrayList<Ship> losses;
 	public ArrayList<String> myShoots;
 	public String playername;
 	
 	public Player() {
 		battlecrew = new ArrayList<Ship>();
-		savebattlecrew = new ArrayList<Ship>();
 		myShoots = new ArrayList<String>();
+		losses = new ArrayList<Ship>();
 	}
 	public void setPlayername(String a) {
 		this.playername = a;
-	}
-	public void SaveBattlecrew() {
-		for (int i = 0; i<battlecrew.size();i++) {
-			this.savebattlecrew.add(this.battlecrew.get(i).clone());
-		}
 	}
 	
 	public String getPlayername() {
@@ -27,6 +22,11 @@ public class Player {
 	public ArrayList<Ship> getBattlecrew() {
 		return battlecrew;
 	}
+	
+	public ArrayList<Ship> getLosses() {
+		return losses;
+	}
+
 
 	public ArrayList<String> getMyShoots() {
 		return myShoots;
@@ -49,15 +49,22 @@ public class Player {
 	}
 	// fonction qui supprime un bateau de la liste des bateaux du joueur
 	public void removeShip(Ship sp) {
+		losses.add(sp);
 		battlecrew.remove(sp);
 	}
 	
-	public boolean isIn(String a) {
-		int n = this.savebattlecrew.size();
+	public boolean isInCrew(String a) {
+		int n = this.losses.size();
+		int m = this.battlecrew.size();
 		boolean res = false;
 		for (int i =0; i<n;i++) {
-			if (this.savebattlecrew.get(i).isHit(a)) {
+			if (this.losses.get(i).isHit(a)) {
 				res = true;
+			}
+		}
+		for (int j= 0;j<m;j++) {
+			if (this.battlecrew.get(j).isHit(a)){
+				res = true ;
 			}
 		}
 		return res;

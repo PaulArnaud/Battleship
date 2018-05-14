@@ -44,8 +44,8 @@ public class Game {
 	public void createGrille() {
 		String coord ="";
 		ArrayList<String> Grille = new ArrayList<String>();
-		for (int i = Config.convstringtoint(Config.limitleft);i<= Config.convstringtoint(Config.limitright);i++) {
-			for (int j = Config.convstringtoint(Config.limittop);j<= Config.convstringtoint(Config.limitbottom);j++) {
+		for (int i = Config.convstringtoint(Config.limtop);i<= Config.convstringtoint(Config.limbottom);i++) {
+			for (int j = Config.convstringtoint(Config.limleft);j<= Config.convstringtoint(Config.limright);j++) {
 				coord = Config.convinttostring(j)+String.valueOf(i);
 				Grille.add(coord);
 			}

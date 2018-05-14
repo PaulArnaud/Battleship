@@ -141,7 +141,7 @@ public class Computer extends Player {
 		String firstpos = this.currentboat.get(0);
 		String secondpos = this.currentboat.get(this.currentboat.size() - 1);
 		int dir = direction();
-		if (dir == 0) {
+		if (dir == 1) {
 			if (choice.equals("before")) {
 				pos = topcase(firstpos);
 				if (super.myShoots.contains(pos)|| !game.Grille.contains(pos)) {
@@ -185,12 +185,11 @@ public class Computer extends Player {
 		return pos;
 	}
 
-	public String topcase(String a) {
-		// retourne la position au dessus de la position entrée en paramétre
+	public String leftcase(String a) {
 		String pos = "";
 		String letter = Config.getLetter(a);
 		String number = String.valueOf(Config.getNumber(a));
-		if (letter.equals(Config.limittop)) {
+		if (letter.equals(Config.limleft)) {
 			return ("hors limite");
 		} else {
 			pos = Config.convinttostring(Config.convstringtoint(letter) - 1) + number;
@@ -199,12 +198,11 @@ public class Computer extends Player {
 
 	}
 
-	public String rigthcase(String a) {
-		// retourne la position é droite de la position entrée en paramétre
+	public String bottomcase(String a) {
 		String pos = "";
 		String letter = Config.getLetter(a);
 		String number = String.valueOf(Config.getNumber(a));
-		if (number.equals(Config.limitright)) {
+		if (number.equals(Config.limbottom)) {
 			return ("hors limite");
 		} else {
 			pos = letter + String.valueOf(Config.convstringtoint(number) + 1);
@@ -212,12 +210,11 @@ public class Computer extends Player {
 		}
 	}
 
-	public String bottomcase(String a) {
-		// retourne la position en dessous de la position entrée en paramétre
+	public String rigthcase(String a) {
 		String pos = "";
 		String letter = Config.getLetter(a);
 		String number = String.valueOf(Config.getNumber(a));
-		if (letter.equals(Config.limitbottom)) {
+		if (letter.equals(Config.limright)) {
 			return ("hors limite");
 		} else {
 			pos = Config.convinttostring(Config.convstringtoint(letter) + 1) + number;
@@ -225,12 +222,11 @@ public class Computer extends Player {
 		}
 	}
 
-	public String leftcase(String a) {
-		// retourne la position é gauche de la position entrée en paramétre
+	public String topcase(String a) {
 		String pos = "";
 		String letter = Config.getLetter(a);
 		String number = String.valueOf(Config.getNumber(a));
-		if (number.equals(Config.limitleft)) {
+		if (number.equals(Config.limtop)) {
 			return ("hors limite");
 		} else {
 			pos = letter + String.valueOf(Config.convstringtoint(number) - 1);

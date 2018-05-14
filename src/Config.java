@@ -4,10 +4,10 @@ public class Config {
 	/* Si vous voulez modifier la carte, changer les limites ci dessous, lettre obligatoire, chiffre obligatoirement positif ou nul,
 	 vous devez aussi modifier dans player, les fonctions qui affichent la carte au joueur 
 	 Merci d'avoir lu */
-	public static String limittop = "A" ;
-	public static String limitbottom = "J";
-	public static String limitright = "9";
-	public static String limitleft = "0";
+	public static String limleft = "A" ;
+	public static String limright = "J";
+	public static String limbottom = "9";
+	public static String limtop = "0";
 
 	private Config() {
 	}
@@ -26,11 +26,12 @@ public class Config {
 	}
 
 	public static int getNumber(String var) {
-		int n = var.length();
+		//int n = var.length();
 		int res = 0;
-		for (int i = 1; i < n; i++) {
+		/*for (int i = 1; i < n; i++) {
 			res = res + convstringtoint(Character.toString(var.charAt(i))) * puissance(10, n - i - 1);
-		}
+		}*/
+		res = Integer.parseInt(var.substring(1));
 		return res;
 	}
 

@@ -42,18 +42,15 @@ public class Battleship {
 			System.out.println("Submarine Done");
 			implementboatcomputer(newgame, "destroyer");
 			System.out.println("Destroyer Done");
-			player2.SaveBattlecrew();
 			System.out.println("Fin de la mise en place des bateaux de l'ordinateur !! ");
-			System.out.println(player2.savebattlecrew.get(4).getLocalisation());
 
 			System.out.println("Mise en place des bateaux du joueur");
-			System.out.println("La grille est composée de "+Config.limittop+Config.limitleft+", .... ,"+Config.limittop + Config.limitright+" jusque " +Config.limitbottom+Config.limitleft+",....,"+Config.limitbottom+Config.limitright);
-			//implementboatplayer(newgame, "carrier");
+			System.out.println("La grille est composée de "+Config.limleft+Config.limtop+", .... ,"+Config.limleft + Config.limbottom+" jusque " +Config.limright+Config.limtop+",....,"+Config.limright+Config.limbottom);
+			implementboatplayer(newgame, "carrier");
 			//implementboatplayer(newgame, "battleship");
 			//implementboatplayer(newgame, "cruiser");
 			//implementboatplayer(newgame, "submarine");
-			implementboatplayer(newgame, "destroyer");
-			player1.SaveBattlecrew();
+			//implementboatplayer(newgame, "destroyer");
 			System.out.println("Début de la partie !!!!!!!!!");
 		
 
@@ -61,9 +58,9 @@ public class Battleship {
 			// Début de la partie
 			while (!newgame.IsOver()) {
 				// demande des coordonnées du tir
-				System.out.println("Voici la carte de vos tirs");
-				showshoot(player1,player2);
-				System.out.println(player1.getPlayername() + " ,choisissez une position à attaquer(exemple:"+Config.limittop + Config.limitright+","+Config.limitbottom+Config.limitright+")");
+				//System.out.println("Voici la carte de vos tirs");
+				//showshoot(player1,player2);
+				System.out.println(player1.getPlayername() + " ,choisissez une position à attaquer(exemple:"+Config.limleft + Config.limbottom+","+Config.limright+Config.limbottom+")");
 				System.out.println("Coordonnée du tir :");
 				shoot = reader.next();
 				// si le joueur tir sur une case déjé essayée on lui redemande des coordonnées
@@ -73,7 +70,6 @@ public class Battleship {
 					System.out.println("Coordonnée du tir :");
 					shoot = reader.next();
 				}
-				newgame.ActivePlayer.myShoots.add(shoot);
 				// on instancie le crew du joueur adverse pour savoir si on touche
 				battlecrew = newgame.OppositePlayer.getBattlecrew();
 				int i = 0;
@@ -87,23 +83,33 @@ public class Battleship {
 					// System.out.println(ship);
 					// si c'est touché
 					if (ship.isHit(shoot)) {
-						ship.removepos(shoot);
-						// on regarde si c'est coulé
-						if (ship.isDestroyed()) {
-							res = "Touché Coulé";
-							newgame.OppositePlayer.removeShip(ship);
-						} else {
+						if (newgame.ActivePlayer.hasAlreadyShot(shoot)) {
 							res = "Touché";
 						}
+						else {
+							newgame.ActivePlayer.myShoots.add(shoot);
+							ship.lifepoint -- ;
+							if (ship.isDestroyed()) {
+								res = "Touché Coulé";
+								newgame.OppositePlayer.removeShip(ship);
+							} else {
+								res = "Touché";
+							}
+						}	
 					}
 					i = i + 1;
+				}
+				if (!newgame.ActivePlayer.hasAlreadyShot(shoot)) {
+					newgame.ActivePlayer.myShoots.add(shoot);
 				}
 				System.out.println("C'est : " + res);
 				// newgame.changePlayer();
 				if (!newgame.IsOver()) {
 					System.out.println("C'est à l'ordinateur de jouer : ");
+					System.out.println(player2.getCurrentboat());
+					System.out.println("Voici la carte des tirs de votre adversaire");
+					showshoot(player2,player1);
 					shoot = player2.shoot(newgame);
-					newgame.OppositePlayer.myShoots.add(shoot);
 					System.out.println("l'ordinateur a frappé en " + shoot);
 					battlecrew = newgame.ActivePlayer.getBattlecrew();
 					i = 0;
@@ -114,20 +120,24 @@ public class Battleship {
 						// si c'est touché
 						if (ship.isHit(shoot)) {
 							player2.setState("tir");
-							ship.removepos(shoot);
-							// on regarde si c'est coulé
+							player2.getCurrentboat().add(shoot);
+							ship.lifepoint -- ;
+							newgame.OppositePlayer.myShoots.add(shoot);
 							if (ship.isDestroyed()) {
 								res = "Touché Coulé";
-								player2.setCurrentboat(new ArrayList<String>());
 								newgame.ActivePlayer.removeShip(ship);
 								player2.setState("chasse");
-								player2.setDirstate("haut");
+								player2.setDirstate("top");
+								player2.setCurrentboat(new ArrayList<String>());
 							} else {
 								res = "Touché";
-								player2.getCurrentboat().add(shoot);
+								
 							}
 						}
 						i = i + 1;
+					}
+					if (!newgame.OppositePlayer.hasAlreadyShot(shoot)) {
+						newgame.OppositePlayer.myShoots.add(shoot);
 					}
 					System.out.println("C'est : " + res);
 					System.out.println("Fin du tour de l'ordinateur");
@@ -268,12 +278,12 @@ public class Battleship {
 		String res = "";
 		String coord ="";
 		System.out.println("  A B C D E F G H I J");
-		for (int i = Config.convstringtoint(Config.limitleft);i<= Config.convstringtoint(Config.limitright);i++) {
+		for (int i = Config.convstringtoint(Config.limtop);i<= Config.convstringtoint(Config.limbottom);i++) {
 			res = String.valueOf(i);
-			for (int j = Config.convstringtoint(Config.limittop);j<= Config.convstringtoint(Config.limitbottom);j++) {
+			for (int j = Config.convstringtoint(Config.limleft);j<= Config.convstringtoint(Config.limright);j++) {
 				coord = Config.convinttostring(j)+String.valueOf(i);
 				if (active.myShoots.contains(coord)){
-					if (opposite.isIn(coord)){
+					if (opposite.isInCrew(coord)){
 						res = res + " " + "x" ;
 					}
 					else {

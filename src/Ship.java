@@ -5,19 +5,8 @@ public class Ship implements Cloneable {
 	public String endCoordonate; // fin du bateau
 	public ArrayList<String> localisation; // listes de toutes les cases sur lesquelles le bateau se situe
 	public String etat;
+	public int lifepoint;
 
-	public Ship clone() {
-		String a = this.startCoordonate ;
-		String b = this.endCoordonate;
-		
-		ArrayList<String>  list = new ArrayList<String>() ;
-		int n = this.localisation.size();
-		for (int i = 0;i<n;i++) {
-			list.add(this.localisation.get(i));
-		}
-		Ship newship = new Ship(a, b,list, "copy");
-		return newship;
-	}
 
 	// Fonction de cr�ation d'un bateau
 	public Ship(String start, String end, ArrayList<String> loca, String name) {
@@ -27,16 +16,19 @@ public class Ship implements Cloneable {
 		this.localisation = loca;
 		if ((name.equals("carrier")) && (this.localisation.size() == 5)) {
 			this.etat = "valide";
+			this.lifepoint = 5;
 		} else if ((name.equals("battleship")) && (this.localisation.size() == 4)) {
 			this.etat = "valide";
-		} else if (name.equals("copy")) {
-			this.etat = "valide";
+			this.lifepoint = 4;
 		} else if ((name.equals("cruiser")) && (this.localisation.size() == 3)) {
 			this.etat = "valide";
+			this.lifepoint = 3;
 		} else if ((name.equals("submarine")) && (this.localisation.size() == 3)) {
 			this.etat = "valide";
+			this.lifepoint = 3;
 		} else if ((name.equals("destroyer")) && (this.localisation.size() == 2)) {
 			this.etat = "valide";
+			this.lifepoint = 2;
 		} else {
 			this.etat = "invalide";
 			localisation = null;
@@ -79,7 +71,7 @@ public class Ship implements Cloneable {
 
 	// fonction pour savoir si le bateau est d�truit
 	public boolean isDestroyed() {
-		if (this.localisation.isEmpty()) {
+		if (this.lifepoint == 0) {
 			return true;
 		} else {
 			return false;
