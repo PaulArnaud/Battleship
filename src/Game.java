@@ -6,6 +6,9 @@ public class Game {
 	public Player OppositePlayer;
 	public ArrayList<String> Grille;
 
+	public Game() {
+		this.Grille = createGrille();
+	}
 	public Player getActivePlayer() {
 		return ActivePlayer;
 	}
@@ -41,7 +44,7 @@ public class Game {
 		return ActivePlayer.isDown() || OppositePlayer.isDown();
 	}
 	// initialise la liste des positions possibles
-	public void createGrille() {
+	public ArrayList<String> createGrille() {
 		String coord ="";
 		ArrayList<String> Grille = new ArrayList<String>();
 		for (int i = Config.convstringtoint(Config.limtop);i<= Config.convstringtoint(Config.limbottom);i++) {
@@ -50,6 +53,6 @@ public class Game {
 				Grille.add(coord);
 			}
 		}
-		this.Grille = Grille;
+		return Grille;
 	}
 }

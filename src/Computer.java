@@ -296,4 +296,23 @@ public class Computer extends Player {
 		}
 		return pos;
 	}
+	
+	public String shootlvlmin(Game game) {
+		String pos = "";
+		int i = (int) (Math.random() * 100);
+		pos = game.Grille.get(i);
+		return pos;
+	}
+	
+	public String shootlvlmed(Game game) {
+		// renvoit une position au hasard qui n'a pas déjé été essayée
+		String pos = "";
+		int i = (int) (Math.random() * 100);
+		pos = game.Grille.get(i);
+		while (super.myShoots.contains(pos)) {
+			i = (int) (Math.random() * 100);
+			pos = game.Grille.get(i);
+		}
+		return pos;
+	}
 }
