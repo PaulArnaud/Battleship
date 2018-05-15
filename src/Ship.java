@@ -7,7 +7,6 @@ public class Ship implements Cloneable {
 	public String etat;
 	public int lifepoint;
 
-
 	// Fonction de cr�ation d'un bateau
 	public Ship(String start, String end, ArrayList<String> loca, String name) {
 		super();

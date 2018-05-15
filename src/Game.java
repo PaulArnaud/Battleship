@@ -1,14 +1,22 @@
-import java.util.ArrayList;
 
 public class Game {
-	// notion de joueur actif et oppos� ( seulement pour le mode 2joueur) sinon le joueur est le joueur actif de fa�on permanente contre l'ordi
+	// notion de joueur actif et oppos� ( seulement pour le mode 2joueur) sinon le
+	// joueur est le joueur actif de fa�on permanente contre l'ordi
 	public Player ActivePlayer;
 	public Player OppositePlayer;
-	public ArrayList<String> Grille;
+	public Computer ComputerPlayer;
 
-	public Game() {
-		this.Grille = createGrille();
+	public Game(String a) {
+		if (a.equals("0")) {
+			this.ActivePlayer = new Player();
+			this.OppositePlayer = new Player();
+		} else {
+			this.ActivePlayer = new Player();
+			this.ComputerPlayer = new Computer();
+			this.ComputerPlayer.setPlayername("Computer");
+		}
 	}
+
 	public Player getActivePlayer() {
 		return ActivePlayer;
 	}
@@ -39,20 +47,13 @@ public class Game {
 		this.ActivePlayer = this.OppositePlayer;
 		this.OppositePlayer = TempPlayer;
 	}
+
 	// fonction vraie ou fausse si la partie est termin�e ou non
 	public boolean IsOver() {
-		return ActivePlayer.isDown() || OppositePlayer.isDown();
-	}
-	// initialise la liste des positions possibles
-	public ArrayList<String> createGrille() {
-		String coord ="";
-		ArrayList<String> Grille = new ArrayList<String>();
-		for (int i = Config.convstringtoint(Config.limtop);i<= Config.convstringtoint(Config.limbottom);i++) {
-			for (int j = Config.convstringtoint(Config.limleft);j<= Config.convstringtoint(Config.limright);j++) {
-				coord = Config.convinttostring(j)+String.valueOf(i);
-				Grille.add(coord);
-			}
+		if (ComputerPlayer == null) {
+			return ActivePlayer.isDown() || OppositePlayer.isDown();
+		} else {
+			return ActivePlayer.isDown() || ComputerPlayer.isDown();
 		}
-		return Grille;
 	}
 }

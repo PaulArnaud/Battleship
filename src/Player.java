@@ -5,28 +5,28 @@ public class Player {
 	public ArrayList<Ship> losses;
 	public ArrayList<String> myShoots;
 	public String playername;
-	
+
 	public Player() {
 		battlecrew = new ArrayList<Ship>();
 		myShoots = new ArrayList<String>();
 		losses = new ArrayList<Ship>();
 	}
+
 	public void setPlayername(String a) {
 		this.playername = a;
 	}
-	
+
 	public String getPlayername() {
 		return playername;
 	}
-	
+
 	public ArrayList<Ship> getBattlecrew() {
 		return battlecrew;
 	}
-	
+
 	public ArrayList<Ship> getLosses() {
 		return losses;
 	}
-
 
 	public ArrayList<String> getMyShoots() {
 		return myShoots;
@@ -36,37 +36,56 @@ public class Player {
 		myShoots = myshoots;
 	}
 
-	public boolean isDown(){
+	public boolean isDown() {
 		return battlecrew.isEmpty();
-	} 
-	
-	public boolean hasAlreadyShot(String shoot){
+	}
+
+	public boolean hasAlreadyShot(String shoot) {
 		return this.myShoots.contains(shoot);
 	}
-	//fonction qui renvoie le nb de bateau restant du joueur
+
+	// fonction qui renvoie le nb de bateau restant du joueur
 	public int length() {
 		return battlecrew.size();
 	}
+
 	// fonction qui supprime un bateau de la liste des bateaux du joueur
 	public void removeShip(Ship sp) {
 		losses.add(sp);
 		battlecrew.remove(sp);
 	}
-	
+
 	public boolean isInCrew(String a) {
 		int n = this.losses.size();
 		int m = this.battlecrew.size();
 		boolean res = false;
-		for (int i =0; i<n;i++) {
+		for (int i = 0; i < n; i++) {
 			if (this.losses.get(i).isHit(a)) {
 				res = true;
 			}
 		}
-		for (int j= 0;j<m;j++) {
-			if (this.battlecrew.get(j).isHit(a)){
-				res = true ;
+		for (int j = 0; j < m; j++) {
+			if (this.battlecrew.get(j).isHit(a)) {
+				res = true;
 			}
 		}
 		return res;
+	}
+
+	public boolean isFind(String a) {
+		int n = this.battlecrew.size();
+		int m = this.losses.size();
+		int res = 0;
+		for (int i = 0; i < n; i++) {
+			if (this.battlecrew.get(i).isHit(a)) {
+				res = +1;
+			}
+		}
+		for (int j = 0; j < m; j++) {
+			if (this.losses.get(j).isHit(a)) {
+				res = +1;
+			}
+		}
+		return !(res == 0);
 	}
 }

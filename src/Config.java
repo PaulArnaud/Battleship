@@ -1,13 +1,20 @@
 import java.util.ArrayList;
 
 public class Config {
-	/* Si vous voulez modifier la carte, changer les limites ci dessous, lettre obligatoire, chiffre obligatoirement positif ou nul,
-	 vous devez aussi modifier dans player, les fonctions qui affichent la carte au joueur 
-	 Merci d'avoir lu */
-	public static String limleft = "A" ;
+	/*
+	 * Si vous voulez modifier la carte, changer les limites ci dessous, lettre
+	 * obligatoire, chiffre obligatoirement positif ou nul, vous devez aussi
+	 * modifier dans player, les fonctions qui affichent la carte au joueur Merci
+	 * d'avoir lu
+	 */
+	public static String limleft = "A";
+	public static int limlefttoint = convstringtoint(limleft);
 	public static String limright = "J";
+	public static int limrigthtoint = convstringtoint(limright);
 	public static String limbottom = "9";
+	public static int limlbottomtoint = Integer.parseInt(limbottom);
 	public static String limtop = "0";
+	public static int limtoptoint = Integer.parseInt(limtop);
 
 	private Config() {
 	}
@@ -26,12 +33,16 @@ public class Config {
 	}
 
 	public static int getNumber(String var) {
-		//int n = var.length();
+		int n = var.length();
 		int res = 0;
-		/*for (int i = 1; i < n; i++) {
-			res = res + convstringtoint(Character.toString(var.charAt(i))) * puissance(10, n - i - 1);
-		}*/
-		res = Integer.parseInt(var.substring(1));
+		for (int i = 1; i < n; i++) {
+			if (Character.isDigit(var.charAt(i))) {
+				res = res + convstringtoint(Character.toString(var.charAt(i))) * puissance(10, n - i - 1);
+			} else {
+				return -1;
+			}
+		}
+		// res = Integer.parseInt(var.substring(1));
 		return res;
 	}
 
@@ -139,106 +150,126 @@ public class Config {
 		}
 		return end;
 	}
-	
+
 	// Conversion d'un int vers un string
-		public static String convinttostring(int a) {
-			if (a == 0) {
-				return "A";
-			} else if (a == 1) {
-				return "B";
-			} else if (a == 2) {
-				return "C";
-			} else if (a == 3) {
-				return "D";
-			} else if (a == 4) {
-				return "E";
-			} else if (a == 5) {
-				return "F";
-			} else if (a == 6) {
-				return "G";
-			} else if (a == 7) {
-				return "H";
-			} else if (a == 8) {
-				return "I";
-			} else if (a == 9) {
-				return "J";
-			} else if (a == 10) {
-				return "K";
-			} else if (a == 11) {
-				return "L";
-			} else if (a == 12) {
-				return "M";
-			} else if (a == 13) {
-				return "N";
-			} else if (a == 14) {
-				return "O";
-			} else if (a == 15) {
-				return "P";
-			} else if (a == 16) {
-				return "Q";
-			} else if (a == 17) {
-				return "R";
-			} else if (a == 18) {
-				return "S";
-			} else if (a == 19) {
-				return "T";
-			} else if (a == 20) {
-				return "U";
-			} else if (a == 21) {
-				return "V";
-			} else if (a == 22) {
-				return "W";
-			} else if (a == 23) {
-				return "X";
-			} else if (a == 24) {
-				return "Y";
-			} else if (a == 25) {
-				return "Z";
+	public static String convinttostring(int a) {
+		if (a == 0) {
+			return "A";
+		} else if (a == 1) {
+			return "B";
+		} else if (a == 2) {
+			return "C";
+		} else if (a == 3) {
+			return "D";
+		} else if (a == 4) {
+			return "E";
+		} else if (a == 5) {
+			return "F";
+		} else if (a == 6) {
+			return "G";
+		} else if (a == 7) {
+			return "H";
+		} else if (a == 8) {
+			return "I";
+		} else if (a == 9) {
+			return "J";
+		} else if (a == 10) {
+			return "K";
+		} else if (a == 11) {
+			return "L";
+		} else if (a == 12) {
+			return "M";
+		} else if (a == 13) {
+			return "N";
+		} else if (a == 14) {
+			return "O";
+		} else if (a == 15) {
+			return "P";
+		} else if (a == 16) {
+			return "Q";
+		} else if (a == 17) {
+			return "R";
+		} else if (a == 18) {
+			return "S";
+		} else if (a == 19) {
+			return "T";
+		} else if (a == 20) {
+			return "U";
+		} else if (a == 21) {
+			return "V";
+		} else if (a == 22) {
+			return "W";
+		} else if (a == 23) {
+			return "X";
+		} else if (a == 24) {
+			return "Y";
+		} else if (a == 25) {
+			return "Z";
+		} else {
+			return "hors limite";
+		}
+	}
+
+	// fonction qui construit la liste des positions d'un bateau
+	public static ArrayList<String> locacalcul(String start, String end) {
+		ArrayList<String> loca = new ArrayList<String>();
+		String firstletter = getLetter(start);
+		String firstnumber = String.valueOf(getNumber(start));
+		String secondletter = getLetter(end);
+		String secondnumber = String.valueOf(getNumber(end));
+		if (firstletter.equals(secondletter)) {
+			int fn = convstringtoint(firstnumber);
+			int sn = convstringtoint(secondnumber);
+			for (int i = fn; i <= sn; i++) {
+				loca.add(firstletter + i);
+			}
+		} else if (firstnumber.equals(secondnumber)) {
+			int fl = convstringtoint(firstletter);
+			int sl = convstringtoint(secondletter);
+			for (int i = fl; i <= sl; i++) {
+				loca.add(convinttostring(i) + firstnumber);
+			}
+		} else {
+			System.out.println("ErrorsetLocalisation");
+		}
+		return loca;
+	}
+
+	public static String boatsize(String a) {
+		if (a.equals("carrier")) {
+			return "(size = 5)";
+		} else if (a.equals("battleship")) {
+			return "(size = 4)";
+		} else if (a.equals("submarine") || a.equals("cruiser")) {
+			return "(size = 3)";
+		} else if (a.equals("destroyer")) {
+			return "(size = 2)";
+		} else {
+			return "(size = unknown)";
+		}
+	}
+
+	public static boolean isCorrect(String a) {
+		if (a.equals("hors limite")) {
+			return false;
+		} else {
+			if (!Character.isLetter(a.charAt(0))) {
+				return false;
 			} else {
-				return "hors limite";
-			}
-		}
-		
-		// fonction qui construit la liste des positions d'un bateau
-		public static ArrayList<String> locacalcul(String start, String end) {
-			ArrayList<String> loca = new ArrayList<String>();
-			String firstletter = getLetter(start);
-			String firstnumber = String.valueOf(getNumber(start));
-			String secondletter = getLetter(end);
-			String secondnumber = String.valueOf(getNumber(end));
-			if (firstletter.equals(secondletter)) {
-				int fn = convstringtoint(firstnumber);
-				int sn = convstringtoint(secondnumber);
-				for (int i = fn; i <= sn; i++) {
-					loca.add(firstletter + i);
+				String letter = getLetter(a);
+				int lettertoint = convstringtoint(letter);
+				int number = getNumber(a);
+				if (number == -1) {
+					return false;
+				} else {
+					if (lettertoint >= limlefttoint && lettertoint <= limrigthtoint && number <= limlbottomtoint
+							&& number >= limtoptoint) {
+						return true;
+					} else {
+						return false;
+					}
 				}
-			} else if (firstnumber.equals(secondnumber)) {
-				int fl = convstringtoint(firstletter);
-				int sl = convstringtoint(secondletter);
-				for (int i = fl; i <= sl; i++) {
-					loca.add(convinttostring(i) + firstnumber);
-				}
-			} else {
-				System.out.println("ErrorsetLocalisation");
-			}
-			return loca;
-		}
-		
-		public static String boatsize(String a) {
-			if (a.equals("carrier")){
-				return "(size = 5)";
-			}
-			else if (a.equals("battleship")){
-				return "(size = 4)";
-			}
-			else if (a.equals("submarine") || a.equals("cruiser")){
-				return "(size = 3)";
-			}
-			else if (a.equals("destroyer")) {
-				return "(size = 2)";
-			}
-			else {
-				return "(size = unknown)";
 			}
 		}
+	}
 }
