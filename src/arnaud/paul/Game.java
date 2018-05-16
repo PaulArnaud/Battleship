@@ -1,3 +1,4 @@
+package arnaud.paul;
 
 public class Game {
 	// notion de joueur actif et oppos� ( seulement pour le mode 2joueur) sinon le
@@ -5,6 +6,9 @@ public class Game {
 	public Player ActivePlayer;
 	public Player OppositePlayer;
 	public Computer ComputerPlayer;
+
+
+	
 
 	public Game(String a) {
 		if (a.equals("0")) {
@@ -15,6 +19,11 @@ public class Game {
 			this.ComputerPlayer = new Computer();
 			this.ComputerPlayer.setPlayername("Computer");
 		}
+	}
+
+	public Game(Player player1, Player player2) {
+		this.ActivePlayer = player1;
+		this.OppositePlayer = player2;
 	}
 
 	public Player getActivePlayer() {
@@ -52,8 +61,16 @@ public class Game {
 	public boolean IsOver() {
 		if (ComputerPlayer == null) {
 			return ActivePlayer.isDown() || OppositePlayer.isDown();
-		} else {
+		} else  {
 			return ActivePlayer.isDown() || ComputerPlayer.isDown();
+		}
+	}
+
+	public Player adversary(Player name) {
+		if (this.ActivePlayer == name) {
+			return this.OppositePlayer;
+		} else {
+			return this.ActivePlayer;
 		}
 	}
 }

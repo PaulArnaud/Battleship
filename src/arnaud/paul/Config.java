@@ -1,3 +1,4 @@
+package arnaud.paul;
 import java.util.ArrayList;
 
 public class Config {
@@ -36,6 +37,20 @@ public class Config {
 		int n = var.length();
 		int res = 0;
 		for (int i = 1; i < n; i++) {
+			if (Character.isDigit(var.charAt(i))) {
+				res = res + convstringtoint(Character.toString(var.charAt(i))) * puissance(10, n - i - 1);
+			} else {
+				return -1;
+			}
+		}
+		// res = Integer.parseInt(var.substring(1));
+		return res;
+	}
+	
+	public static int convforint(String var) {
+		int n = var.length();
+		int res = 0;
+		for (int i = 0; i < n; i++) {
 			if (Character.isDigit(var.charAt(i))) {
 				res = res + convstringtoint(Character.toString(var.charAt(i))) * puissance(10, n - i - 1);
 			} else {
@@ -140,7 +155,7 @@ public class Config {
 		if (j >= 5) {
 			String firstletter = getLetter(a);
 			String firstnumber = String.valueOf(getNumber(a));
-			int fn = convstringtoint(firstnumber);
+			int fn = convforint(firstnumber);
 			end = firstletter + String.valueOf(fn + b - 1);
 		} else {
 			String firstletter = getLetter(a);
@@ -218,8 +233,8 @@ public class Config {
 		String secondletter = getLetter(end);
 		String secondnumber = String.valueOf(getNumber(end));
 		if (firstletter.equals(secondletter)) {
-			int fn = convstringtoint(firstnumber);
-			int sn = convstringtoint(secondnumber);
+			int fn = convforint(firstnumber);
+			int sn = convforint(secondnumber);
 			for (int i = fn; i <= sn; i++) {
 				loca.add(firstletter + i);
 			}

@@ -1,3 +1,4 @@
+package arnaud.paul;
 import java.util.ArrayList;
 
 public class Player {
@@ -87,5 +88,11 @@ public class Player {
 			}
 		}
 		return !(res == 0);
+	}
+	
+	public void reset() {
+		this.battlecrew = new ArrayList<Ship>();
+		this.losses = new ArrayList<Ship>();
+		this.myShoots = new ArrayList<String>();
 	}
 }
