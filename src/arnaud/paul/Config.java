@@ -13,7 +13,7 @@ public class Config {
 	public static String limright = "J";
 	public static int limrigthtoint = convstringtoint(limright);
 	public static String limbottom = "9";
-	public static int limlbottomtoint = Integer.parseInt(limbottom);
+	public static int limbottomtoint = Integer.parseInt(limbottom);
 	public static String limtop = "0";
 	public static int limtoptoint = Integer.parseInt(limtop);
 
@@ -277,7 +277,7 @@ public class Config {
 				if (number == -1) {
 					return false;
 				} else {
-					if (lettertoint >= limlefttoint && lettertoint <= limrigthtoint && number <= limlbottomtoint
+					if (lettertoint >= limlefttoint && lettertoint <= limrigthtoint && number <= limbottomtoint
 							&& number >= limtoptoint) {
 						return true;
 					} else {

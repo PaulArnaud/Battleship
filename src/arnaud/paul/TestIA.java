@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class TestIA {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int noobresult2 = 0;
 		int noobresult3 = 0;
 		int medresult1 = 0;
@@ -16,19 +15,22 @@ public class TestIA {
 		Computer computer2 = new Computer();// IA nulle
 		String shoot;
 		
-		for (int i = 0; i < 200; i++) {
-			computer1.implementboatcomputer("carrier");
-			computer1.implementboatcomputer("battleship");
-			computer1.implementboatcomputer("cruiser");
-			computer1.implementboatcomputer("submarine");
-			computer1.implementboatcomputer("destroyer");
-			computer2.implementboatcomputer("carrier");
-			computer2.implementboatcomputer("battleship");
-			computer2.implementboatcomputer("cruiser");
-			computer2.implementboatcomputer("submarine");
-			computer2.implementboatcomputer("destroyer");
+		
+		for (int i = 0; i < 300; i++) {
+			computer1.implementboat("carrier");
+			computer1.implementboat("battleship");
+			computer1.implementboat("cruiser");
+			computer1.implementboat("submarine");
+			computer1.implementboat("destroyer");
+			computer2.implementboat("carrier");
+			computer2.implementboat("battleship");
+			computer2.implementboat("cruiser");
+			computer2.implementboat("submarine");
+			computer2.implementboat("destroyer");
 			
 			while (!computer1.isDown() && !computer2.isDown()) {
+				Battleship.type = "3";
+				
 				shoot = computer1.shoot();
 				computer1.myShoots.add(shoot);
 				int j = 0;
@@ -54,7 +56,8 @@ public class TestIA {
 				}
 
 				if (!computer1.isDown() && !computer2.isDown()) {
-					shoot = computer2.shootlvlmin();
+					Battleship.type ="1";
+					shoot = computer2.shoot();
 					j = 0;
 					res = "A l'eau";
 					ship = null ;
@@ -86,19 +89,20 @@ public class TestIA {
 			computer2.reset();
 		}
 		System.out.println("première partie finie");
-		for (int i = 0; i < 200; i++) {
-			computer1.implementboatcomputer("carrier");
-			computer1.implementboatcomputer("battleship");
-			computer1.implementboatcomputer("cruiser");
-			computer1.implementboatcomputer("submarine");
-			computer1.implementboatcomputer("destroyer");
-			computer2.implementboatcomputer("carrier");
-			computer2.implementboatcomputer("battleship");
-			computer2.implementboatcomputer("cruiser");
-			computer2.implementboatcomputer("submarine");
-			computer2.implementboatcomputer("destroyer");
+		for (int i = 0; i < 300; i++) {
+			computer1.implementboat("carrier");
+			computer1.implementboat("battleship");
+			computer1.implementboat("cruiser");
+			computer1.implementboat("submarine");
+			computer1.implementboat("destroyer");
+			computer2.implementboat("carrier");
+			computer2.implementboat("battleship");
+			computer2.implementboat("cruiser");
+			computer2.implementboat("submarine");
+			computer2.implementboat("destroyer");
 			
 			while (!computer1.isDown() && !computer2.isDown()) {
+				Battleship.type ="3";
 				shoot = computer1.shoot();
 				computer1.myShoots.add(shoot);
 				int j = 0;
@@ -123,7 +127,8 @@ public class TestIA {
 					j = j + 1;
 				}
 				if (!computer1.isDown() && !computer2.isDown()) {
-					shoot = computer2.hasard();
+					Battleship.type ="2";
+					shoot = computer2.shoot();
 					computer2.myShoots.add(shoot);
 					j = 0;
 					res = "A l'eau";
@@ -153,20 +158,21 @@ public class TestIA {
 			computer2.reset();
 		}
 		System.out.println("deuxième partie finie");
-		for (int i = 0; i < 200; i++) {
-			computer1.implementboatcomputer("carrier");
-			computer1.implementboatcomputer("battleship");
-			computer1.implementboatcomputer("cruiser");
-			computer1.implementboatcomputer("submarine");
-			computer1.implementboatcomputer("destroyer");
-			computer2.implementboatcomputer("carrier");
-			computer2.implementboatcomputer("battleship");
-			computer2.implementboatcomputer("cruiser");
-			computer2.implementboatcomputer("submarine");
-			computer2.implementboatcomputer("destroyer");
+		for (int i = 0; i < 300; i++) {
+			computer1.implementboat("carrier");
+			computer1.implementboat("battleship");
+			computer1.implementboat("cruiser");
+			computer1.implementboat("submarine");
+			computer1.implementboat("destroyer");
+			computer2.implementboat("carrier");
+			computer2.implementboat("battleship");
+			computer2.implementboat("cruiser");
+			computer2.implementboat("submarine");
+			computer2.implementboat("destroyer");
 			
 			while (!computer1.isDown() && !computer2.isDown()) {
-				shoot = computer1.hasard();
+				Battleship.type ="2";
+				shoot = computer1.shoot();
 				computer1.myShoots.add(shoot);
 				int j = 0;
 				String res = "A l'eau";
@@ -185,6 +191,7 @@ public class TestIA {
 					j = j + 1;
 				}
 				if (!computer1.isDown() && !computer2.isDown()) {
+					Battleship.type ="1";
 					shoot = computer2.shootlvlmin();
 					j = 0;
 					res = "A l'eau";
@@ -216,6 +223,7 @@ public class TestIA {
 			computer1.reset();
 			computer2.reset();
 		}
+		System.out.println("troisième partie finie");
 		System.out.println(noobresult2 +" " + noobresult3 +" " + medresult1 +" " + medresult3 + " " +pgmresult1 +" " + pgmresult2);
 	}
 }

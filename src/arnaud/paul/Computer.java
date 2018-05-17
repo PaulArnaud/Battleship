@@ -1,7 +1,7 @@
 package arnaud.paul;
 import java.util.ArrayList;
 
-public class Computer extends Player {
+public class Computer extends Player{
 	// attaque
 	public ArrayList<String> currentboat = new ArrayList<String>();
 	public String state = "chasse";// chasse ou tir
@@ -34,6 +34,12 @@ public class Computer extends Player {
 
 	public void setDirstate(String dirstate) {
 		this.dirstate = dirstate;
+	}
+	
+	public void doingthings() {
+		setState("chasse");
+		setDirstate("top");
+		setCurrentboat(new ArrayList<String>());
 	}
 
 	// fonction qui renvoit la construction hasardeuse d'un bateau
@@ -87,49 +93,59 @@ public class Computer extends Player {
 	// fonction principal du tir de l'ordinateur chaque cas expliquer en détails à
 	// l'intérieur
 	public String shoot() {
-		String pos = "";
-		if (this.state.equals("chasse") || this.currentboat.size() == 0) {
-			// si on est dans le mode chasse ou que l'on a pas encore trouvé de bateau on
-			// tire au hasard
-			pos = hasard();
-		} else {
-			if (this.currentboat.size() > 1 && this.currentboat.size() < 5) {
-				// partie principal, ici c'est le tir intelligent, expliquer dans la fonction
-				// calcul !
-				pos = calcul();
-			} else if (this.currentboat.size() < 2) {
-				// ici on a trouvé un bateau mais on sait pas encore sa direction donc on
-				// cherche en haut,puis à droite,puis en bas, puis à gauche
-				if (dirstate.equals("top")) {
-					pos = topcase(this.currentboat.get(0));
-					this.dirstate = "right";
-					if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
-						pos = shoot();
-					}
-				} else if (dirstate.equals("right")) {
-					pos = rigthcase(this.currentboat.get(0));
-					this.dirstate = "bottom";
-					if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
-						pos = shoot();
-					}
-				} else if (dirstate.equals("bottom")) {
-					pos = bottomcase(this.currentboat.get(0));
-					this.dirstate = "left";
-					if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
-						pos = shoot();
-					}
-				} else if (dirstate.equals("left")){
-					pos = leftcase(this.currentboat.get(0));
-					this.dirstate = "top";
-					if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
-						pos = recovery();
-					}
-				}
+		String lvl = Battleship.type;
+		if (lvl.equals("3")){
+			String pos = "";
+			if (this.state.equals("chasse") || this.currentboat.size() == 0) {
+				// si on est dans le mode chasse ou que l'on a pas encore trouvé de bateau on
+				// tire au hasard
+				pos = hasard();
 			} else {
-				pos = recovery();
+				if (this.currentboat.size() > 1 && this.currentboat.size() < 5) {
+					// partie principal, ici c'est le tir intelligent, expliquer dans la fonction
+					// calcul !
+					pos = calcul();
+				} else if (this.currentboat.size() < 2) {
+					// ici on a trouvé un bateau mais on sait pas encore sa direction donc on
+					// cherche en haut,puis à droite,puis en bas, puis à gauche
+					if (dirstate.equals("top")) {
+						pos = topcase(this.currentboat.get(0));
+						this.dirstate = "right";
+						if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
+							pos = shoot();
+						}
+					} else if (dirstate.equals("right")) {
+						pos = rigthcase(this.currentboat.get(0));
+						this.dirstate = "bottom";
+						if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
+							pos = shoot();
+						}
+					} else if (dirstate.equals("bottom")) {
+						pos = bottomcase(this.currentboat.get(0));
+						this.dirstate = "left";
+						if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
+							pos = shoot();
+						}
+					} else if (dirstate.equals("left")){
+						pos = leftcase(this.currentboat.get(0));
+						this.dirstate = "top";
+						if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
+							pos = recovery();
+						}
+					}
+				} else {
+					pos = recovery();
+				}
 			}
+			return pos;
 		}
-		return pos;
+		else if (lvl.equals("2")) {
+			return hasard();
+		}
+		else {
+			return shootlvlmin();
+		}
+
 	}
 
 	public String calcul() {
@@ -292,7 +308,7 @@ public class Computer extends Player {
 		// renvoit une position au hasard qui n'a pas déjé été essayée
 		String pos = "";
 		int i = (int) (Math.random() * (Config.limrigthtoint - Config.limlefttoint + 1)) + Config.limlefttoint;
-		int j = (int) (Math.random() * (Config.limlbottomtoint - Config.limtoptoint + 1)) + Config.limtoptoint;
+		int j = (int) (Math.random() * (Config.limbottomtoint - Config.limtoptoint + 1)) + Config.limtoptoint;
 		String letter = Config.convinttostring(i);
 		String number = String.valueOf(j);
 		pos = letter + number;
@@ -305,13 +321,13 @@ public class Computer extends Player {
 	public String shootlvlmin() {
 		String pos = "";
 		int i = (int) (Math.random() * (Config.limrigthtoint - Config.limlefttoint + 1)) + Config.limlefttoint;
-		int j = (int) (Math.random() * (Config.limlbottomtoint - Config.limtoptoint + 1)) + Config.limtoptoint;
+		int j = (int) (Math.random() * (Config.limbottomtoint - Config.limtoptoint + 1)) + Config.limtoptoint;
 		String letter = Config.convinttostring(i);
 		String number = String.valueOf(j);
 		pos = letter + number;
 		return pos;
 	}
-	public void implementboatcomputer(String nombateau) {
+	public void implementboat(String nombateau) {
 		// fonction qui place les bateaux de l'ordi au hasard
 		boolean verif = false;
 		while (!verif) {
@@ -374,5 +390,11 @@ public class Computer extends Player {
 		this.state = "chasse";
 		this.dirstate ="top" ;
 		this.choice = "before"; 
+	}
+	
+	public void updateshoot(String shoot) {
+		super.updateshoot(shoot);
+		setState("tir");
+		getCurrentboat().add(shoot);
 	}
 }
