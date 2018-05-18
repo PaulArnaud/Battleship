@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import arnaud.paul.Battleship.Battleship;
+import arnaud.paul.Battleship.Config;
 import arnaud.paul.Battleship.Computer;
 import arnaud.paul.Battleship.Game;
 import arnaud.paul.Battleship.Player;
@@ -18,7 +18,7 @@ public class TestIA {
 		int medresult3 = 0;
 		int pgmresult1 = 0;
 		int pgmresult2 = 0;
-		Battleship.modeIA = true;
+		Config.modeIA = true;
 
 		Computer computerlvl1 = new Computer(1);
 		Computer computerlvl2 = new Computer(2);
@@ -33,13 +33,13 @@ public class TestIA {
 			}
 			// System.out.println("Mise en place des bateaux de " +
 			// newgame.ActivePlayer.getPlayername());
-			for (int i = 0; i < Battleship.tab.length; i++) {
-				newgame.ActivePlayer.implementboat(Battleship.tab[i]);
+			for (int i = 0; i < Config.tab.length; i++) {
+				newgame.ActivePlayer.implementboat(Config.tab[i]);
 			}
 			// System.out.println("Mise en place des bateaux de " +
 			// newgame.OppositePlayer.getPlayername());
-			for (int i = 0; i < Battleship.tab.length; i++) {
-				newgame.OppositePlayer.implementboat(Battleship.tab[i]);
+			for (int i = 0; i < Config.tab.length; i++) {
+				newgame.OppositePlayer.implementboat(Config.tab[i]);
 			}
 			// System.out.println("Début de la partie !!!!!!!!!");
 			Player winner = newgame.party();
@@ -65,13 +65,13 @@ public class TestIA {
 			}
 			// System.out.println("Mise en place des bateaux de " +
 			// newgame.ActivePlayer.getPlayername());
-			for (int i = 0; i < Battleship.tab.length; i++) {
-				newgame.ActivePlayer.implementboat(Battleship.tab[i]);
+			for (int i = 0; i < Config.tab.length; i++) {
+				newgame.ActivePlayer.implementboat(Config.tab[i]);
 			}
 			// System.out.println("Mise en place des bateaux de " +
 			// newgame.OppositePlayer.getPlayername());
-			for (int i = 0; i < Battleship.tab.length; i++) {
-				newgame.OppositePlayer.implementboat(Battleship.tab[i]);
+			for (int i = 0; i < Config.tab.length; i++) {
+				newgame.OppositePlayer.implementboat(Config.tab[i]);
 			}
 			// System.out.println("Début de la partie !!!!!!!!!");
 			Player winner = newgame.party();
@@ -97,13 +97,13 @@ public class TestIA {
 			}
 			// System.out.println("Mise en place des bateaux de " +
 			// newgame.ActivePlayer.getPlayername());
-			for (int i = 0; i < Battleship.tab.length; i++) {
-				newgame.ActivePlayer.implementboat(Battleship.tab[i]);
+			for (int i = 0; i < Config.tab.length; i++) {
+				newgame.ActivePlayer.implementboat(Config.tab[i]);
 			}
 			// System.out.println("Mise en place des bateaux de " +
 			// newgame.OppositePlayer.getPlayername());
-			for (int i = 0; i < Battleship.tab.length; i++) {
-				newgame.OppositePlayer.implementboat(Battleship.tab[i]);
+			for (int i = 0; i < Config.tab.length; i++) {
+				newgame.OppositePlayer.implementboat(Config.tab[i]);
 			}
 			// System.out.println("Début de la partie !!!!!!!!!");
 			Player winner = newgame.party();

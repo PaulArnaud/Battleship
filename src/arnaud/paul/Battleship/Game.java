@@ -57,12 +57,12 @@ public class Game {
 
 	public Player party() {
 		while (!IsOver()) {
-			if (!Battleship.modeIA) {
+			if (!Config.modeIA) {
 				System.out.println("C'est à " + ActivePlayer.getPlayername() + " de jouer : ");
 				System.out.println("Voici la carte de vos tirs");
-				Battleship.showshoot(ActivePlayer, OppositePlayer);
+				Config.showshoot(ActivePlayer, OppositePlayer);
 				System.out.println("Voici la carte des tirs de votre adversaire");
-				Battleship.showshoot(OppositePlayer, ActivePlayer);
+				Config.showshoot(OppositePlayer, ActivePlayer);
 			}		
 			String shoot = ActivePlayer.shoot();
 			int i = 0;
@@ -92,7 +92,7 @@ public class Game {
 			if (!ActivePlayer.hasAlreadyShot(shoot)) {
 				ActivePlayer.myShoots.add(shoot);
 			}
-			if (!Battleship.modeIA) {
+			if (!Config.modeIA) {
 				System.out.println("C'est : " + res);
 				System.out.println("Fin du tour de " + ActivePlayer.getPlayername());
 			}

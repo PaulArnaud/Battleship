@@ -1,5 +1,6 @@
 package arnaud.paul.Battleship;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Config {
 	/*
@@ -8,6 +9,7 @@ public class Config {
 	 * modifier dans player, les fonctions qui affichent la carte au joueur Merci
 	 * d'avoir lu
 	 */
+	public static Scanner reader = new Scanner(System.in);
 	public static String limleft = "A";
 	public static int limlefttoint = convstringtoint(limleft);
 	public static String limright = "J";
@@ -16,6 +18,10 @@ public class Config {
 	public static int limbottomtoint = Integer.parseInt(limbottom);
 	public static String limtop = "0";
 	public static int limtoptoint = Integer.parseInt(limtop);
+	public static String type;
+	public static String[] tab = { "carrier"/* ,"submarine","destroyer","battleship","cruiser" */ };
+	public static int vs;
+	public static boolean modeIA;
 
 	private Config() {
 	}
@@ -287,4 +293,32 @@ public class Config {
 			}
 		}
 	}
+	
+	public static void showshoot(Player active, Player opposite) {
+		String res = "";
+		String coord = "";
+		System.out.println("  A B C D E F G H I J");
+		for (int i = limtoptoint; i <= limbottomtoint; i++) {
+			res = String.valueOf(i);
+			for (int j = convstringtoint(limleft); j <= convstringtoint(limright); j++) {
+				coord = convinttostring(j) + String.valueOf(i);
+				if (active.myShoots.contains(coord)) {
+					if (opposite.isInCrew(coord)) {
+						res = res + " " + "x";
+					} else {
+						res = res + " " + "o";
+					}
+				} else {
+					res = res + " " + "~";
+				}
+			}
+			System.out.println(res);
+		}
+	}
+	
+	public static String readmsg() {
+		String message = reader.next();
+		return message;
+	}
+
 }

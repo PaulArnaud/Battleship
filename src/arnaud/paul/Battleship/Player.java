@@ -13,12 +13,12 @@ public class Player {
 					+ " ,choisissez une position à attaquer(exemple:" + Config.limleft + Config.limbottom + ","
 					+ Config.limright + Config.limbottom + ")");
 			System.out.println("Coordonnée du tir :");
-			String shoot = Battleship.readmsg();
+			String shoot = Config.readmsg();
 			while ( hasAlreadyShot(shoot) || (!Config.isCorrect(shoot))) {
 				System.out.println(getPlayername()
 						+ " ,choisissez une nouvelle position, vous avez déjé attaqué ici ou la position n'est pas valide ! ");
 				System.out.println("Coordonnée du tir :");
-				shoot = Battleship.readmsg();
+				shoot = Config.readmsg();
 
 			}
 			return shoot;		
@@ -180,7 +180,7 @@ public class Player {
 	public String askcoord(String var) {
 		System.out.println("La grille est composée de " + Config.limleft + Config.limtop + ", .... ," + Config.limright + Config.limbottom);
 		System.out.println("CoordonnÃ©e de "+var);
-		String coordA = Battleship.readmsg();
+		String coordA = Config.readmsg();
 		if (Config.isCorrect(coordA)) {
 			return coordA;
 		}
