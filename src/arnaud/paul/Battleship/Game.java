@@ -1,4 +1,4 @@
-package arnaud.paul;
+package arnaud.paul.Battleship;
 
 public class Game {
 	// notion de joueur actif et oppos� ( seulement pour le mode 2joueur) sinon le

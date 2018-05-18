@@ -1,4 +1,4 @@
-package arnaud.paul;
+package arnaud.paul.Battleship;
 import java.util.ArrayList;
 
 public class Ship implements Cloneable {
