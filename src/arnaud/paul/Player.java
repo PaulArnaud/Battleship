@@ -6,18 +6,19 @@ public class Player {
 	public ArrayList<Ship> losses = new ArrayList<Ship>();
 	public ArrayList<String> myShoots = new ArrayList<String>();
 	public String playername;
+	public int score;
 	
 	public String shoot() {
 			System.out.println(getPlayername()
 					+ " ,choisissez une position à attaquer(exemple:" + Config.limleft + Config.limbottom + ","
 					+ Config.limright + Config.limbottom + ")");
 			System.out.println("Coordonnée du tir :");
-			String shoot = Battleship.reader.next();
+			String shoot = Battleship.readmsg();
 			while ( hasAlreadyShot(shoot) || (!Config.isCorrect(shoot))) {
 				System.out.println(getPlayername()
 						+ " ,choisissez une nouvelle position, vous avez déjé attaqué ici ou la position n'est pas valide ! ");
 				System.out.println("Coordonnée du tir :");
-				shoot = Battleship.reader.next();
+				shoot = Battleship.readmsg();
 
 			}
 			return shoot;		
@@ -113,60 +114,60 @@ public class Player {
 				+ Config.boatsize(nombateau));
 		boolean verif = false;
 		while (!verif) {
-			System.out.println("CoordonnÃ©e de dÃ©but : ");
-			String coordA = Battleship.reader.next();
-			if (Config.isCorrect(coordA)) {
-				System.out.println("CoordonnÃ©e de fin : ");
-				String coordB = Battleship.reader.next();
-				if (Config.isCorrect(coordB)) {
-					ArrayList<String> test = Config.locacalcul(coordA, coordB);
-					int resu = 0;
-					for (String a : test) {
-						int i = 0;
-						while ((resu < 1) && (i < (this.battlecrew.size()))) {
-							Ship ship = this.battlecrew.get(i);
-							if (ship.localisation.contains(a)) {
-								resu = +1;
-							}
-							i++;
-						}
+			String coordA = askcoord("début");
+			String coordB = askcoord("fin");
+			ArrayList<String> test = Config.locacalcul(coordA, coordB);
+			int resu = 0;
+			for (String a : test) {
+				int i = 0;
+				while ((resu < 1) && (i < (this.battlecrew.size()))) {
+					Ship ship = this.battlecrew.get(i);
+					if (ship.localisation.contains(a)) {
+						resu = +1;
 					}
-					if (resu == 0) {
-						if (nombateau.equals("carrier")) {
-							Ship carrier = new Ship(coordA, coordB, test, "carrier");
-							if (carrier.etat.equals("valide")) {
-								verif = true;
-								this.battlecrew.add(carrier);
-							}
-						} else if (nombateau.equals("battleship")) {
-							Ship battleship = new Ship(coordA, coordB, test, "battleship");
-							if (battleship.etat.equals("valide")) {
-								verif = true;
-								this.battlecrew.add(battleship);
-							}
-						} else if (nombateau.equals("cruiser")) {
-							Ship cruiser = new Ship(coordA, coordB, test, "cruiser");
-							if (cruiser.etat.equals("valide")) {
-								verif = true;
-								this.battlecrew.add(cruiser);
-							}
-						} else if (nombateau.equals("destroyer")) {
-							Ship destroyer = new Ship(coordA, coordB, test, "destroyer");
-							if (destroyer.etat.equals("valide")) {
-								verif = true;
-								this.battlecrew.add(destroyer);
-							}
-						} else if (nombateau.equals("submarine")) {
-							Ship submarine = new Ship(coordA, coordB, test, "submarine");
-							if (submarine.etat.equals("valide")) {
-								verif = true;
-								this.battlecrew.add(submarine);
-							}
-						}
-					}
+					i++;
 				}
 			}
+			if (resu == 0) {
+				verif = buildboat(nombateau,coordA,coordB,test);
+			}			
 		}
+	}
+	
+	public boolean buildboat(String nombateau,String coordA, String coordB, ArrayList<String> test) {
+		boolean res = false;
+		if (nombateau.equals("carrier")) {
+			Ship carrier = new Ship(coordA, coordB, test, "carrier");
+			if (carrier.etat.equals("valide")) {
+				res = true;
+				this.battlecrew.add(carrier);
+			}
+		} else if (nombateau.equals("battleship")) {
+			Ship battleship = new Ship(coordA, coordB, test, "battleship");
+			if (battleship.etat.equals("valide")) {
+				res = true;
+				this.battlecrew.add(battleship);
+			}
+		} else if (nombateau.equals("cruiser")) {
+			Ship cruiser = new Ship(coordA, coordB, test, "cruiser");
+			if (cruiser.etat.equals("valide")) {
+				res = true;
+				this.battlecrew.add(cruiser);
+			}
+		} else if (nombateau.equals("destroyer")) {
+			Ship destroyer = new Ship(coordA, coordB, test, "destroyer");
+			if (destroyer.etat.equals("valide")) {
+				res = true;
+				this.battlecrew.add(destroyer);
+			}
+		} else if (nombateau.equals("submarine")) {
+			Ship submarine = new Ship(coordA, coordB, test, "submarine");
+			if (submarine.etat.equals("valide")) {
+				res = true;
+				this.battlecrew.add(submarine);
+			}
+		}
+		return res;
 	}
 	
 	public void updateshoot(String shoot) {
@@ -174,5 +175,17 @@ public class Player {
 	}
 	public void doingthings() {
 		
+	}
+	
+	public String askcoord(String var) {
+		System.out.println("La grille est composée de " + Config.limleft + Config.limtop + ", .... ," + Config.limright + Config.limbottom);
+		System.out.println("CoordonnÃ©e de "+var);
+		String coordA = Battleship.readmsg();
+		if (Config.isCorrect(coordA)) {
+			return coordA;
+		}
+		else {
+			return askcoord(var);
+		}
 	}
 }

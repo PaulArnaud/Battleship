@@ -3,9 +3,8 @@ package arnaud.paul;
 public class Game {
 	// notion de joueur actif et opposï¿½ ( seulement pour le mode 2joueur) sinon le
 	// joueur est le joueur actif de faï¿½on permanente contre l'ordi
-	public Player ActivePlayer ;
+	public Player ActivePlayer;
 	public Player OppositePlayer;
-	public Computer ComputerPlayer ;
 
 	public Game(Player player1, Player player2) {
 		this.ActivePlayer = player1;
@@ -45,11 +44,7 @@ public class Game {
 
 	// fonction vraie ou fausse si la partie est terminï¿½e ou non
 	public boolean IsOver() {
-		if (ComputerPlayer == null) {
-			return ActivePlayer.isDown() || OppositePlayer.isDown();
-		} else  {
-			return ActivePlayer.isDown() || ComputerPlayer.isDown();
-		}
+		return ActivePlayer.isDown() || OppositePlayer.isDown();
 	}
 
 	public Player adversary(Player name) {
@@ -57,6 +52,57 @@ public class Game {
 			return this.OppositePlayer;
 		} else {
 			return this.ActivePlayer;
+		}
+	}
+
+	public Player party() {
+		while (!IsOver()) {
+			if (!Battleship.modeIA) {
+				System.out.println("C'est à " + ActivePlayer.getPlayername() + " de jouer : ");
+				System.out.println("Voici la carte de vos tirs");
+				Battleship.showshoot(ActivePlayer, OppositePlayer);
+				System.out.println("Voici la carte des tirs de votre adversaire");
+				Battleship.showshoot(OppositePlayer, ActivePlayer);
+			}		
+			String shoot = ActivePlayer.shoot();
+			int i = 0;
+			String res = "A l'eau";
+			while ((i < (OppositePlayer.length())) && (res.equals("A l'eau"))) {
+				if (ActivePlayer.hasAlreadyShot(shoot)) {
+					if (ActivePlayer.isFind(shoot)) {
+						res = "Touché";
+					}
+					i = OppositePlayer.length();
+				} else {
+					Ship ship = OppositePlayer.getBattlecrew().get(i);
+					if (ship.isHit(shoot)) {
+						ship.lifepoint--;
+						ActivePlayer.updateshoot(shoot);
+						if (ship.isDestroyed()) {
+							res = "Touché Coulé";
+							OppositePlayer.removeShip(ship);
+							ActivePlayer.doingthings();
+						} else {
+							res = "Touché";
+						}
+					}
+					i = i + 1;
+				}
+			}
+			if (!ActivePlayer.hasAlreadyShot(shoot)) {
+				ActivePlayer.myShoots.add(shoot);
+			}
+			if (!Battleship.modeIA) {
+				System.out.println("C'est : " + res);
+				System.out.println("Fin du tour de " + ActivePlayer.getPlayername());
+			}
+			changePlayer();
+		}
+		// on regarde qui a gagné et qui a perdu
+		if (ActivePlayer.length() == 0) {
+			return OppositePlayer;
+		} else {
+			return ActivePlayer;
 		}
 	}
 }

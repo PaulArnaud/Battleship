@@ -1,15 +1,18 @@
 package arnaud.paul;
+
 import java.util.ArrayList;
 
-public class Computer extends Player{
+public class Computer extends Player {
 	// attaque
 	public ArrayList<String> currentboat = new ArrayList<String>();
 	public String state = "chasse";// chasse ou tir
 	public String dirstate = "top"; // haut,droite,bas,gauche
 	public String choice = "before";
+	public int lvl;
 
-	public Computer() {
+	public Computer(int a) {
 		super();
+		this.lvl = a;
 	}
 
 	public ArrayList<String> getCurrentboat() {
@@ -35,7 +38,7 @@ public class Computer extends Player{
 	public void setDirstate(String dirstate) {
 		this.dirstate = dirstate;
 	}
-	
+
 	public void doingthings() {
 		setState("chasse");
 		setDirstate("top");
@@ -93,9 +96,8 @@ public class Computer extends Player{
 	// fonction principal du tir de l'ordinateur chaque cas expliquer en détails à
 	// l'intérieur
 	public String shoot() {
-		String lvl = Battleship.type;
-		if (lvl.equals("3")){
-			String pos = "";
+		String pos = "";
+		if (this.lvl == 3) {
 			if (this.state.equals("chasse") || this.currentboat.size() == 0) {
 				// si on est dans le mode chasse ou que l'on a pas encore trouvé de bateau on
 				// tire au hasard
@@ -126,7 +128,7 @@ public class Computer extends Player{
 						if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
 							pos = shoot();
 						}
-					} else if (dirstate.equals("left")){
+					} else if (dirstate.equals("left")) {
 						pos = leftcase(this.currentboat.get(0));
 						this.dirstate = "top";
 						if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
@@ -137,14 +139,13 @@ public class Computer extends Player{
 					pos = recovery();
 				}
 			}
-			return pos;
-		}
-		else if (lvl.equals("2")) {
-			return hasard();
+		}else if ( this.lvl == 2) {
+			pos = hasard();
 		}
 		else {
-			return shootlvlmin();
+			pos = shootlvlmin(); 
 		}
+		return pos;
 
 	}
 
@@ -250,8 +251,6 @@ public class Computer extends Player{
 	}
 
 	public int direction() {
-		// renvoit la direction du bateau surlequel on est en train de tirer : 1 si
-		// horizontal, 0 si vertical.
 		int direction = 0;
 		String firstletter = Config.getLetter(this.currentboat.get(0));
 		String secondletter = Config.getLetter(this.currentboat.get(1));
@@ -262,8 +261,6 @@ public class Computer extends Player{
 	}
 
 	public void tricurrentboat() {
-		// fonction de tri de currentboat pour pouvoir tirer avant ou aprés ( avant
-		// c'est par rapport é la premiére position aprés ...etc)
 		int dir = direction();
 		ArrayList<String> battri = new ArrayList<String>();
 		if (dir == 1) {// Méme ligne
@@ -295,8 +292,6 @@ public class Computer extends Player{
 	}
 
 	public String recovery() {
-		// lorsqu'on ne peut plus tirer ni avant ni aprés on se remet en position
-		// initiale soit mode chasse,etc)
 		this.currentboat = new ArrayList<String>();
 		this.state = "chasse";
 		this.dirstate = "top";
@@ -305,7 +300,6 @@ public class Computer extends Player{
 	}
 
 	public String hasard() {
-		// renvoit une position au hasard qui n'a pas déjé été essayée
 		String pos = "";
 		int i = (int) (Math.random() * (Config.limrigthtoint - Config.limlefttoint + 1)) + Config.limlefttoint;
 		int j = (int) (Math.random() * (Config.limbottomtoint - Config.limtoptoint + 1)) + Config.limtoptoint;
@@ -318,6 +312,41 @@ public class Computer extends Player{
 		return pos;
 	}
 
+	public void implementboat(String nombateau) {
+		boolean verif = false;
+		while (!verif) {
+			ArrayList<String> test = hasardcontruc(nombateau);
+			int resu = 0;
+			for (String a : test) {
+				int i = 0;
+				while ((resu < 1) && (i < (this.battlecrew.size()))) {
+					Ship ship = this.battlecrew.get(i);
+					if (ship.localisation.contains(a)) {
+						resu = +1;
+					}
+					i++;
+				}
+			}
+			if (resu == 0) {
+				verif = super.buildboat(nombateau, test.get(0), test.get(test.size() - 1), test);
+			}
+		}
+	}
+
+	public void reset() {
+		super.reset();
+		this.currentboat = new ArrayList<String>();
+		this.state = "chasse";
+		this.dirstate = "top";
+		this.choice = "before";
+	}
+
+	public void updateshoot(String shoot) {
+		super.updateshoot(shoot);
+		setState("tir");
+		getCurrentboat().add(shoot);
+	}
+
 	public String shootlvlmin() {
 		String pos = "";
 		int i = (int) (Math.random() * (Config.limrigthtoint - Config.limlefttoint + 1)) + Config.limlefttoint;
@@ -326,75 +355,5 @@ public class Computer extends Player{
 		String number = String.valueOf(j);
 		pos = letter + number;
 		return pos;
-	}
-	public void implementboat(String nombateau) {
-		// fonction qui place les bateaux de l'ordi au hasard
-		boolean verif = false;
-		while (!verif) {
-			ArrayList<String> liste = hasardcontruc(nombateau);
-			int resu = 0;
-			for (String a : liste) {
-				int i = 0;
-				while ((resu < 1) && (i < (super.length()))) {
-					Ship ship = super.battlecrew.get(i);
-					if (ship.localisation.contains(a)) {
-						resu = +1;
-					}
-					i++;
-				}
-			}
-			if (resu == 0) {
-				if (nombateau.equals("carrier")) {
-					Ship carrier = new Ship(liste.get(0), liste.get(4), liste, "carrier");
-					if (carrier.etat.equals("valide")) {
-						verif = true;
-						// System.out.println(carrier.getLocalisation());
-						super.battlecrew.add(carrier);
-					}
-				} else if (nombateau.equals("battleship")) {
-					Ship battleship = new Ship(liste.get(0), liste.get(3), liste, "battleship");
-					if (battleship.etat.equals("valide")) {
-						verif = true;
-						// System.out.println(battleship.getLocalisation());
-						super.battlecrew.add(battleship);
-					}
-				} else if (nombateau.equals("cruiser")) {
-					Ship cruiser = new Ship(liste.get(0), liste.get(2), liste, "cruiser");
-					if (cruiser.etat.equals("valide")) {
-						verif = true;
-						// System.out.println(cruiser.getLocalisation());
-						super.battlecrew.add(cruiser);
-					}
-				} else if (nombateau.equals("destroyer")) {
-					Ship destroyer = new Ship(liste.get(0), liste.get(1), liste, "destroyer");
-					if (destroyer.etat.equals("valide")) {
-						verif = true;
-						// System.out.println(destroyer.getLocalisation());
-						super.battlecrew.add(destroyer);
-					}
-				} else if (nombateau.equals("submarine")) {
-					Ship submarine = new Ship(liste.get(0), liste.get(2), liste, "submarine");
-					if (submarine.etat.equals("valide")) {
-						verif = true;
-						// System.out.println(submarine.getLocalisation());
-						super.battlecrew.add(submarine);
-					}
-				}
-			}
-		}
-	}
-	
-	public void reset() {
-		super.reset();
-		this.currentboat = new ArrayList<String>();
-		this.state = "chasse";
-		this.dirstate ="top" ;
-		this.choice = "before"; 
-	}
-	
-	public void updateshoot(String shoot) {
-		super.updateshoot(shoot);
-		setState("tir");
-		getCurrentboat().add(shoot);
 	}
 }
