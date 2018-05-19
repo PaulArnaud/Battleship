@@ -1,4 +1,5 @@
 package arnaud.paul;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -52,7 +53,7 @@ public class Config {
 		// res = Integer.parseInt(var.substring(1));
 		return res;
 	}
-	
+
 	public static int convforint(String var) {
 		int n = var.length();
 		int res = 0;
@@ -239,17 +240,32 @@ public class Config {
 		String secondletter = getLetter(end);
 		String secondnumber = String.valueOf(getNumber(end));
 		if (firstletter.equals(secondletter)) {
+
 			int fn = convforint(firstnumber);
 			int sn = convforint(secondnumber);
-			for (int i = fn; i <= sn; i++) {
-				loca.add(firstletter + i);
+			if (fn < sn) {
+				for (int i = fn; i <= sn; i++) {
+					loca.add(firstletter + i);
+				}
+			} else {
+				for (int i = sn; i <= fn; i++) {
+					loca.add(firstletter + i);
+				}
 			}
+
 		} else if (firstnumber.equals(secondnumber)) {
 			int fl = convstringtoint(firstletter);
 			int sl = convstringtoint(secondletter);
-			for (int i = fl; i <= sl; i++) {
-				loca.add(convinttostring(i) + firstnumber);
+			if (fl < sl) {
+				for (int i = fl; i <= sl; i++) {
+					loca.add(convinttostring(i) + firstnumber);
+				}
+			} else {
+				for (int i = sl; i <= fl; i++) {
+					loca.add(convinttostring(i) + firstnumber);
+				}
 			}
+
 		} else {
 			System.out.println("ErrorsetLocalisation");
 		}
@@ -293,7 +309,7 @@ public class Config {
 			}
 		}
 	}
-	
+
 	public static void showshoot(Player active, Player opposite) {
 		String res = "";
 		String coord = "";
@@ -315,7 +331,7 @@ public class Config {
 			System.out.println(res);
 		}
 	}
-	
+
 	public static String readmsg() {
 		String message = reader.next();
 		return message;

@@ -10,14 +10,14 @@ public class Player {
 	
 	public String shoot() {
 			System.out.println(getPlayername()
-					+ " ,choisissez une position à attaquer(exemple:" + Config.limleft + Config.limbottom + ","
+					+ " ,choisissez une position Ã  attaquer(exemple:" + Config.limleft + Config.limbottom + ","
 					+ Config.limright + Config.limbottom + ")");
-			System.out.println("Coordonnée du tir :");
+			System.out.println("CoordonnÃ©e du tir :");
 			String shoot = Config.readmsg();
 			while ( hasAlreadyShot(shoot) || (!Config.isCorrect(shoot))) {
 				System.out.println(getPlayername()
-						+ " ,choisissez une nouvelle position, vous avez déjé attaqué ici ou la position n'est pas valide ! ");
-				System.out.println("Coordonnée du tir :");
+						+ " ,choisissez une nouvelle position, vous avez dï¿½jï¿½ attaquï¿½ ici ou la position n'est pas valide ! ");
+				System.out.println("CoordonnÃ©e du tir :");
 				shoot = Config.readmsg();
 
 			}
@@ -114,7 +114,7 @@ public class Player {
 				+ Config.boatsize(nombateau));
 		boolean verif = false;
 		while (!verif) {
-			String coordA = askcoord("début");
+			String coordA = askcoord("dï¿½but");
 			String coordB = askcoord("fin");
 			ArrayList<String> test = Config.locacalcul(coordA, coordB);
 			int resu = 0;
@@ -178,7 +178,7 @@ public class Player {
 	}
 	
 	public String askcoord(String var) {
-		System.out.println("La grille est composée de " + Config.limleft + Config.limtop + ", .... ," + Config.limright + Config.limbottom);
+		System.out.println("La grille est composÃ©e de " + Config.limleft + Config.limtop + ", .... ," + Config.limright + Config.limbottom);
 		System.out.println("CoordonnÃ©e de "+var);
 		String coordA = Config.readmsg();
 		if (Config.isCorrect(coordA)) {

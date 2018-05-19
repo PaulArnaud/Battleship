@@ -58,7 +58,7 @@ public class Game {
 	public Player party() {
 		while (!IsOver()) {
 			if (!Config.modeIA) {
-				System.out.println("C'est à " + ActivePlayer.getPlayername() + " de jouer : ");
+				System.out.println("C'est Ã  " + ActivePlayer.getPlayername() + " de jouer : ");
 				System.out.println("Voici la carte de vos tirs");
 				Config.showshoot(ActivePlayer, OppositePlayer);
 				System.out.println("Voici la carte des tirs de votre adversaire");
@@ -70,7 +70,7 @@ public class Game {
 			while ((i < (OppositePlayer.length())) && (res.equals("A l'eau"))) {
 				if (ActivePlayer.hasAlreadyShot(shoot)) {
 					if (ActivePlayer.isFind(shoot)) {
-						res = "Touché";
+						res = "TouchÃ©";
 					}
 					i = OppositePlayer.length();
 				} else {
@@ -79,11 +79,11 @@ public class Game {
 						ship.lifepoint--;
 						ActivePlayer.updateshoot(shoot);
 						if (ship.isDestroyed()) {
-							res = "Touché Coulé";
+							res = "TouchÃ© CoulÃ©";
 							OppositePlayer.removeShip(ship);
 							ActivePlayer.doingthings();
 						} else {
-							res = "Touché";
+							res = "TouchÃ©";
 						}
 					}
 					i = i + 1;
@@ -98,7 +98,7 @@ public class Game {
 			}
 			changePlayer();
 		}
-		// on regarde qui a gagné et qui a perdu
+		// on regarde qui a gagnï¿½ et qui a perdu
 		if (ActivePlayer.length() == 0) {
 			return OppositePlayer;
 		} else {

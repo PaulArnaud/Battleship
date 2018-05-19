@@ -2,13 +2,13 @@ package arnaud.paul;
 import java.util.ArrayList;
 
 public class Ship implements Cloneable {
-	public String startCoordonate; // d�but du bateau
+	public String startCoordonate; // début du bateau
 	public String endCoordonate; // fin du bateau
-	public ArrayList<String> localisation; // listes de toutes les cases sur lesquelles le bateau se situe
+	public ArrayList<String> localisation; // liste de toutes les cases sur lesquelles le bateau se situe
 	public String etat;
 	public int lifepoint;
 
-	// Fonction de cr�ation d'un bateau
+	// Fonction de création d'un bateau
 	public Ship(String start, String end, ArrayList<String> loca, String name) {
 		super();
 		this.startCoordonate = start;
@@ -55,7 +55,7 @@ public class Ship implements Cloneable {
 		return localisation;
 	}
 
-	// Fonction pour remplir la liste des coordonn�es du bateau
+	// Fonction pour remplir la liste des coordonnées du bateau
 	public void setLocalisation(ArrayList<String> loca) {
 		this.localisation = loca;
 	}
@@ -69,7 +69,7 @@ public class Ship implements Cloneable {
 		}
 	}
 
-	// fonction pour savoir si le bateau est d�truit
+	// fonction pour savoir si le bateau est détruit
 	public boolean isDestroyed() {
 		if (this.lifepoint == 0) {
 			return true;
