@@ -1,4 +1,4 @@
-package arnaud.paul.Battleship;
+package arnaud.paul;
 import java.util.ArrayList;
 
 public class Player {

@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import arnaud.paul.Battleship.Config;
-import arnaud.paul.Battleship.Computer;
-import arnaud.paul.Battleship.Game;
-import arnaud.paul.Battleship.Player;
+import arnaud.paul.Computer;
+import arnaud.paul.Config;
+import arnaud.paul.Game;
+import arnaud.paul.Player;
 
 public class TestIA {
 

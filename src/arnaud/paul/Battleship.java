@@ -1,4 +1,4 @@
-package arnaud.paul.Battleship;
+package arnaud.paul;
 
 public class Battleship {
 
