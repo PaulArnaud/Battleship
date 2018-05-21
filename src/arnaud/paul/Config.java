@@ -20,7 +20,7 @@ public class Config {
 	public static String limtop = "0";
 	public static int limtoptoint = Integer.parseInt(limtop);
 	public static String type;
-	public static String[] tab = { "carrier"/* ,"submarine","destroyer","battleship","cruiser" */ };
+	public static String[] tab = { "carrier", "submarine"/* ,"destroyer","battleship","cruiser" */ };
 	public static int vs;
 	public static boolean modeIA;
 
@@ -321,6 +321,33 @@ public class Config {
 				if (active.myShoots.contains(coord)) {
 					if (opposite.isInCrew(coord)) {
 						res = res + " " + "x";
+					} else {
+						res = res + " " + "o";
+					}
+				} else {
+					res = res + " " + "~";
+				}
+			}
+			System.out.println(res);
+		}
+	}
+
+	public static void showboat(Player active, Player opposite) {
+		String res = "";
+		String coord = "";
+		System.out.println("  A B C D E F G H I J");
+		for (int i = limtoptoint; i <= limbottomtoint; i++) {
+			res = String.valueOf(i);
+			for (int j = convstringtoint(limleft); j <= convstringtoint(limright); j++) {
+				coord = convinttostring(j) + String.valueOf(i);
+				if (active.myShoots.contains(coord)) {
+					if (opposite.isInCrew(coord)) {
+						if (opposite.isInBattlecrew(coord)) {
+							res = res + " " + "x";
+						} else {
+							res = res + " " + "s";
+						}
+
 					} else {
 						res = res + " " + "o";
 					}

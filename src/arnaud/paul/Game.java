@@ -62,14 +62,14 @@ public class Game {
 				System.out.println("Voici la carte de vos tirs");
 				Config.showshoot(ActivePlayer, OppositePlayer);
 				System.out.println("Voici la carte des tirs de votre adversaire");
-				Config.showshoot(OppositePlayer, ActivePlayer);
-			}		
+				Config.showboat(OppositePlayer, ActivePlayer);
+			}
 			String shoot = ActivePlayer.shoot();
 			int i = 0;
 			String res = "A l'eau";
 			while ((i < (OppositePlayer.length())) && (res.equals("A l'eau"))) {
 				if (ActivePlayer.hasAlreadyShot(shoot)) {
-					if (ActivePlayer.isFind(shoot)) {
+					if (ActivePlayer.isInCrew(shoot)) {
 						res = "Touché";
 					}
 					i = OppositePlayer.length();

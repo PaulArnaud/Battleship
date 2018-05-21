@@ -2,8 +2,6 @@ package arnaud.paul;
 
 public class Battleship {
 
-	
-
 	public static void main(String[] args) {
 
 		System.out.println("Voulez faire une nouvelle partie ? oui/non");
@@ -15,7 +13,8 @@ public class Battleship {
 							+ "pour jouer contre l'ordi de niveau 2 taper 2\n"
 							+ "pour joeur contre l'ordi de niveau 3 taper 3\n" + "Choix : ");
 			Config.type = Config.readmsg();
-			while (!Config.type .equals("0") && !Config.type .equals("1") && !Config.type .equals("2") && !Config.type .equals("3")) {
+			while (!Config.type.equals("0") && !Config.type.equals("1") && !Config.type.equals("2")
+					&& !Config.type.equals("3")) {
 				System.out.println("Mauvais choix");
 				Config.type = Config.readmsg();
 			}
@@ -52,11 +51,15 @@ public class Battleship {
 				}
 				System.out.println("Mise en place des bateaux de " + newgame.ActivePlayer.getPlayername());
 				for (int i = 0; i < Config.tab.length; i++) {
-					newgame.ActivePlayer.implementboat( Config.tab[i]);
+					newgame.ActivePlayer.showMyCrew();
+					newgame.ActivePlayer.implementboat(Config.tab[i]);
 				}
 				System.out.println("Mise en place des bateaux de " + newgame.OppositePlayer.getPlayername());
-				for (int i = 0; i <  Config.tab.length; i++) {
-					newgame.OppositePlayer.implementboat( Config.tab[i]);
+				for (int i = 0; i < Config.tab.length; i++) {
+					if (!Config.type.equals("0")) {
+						newgame.OppositePlayer.showMyCrew();
+					}
+					newgame.OppositePlayer.implementboat(Config.tab[i]);
 				}
 				System.out.println("Début de la partie !!!!!!!!!");
 				Player winner = newgame.party();

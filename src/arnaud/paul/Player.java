@@ -1,4 +1,5 @@
 package arnaud.paul;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -7,23 +8,22 @@ public class Player {
 	public ArrayList<String> myShoots = new ArrayList<String>();
 	public String playername;
 	public int score;
-	
-	public String shoot() {
-			System.out.println(getPlayername()
-					+ " ,choisissez une position à attaquer(exemple:" + Config.limleft + Config.limbottom + ","
-					+ Config.limright + Config.limbottom + ")");
-			System.out.println("Coordonnée du tir :");
-			String shoot = Config.readmsg();
-			while ( hasAlreadyShot(shoot) || (!Config.isCorrect(shoot))) {
-				System.out.println(getPlayername()
-						+ " ,choisissez une nouvelle position, vous avez d�j� attaqu� ici ou la position n'est pas valide ! ");
-				System.out.println("Coordonnée du tir :");
-				shoot = Config.readmsg();
 
-			}
-			return shoot;		
+	public String shoot() {
+		System.out.println(getPlayername() + " ,choisissez une position à attaquer(exemple:" + Config.limleft
+				+ Config.limbottom + "," + Config.limright + Config.limbottom + ")");
+		System.out.println("Coordonnée du tir :");
+		String shoot = Config.readmsg();
+		while (hasAlreadyShot(shoot) || (!Config.isCorrect(shoot))) {
+			System.out.println(getPlayername()
+					+ " ,choisissez une nouvelle position, vous avez d�j� attaqu� ici ou la position n'est pas valide ! ");
+			System.out.println("Coordonnée du tir :");
+			shoot = Config.readmsg();
+
+		}
+		return shoot;
 	}
-	
+
 	public void setPlayername(String a) {
 		this.playername = a;
 	}
@@ -68,15 +68,12 @@ public class Player {
 	}
 
 	public boolean isInCrew(String a) {
-		int n = this.losses.size();
-		int m = this.battlecrew.size();
+		return isInLosses(a) || isInBattlecrew(a);
+	}
+
+	public boolean isInBattlecrew(String a) {
 		boolean res = false;
-		for (int i = 0; i < n; i++) {
-			if (this.losses.get(i).isHit(a)) {
-				res = true;
-			}
-		}
-		for (int j = 0; j < m; j++) {
+		for (int j = 0; j < this.battlecrew.size(); j++) {
 			if (this.battlecrew.get(j).isHit(a)) {
 				res = true;
 			}
@@ -84,29 +81,22 @@ public class Player {
 		return res;
 	}
 
-	public boolean isFind(String a) {
-		int n = this.battlecrew.size();
-		int m = this.losses.size();
-		int res = 0;
-		for (int i = 0; i < n; i++) {
-			if (this.battlecrew.get(i).isHit(a)) {
-				res = +1;
-			}
-		}
-		for (int j = 0; j < m; j++) {
+	public boolean isInLosses(String a) {
+		boolean res = false;
+		for (int j = 0; j < this.losses.size(); j++) {
 			if (this.losses.get(j).isHit(a)) {
-				res = +1;
+				res = true;
 			}
 		}
-		return !(res == 0);
+		return res;
 	}
-	
+
 	public void reset() {
 		this.battlecrew = new ArrayList<Ship>();
 		this.losses = new ArrayList<Ship>();
 		this.myShoots = new ArrayList<String>();
 	}
-	
+
 	public void implementboat(String nombateau) {
 		// mise en place des bateaux pour le joueur, elle vérifie si les choix faits par
 		// le joueur sont possibles
@@ -129,12 +119,12 @@ public class Player {
 				}
 			}
 			if (resu == 0) {
-				verif = buildboat(nombateau,coordA,coordB,test);
-			}			
+				verif = buildboat(nombateau, coordA, coordB, test);
+			}
 		}
 	}
-	
-	public boolean buildboat(String nombateau,String coordA, String coordB, ArrayList<String> test) {
+
+	public boolean buildboat(String nombateau, String coordA, String coordB, ArrayList<String> test) {
 		boolean res = false;
 		if (nombateau.equals("carrier")) {
 			Ship carrier = new Ship(coordA, coordB, test, "carrier");
@@ -169,22 +159,43 @@ public class Player {
 		}
 		return res;
 	}
-	
+
 	public void updateshoot(String shoot) {
 		myShoots.add(shoot);
 	}
+
 	public void doingthings() {
-		
+
 	}
-	
+
+	public void showMyCrew() {
+		String res = "";
+		String coord = "";
+		System.out.println("  A B C D E F G H I J");
+		for (int i = Config.limtoptoint; i <= Config.limbottomtoint; i++) {
+			res = String.valueOf(i);
+			for (int j = Config.convstringtoint(Config.limleft); j <= Config.convstringtoint(Config.limright); j++) {
+				coord = Config.convinttostring(j) + String.valueOf(i);
+				if (isInBattlecrew(coord)) {
+					res = res + " " + "b";
+
+				} else {
+					res = res + " " + "~";
+				}
+			}
+			System.out.println(res);
+		}
+
+	}
+
 	public String askcoord(String var) {
-		System.out.println("La grille est composée de " + Config.limleft + Config.limtop + ", .... ," + Config.limright + Config.limbottom);
-		System.out.println("Coordonnée de "+var);
+		System.out.println("La grille est composée de " + Config.limleft + Config.limtop + ", .... ," + Config.limright
+				+ Config.limbottom);
+		System.out.println("Coordonnée de " + var);
 		String coordA = Config.readmsg();
 		if (Config.isCorrect(coordA)) {
 			return coordA;
-		}
-		else {
+		} else {
 			return askcoord(var);
 		}
 	}
