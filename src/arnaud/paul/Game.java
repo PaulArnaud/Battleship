@@ -3,85 +3,85 @@ package arnaud.paul;
 public class Game {
 	// notion de joueur actif et oppos� ( seulement pour le mode 2joueur) sinon le
 	// joueur est le joueur actif de fa�on permanente contre l'ordi
-	public Player ActivePlayer;
-	public Player OppositePlayer;
+	public Player activeplayer;
+	public Player oppositeplayer;
 
 	public Game(Player player1, Player player2) {
-		this.ActivePlayer = player1;
-		this.OppositePlayer = player2;
+		this.activeplayer = player1;
+		this.oppositeplayer = player2;
 	}
 
 	public Player getActivePlayer() {
-		return ActivePlayer;
+		return activeplayer;
 	}
 
 	public void setActivePlayer(Player activePlayer) {
-		ActivePlayer = activePlayer;
+		activeplayer = activePlayer;
 	}
 
 	public Player getOppositePlayer() {
-		return OppositePlayer;
+		return oppositeplayer;
 	}
 
 	public void setOppositePlayer(Player oppositePlayer) {
-		OppositePlayer = oppositePlayer;
+		oppositeplayer = oppositePlayer;
 	}
 
 	public String ActivetoString() {
-		return "[ActivePlayer=" + ActivePlayer + "]";
+		return "[ActivePlayer=" + activeplayer + "]";
 	}
 
 	public String OppositetoString() {
-		return "[OppositePlayer=" + OppositePlayer + "]";
+		return "[OppositePlayer=" + oppositeplayer + "]";
 	}
 
 	public void changePlayer() {
 		Player TempPlayer;
-		TempPlayer = this.ActivePlayer;
-		this.ActivePlayer = this.OppositePlayer;
-		this.OppositePlayer = TempPlayer;
+		TempPlayer = this.activeplayer;
+		this.activeplayer = this.oppositeplayer;
+		this.oppositeplayer = TempPlayer;
 	}
 
 	// fonction vraie ou fausse si la partie est termin�e ou non
 	public boolean IsOver() {
-		return ActivePlayer.isDown() || OppositePlayer.isDown();
+		return activeplayer.isDown() || oppositeplayer.isDown();
 	}
 
 	public Player adversary(Player name) {
-		if (this.ActivePlayer == name) {
-			return this.OppositePlayer;
+		if (this.activeplayer == name) {
+			return this.oppositeplayer;
 		} else {
-			return this.ActivePlayer;
+			return this.activeplayer;
 		}
 	}
 
 	public Player party() {
 		while (!IsOver()) {
 			if (!Config.modeIA) {
-				System.out.println("C'est à " + ActivePlayer.getPlayername() + " de jouer : ");
+				System.out.println("C'est à " + activeplayer.getPlayername() + " de jouer : ");
 				System.out.println("Voici la carte de vos tirs");
-				Config.showshoot(ActivePlayer, OppositePlayer);
+				Config.showshoot(activeplayer, oppositeplayer);
 				System.out.println("Voici la carte des tirs de votre adversaire");
-				Config.showboat(OppositePlayer, ActivePlayer);
+				Config.showboat(oppositeplayer, activeplayer);
 			}
-			String shoot = ActivePlayer.shoot();
+			String shoot = activeplayer.shoot();
 			int i = 0;
 			String res = "A l'eau";
-			while ((i < (OppositePlayer.length())) && (res.equals("A l'eau"))) {
-				if (ActivePlayer.hasAlreadyShot(shoot)) {
-					if (ActivePlayer.isInCrew(shoot)) {
+			while ((i < (oppositeplayer.length())) && (res.equals("A l'eau"))) {
+				if (activeplayer.hasAlreadyShot(shoot)) {
+					if (activeplayer.isInCrew(shoot)) {
 						res = "Touché";
 					}
-					i = OppositePlayer.length();
+					i = oppositeplayer.length();
 				} else {
-					Ship ship = OppositePlayer.getBattlecrew().get(i);
+					Ship ship = oppositeplayer.getBattlecrew().get(i);
 					if (ship.isHit(shoot)) {
 						ship.lifepoint--;
-						ActivePlayer.updateshoot(shoot);
+						activeplayer.updateshoot(shoot);
 						if (ship.isDestroyed()) {
 							res = "Touché Coulé";
-							OppositePlayer.removeShip(ship);
-							ActivePlayer.doingthings();
+							oppositeplayer.removeShip(ship);
+							activeplayer.doingthings();
 						} else {
 							res = "Touché";
 						}
@@ -89,20 +89,20 @@ public class Game {
 					i = i + 1;
 				}
 			}
-			if (!ActivePlayer.hasAlreadyShot(shoot)) {
-				ActivePlayer.myShoots.add(shoot);
+			if (!activeplayer.hasAlreadyShot(shoot)) {
+				activeplayer.myshoot.add(shoot);
 			}
 			if (!Config.modeIA) {
 				System.out.println("C'est : " + res);
-				System.out.println("Fin du tour de " + ActivePlayer.getPlayername());
+				System.out.println("Fin du tour de " + activeplayer.getPlayername());
 			}
 			changePlayer();
 		}
 		// on regarde qui a gagn� et qui a perdu
-		if (ActivePlayer.length() == 0) {
-			return OppositePlayer;
+		if (activeplayer.length() == 0) {
+			return oppositeplayer;
 		} else {
-			return ActivePlayer;
+			return activeplayer;
 		}
 	}
 }

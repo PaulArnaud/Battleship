@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player {
 	public ArrayList<Ship> battlecrew = new ArrayList<Ship>();
 	public ArrayList<Ship> losses = new ArrayList<Ship>();
-	public ArrayList<String> myShoots = new ArrayList<String>();
+	public ArrayList<String> myshoot = new ArrayList<String>();
 	public String playername;
 	public int score;
 
@@ -41,11 +41,11 @@ public class Player {
 	}
 
 	public ArrayList<String> getMyShoots() {
-		return myShoots;
+		return myshoot;
 	}
 
 	public void setMyShoots(ArrayList<String> myshoots) {
-		myShoots = myshoots;
+		myshoot = myshoots;
 	}
 
 	public boolean isDown() {
@@ -53,7 +53,7 @@ public class Player {
 	}
 
 	public boolean hasAlreadyShot(String shoot) {
-		return this.myShoots.contains(shoot);
+		return this.myshoot.contains(shoot);
 	}
 
 	// fonction qui renvoie le nb de bateau restant du joueur
@@ -94,7 +94,7 @@ public class Player {
 	public void reset() {
 		this.battlecrew = new ArrayList<Ship>();
 		this.losses = new ArrayList<Ship>();
-		this.myShoots = new ArrayList<String>();
+		this.myshoot = new ArrayList<String>();
 	}
 
 	public void implementboat(String nombateau) {
@@ -161,7 +161,7 @@ public class Player {
 	}
 
 	public void updateshoot(String shoot) {
-		myShoots.add(shoot);
+		myshoot.add(shoot);
 	}
 
 	public void doingthings() {

@@ -25,29 +25,29 @@ public class TestIA {
 		Computer computerlvl3 = new Computer(3);
 
 		Game newgame = new Game(computerlvl1, computerlvl2);
-		Player first = newgame.ActivePlayer;
+		Player first = newgame.activeplayer;
 		for (int j = 0; j < 100; j++) {
 			if (j != 0) {
 				newgame = new Game(newgame.adversary(first), first);
-				first = newgame.ActivePlayer;
+				first = newgame.activeplayer;
 			}
 			// System.out.println("Mise en place des bateaux de " +
 			// newgame.ActivePlayer.getPlayername());
 			for (int i = 0; i < Config.tab.length; i++) {
-				newgame.ActivePlayer.implementboat(Config.tab[i]);
+				newgame.activeplayer.implementboat(Config.tab[i]);
 			}
 			// System.out.println("Mise en place des bateaux de " +
 			// newgame.OppositePlayer.getPlayername());
 			for (int i = 0; i < Config.tab.length; i++) {
-				newgame.OppositePlayer.implementboat(Config.tab[i]);
+				newgame.oppositeplayer.implementboat(Config.tab[i]);
 			}
 			// System.out.println("Début de la partie !!!!!!!!!");
 			Player winner = newgame.party();
 			winner.score++;
 			// System.out.println(winner.getPlayername() + " a gagné");
 
-			newgame.ActivePlayer.reset();
-			newgame.OppositePlayer.reset();
+			newgame.activeplayer.reset();
+			newgame.oppositeplayer.reset();
 
 		}
 		noobresult2 = computerlvl1.score;
@@ -57,29 +57,29 @@ public class TestIA {
 		computerlvl2.score = 0;
 
 		newgame = new Game(computerlvl1, computerlvl3);
-		first = newgame.ActivePlayer;
+		first = newgame.activeplayer;
 		for (int j = 0; j < 100; j++) {
 			if (j != 0) {
 				newgame = new Game(newgame.adversary(first), first);
-				first = newgame.ActivePlayer;
+				first = newgame.activeplayer;
 			}
 			// System.out.println("Mise en place des bateaux de " +
 			// newgame.ActivePlayer.getPlayername());
 			for (int i = 0; i < Config.tab.length; i++) {
-				newgame.ActivePlayer.implementboat(Config.tab[i]);
+				newgame.activeplayer.implementboat(Config.tab[i]);
 			}
 			// System.out.println("Mise en place des bateaux de " +
 			// newgame.OppositePlayer.getPlayername());
 			for (int i = 0; i < Config.tab.length; i++) {
-				newgame.OppositePlayer.implementboat(Config.tab[i]);
+				newgame.oppositeplayer.implementboat(Config.tab[i]);
 			}
 			// System.out.println("Début de la partie !!!!!!!!!");
 			Player winner = newgame.party();
 			winner.score++;
 			// System.out.println(winner.getPlayername() + " a gagné");
 
-			newgame.ActivePlayer.reset();
-			newgame.OppositePlayer.reset();
+			newgame.activeplayer.reset();
+			newgame.oppositeplayer.reset();
 
 		}
 		noobresult3 = computerlvl1.score;
@@ -89,29 +89,29 @@ public class TestIA {
 		computerlvl3.score = 0;
 
 		newgame = new Game(computerlvl3, computerlvl2);
-		first = newgame.ActivePlayer;
+		first = newgame.activeplayer;
 		for (int j = 0; j < 100; j++) {
 			if (j != 0) {
 				newgame = new Game(newgame.adversary(first), first);
-				first = newgame.ActivePlayer;
+				first = newgame.activeplayer;
 			}
 			// System.out.println("Mise en place des bateaux de " +
 			// newgame.ActivePlayer.getPlayername());
 			for (int i = 0; i < Config.tab.length; i++) {
-				newgame.ActivePlayer.implementboat(Config.tab[i]);
+				newgame.activeplayer.implementboat(Config.tab[i]);
 			}
 			// System.out.println("Mise en place des bateaux de " +
 			// newgame.OppositePlayer.getPlayername());
 			for (int i = 0; i < Config.tab.length; i++) {
-				newgame.OppositePlayer.implementboat(Config.tab[i]);
+				newgame.oppositeplayer.implementboat(Config.tab[i]);
 			}
 			// System.out.println("Début de la partie !!!!!!!!!");
 			Player winner = newgame.party();
 			winner.score++;
 			// System.out.println(winner.getPlayername() + " a gagné");
 
-			newgame.ActivePlayer.reset();
-			newgame.OppositePlayer.reset();
+			newgame.activeplayer.reset();
+			newgame.oppositeplayer.reset();
 
 		}
 		pgmresult2 = computerlvl3.score;

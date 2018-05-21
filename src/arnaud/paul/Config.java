@@ -318,7 +318,7 @@ public class Config {
 			res = String.valueOf(i);
 			for (int j = convstringtoint(limleft); j <= convstringtoint(limright); j++) {
 				coord = convinttostring(j) + String.valueOf(i);
-				if (active.myShoots.contains(coord)) {
+				if (active.myshoot.contains(coord)) {
 					if (opposite.isInCrew(coord)) {
 						res = res + " " + "x";
 					} else {
@@ -340,7 +340,7 @@ public class Config {
 			res = String.valueOf(i);
 			for (int j = convstringtoint(limleft); j <= convstringtoint(limright); j++) {
 				coord = convinttostring(j) + String.valueOf(i);
-				if (active.myShoots.contains(coord)) {
+				if (active.myshoot.contains(coord)) {
 					if (opposite.isInCrew(coord)) {
 						if (opposite.isInBattlecrew(coord)) {
 							res = res + " " + "x";

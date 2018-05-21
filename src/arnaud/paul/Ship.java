@@ -78,9 +78,4 @@ public class Ship implements Cloneable {
 			return false;
 		}
 	}
-
-	public void removepos(String pos) {
-		this.localisation.remove(pos);
-	}
-
 }

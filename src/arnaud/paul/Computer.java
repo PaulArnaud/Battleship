@@ -113,25 +113,25 @@ public class Computer extends Player {
 					if (dirstate.equals("top")) {
 						pos = topcase(this.currentboat.get(0));
 						this.dirstate = "right";
-						if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
+						if (!Config.isCorrect(pos) || (super.myshoot.contains(pos))) {
 							pos = shoot();
 						}
 					} else if (dirstate.equals("right")) {
 						pos = rigthcase(this.currentboat.get(0));
 						this.dirstate = "bottom";
-						if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
+						if (!Config.isCorrect(pos) || (super.myshoot.contains(pos))) {
 							pos = shoot();
 						}
 					} else if (dirstate.equals("bottom")) {
 						pos = bottomcase(this.currentboat.get(0));
 						this.dirstate = "left";
-						if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
+						if (!Config.isCorrect(pos) || (super.myshoot.contains(pos))) {
 							pos = shoot();
 						}
 					} else if (dirstate.equals("left")) {
 						pos = leftcase(this.currentboat.get(0));
 						this.dirstate = "top";
-						if (!Config.isCorrect(pos) || (super.myShoots.contains(pos))) {
+						if (!Config.isCorrect(pos) || (super.myshoot.contains(pos))) {
 							pos = recovery();
 						}
 					}
@@ -160,18 +160,18 @@ public class Computer extends Player {
 		if (dir == 1) {
 			if (choice.equals("before")) {
 				pos = topcase(firstpos);
-				if (super.myShoots.contains(pos) || !Config.isCorrect(pos)) {
+				if (super.myshoot.contains(pos) || !Config.isCorrect(pos)) {
 					pos = bottomcase(secondpos);
-					if (super.myShoots.contains(pos) || !Config.isCorrect(pos)) {
+					if (super.myshoot.contains(pos) || !Config.isCorrect(pos)) {
 						pos = recovery();
 					}
 				}
 				this.choice = "after";
 			} else {
 				pos = bottomcase(secondpos);
-				if (super.myShoots.contains(pos) || !Config.isCorrect(pos)) {
+				if (super.myshoot.contains(pos) || !Config.isCorrect(pos)) {
 					pos = topcase(firstpos);
-					if (super.myShoots.contains(pos) || !Config.isCorrect(pos)) {
+					if (super.myshoot.contains(pos) || !Config.isCorrect(pos)) {
 						pos = recovery();
 					}
 				}
@@ -180,18 +180,18 @@ public class Computer extends Player {
 		} else {
 			if (choice.equals("before")) {
 				pos = leftcase(firstpos);
-				if (super.myShoots.contains(pos) || !Config.isCorrect(pos)) {
+				if (super.myshoot.contains(pos) || !Config.isCorrect(pos)) {
 					pos = rigthcase(secondpos);
-					if (super.myShoots.contains(pos) || !Config.isCorrect(pos)) {
+					if (super.myshoot.contains(pos) || !Config.isCorrect(pos)) {
 						pos = recovery();
 					}
 				}
 				this.choice = "after";
 			} else {
 				pos = rigthcase(secondpos);
-				if (super.myShoots.contains(pos) || !Config.isCorrect(pos)) {
+				if (super.myshoot.contains(pos) || !Config.isCorrect(pos)) {
 					pos = leftcase(firstpos);
-					if (super.myShoots.contains(pos) || !Config.isCorrect(pos)) {
+					if (super.myshoot.contains(pos) || !Config.isCorrect(pos)) {
 						pos = recovery();
 					}
 				}
@@ -306,7 +306,7 @@ public class Computer extends Player {
 		String letter = Config.convinttostring(i);
 		String number = String.valueOf(j);
 		pos = letter + number;
-		while (super.myShoots.contains(pos)) {
+		while (super.myshoot.contains(pos)) {
 			pos = hasard();
 		}
 		return pos;

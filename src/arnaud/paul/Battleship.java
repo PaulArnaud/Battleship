@@ -43,23 +43,23 @@ public class Battleship {
 			}
 
 			Game newgame = new Game(player1, player2);
-			Player first = newgame.ActivePlayer;
+			Player first = newgame.activeplayer;
 			while (redo.equals("oui")) {
 				if (numberofparty != 0) {
 					newgame = new Game(newgame.adversary(first), first);
-					first = newgame.ActivePlayer;
+					first = newgame.activeplayer;
 				}
-				System.out.println("Mise en place des bateaux de " + newgame.ActivePlayer.getPlayername());
+				System.out.println("Mise en place des bateaux de " + newgame.activeplayer.getPlayername());
 				for (int i = 0; i < Config.tab.length; i++) {
-					newgame.ActivePlayer.showMyCrew();
-					newgame.ActivePlayer.implementboat(Config.tab[i]);
+					newgame.activeplayer.showMyCrew();
+					newgame.activeplayer.implementboat(Config.tab[i]);
 				}
-				System.out.println("Mise en place des bateaux de " + newgame.OppositePlayer.getPlayername());
+				System.out.println("Mise en place des bateaux de " + newgame.oppositeplayer.getPlayername());
 				for (int i = 0; i < Config.tab.length; i++) {
 					if (!Config.type.equals("0")) {
-						newgame.OppositePlayer.showMyCrew();
+						newgame.oppositeplayer.showMyCrew();
 					}
-					newgame.OppositePlayer.implementboat(Config.tab[i]);
+					newgame.oppositeplayer.implementboat(Config.tab[i]);
 				}
 				System.out.println("Début de la partie !!!!!!!!!");
 				Player winner = newgame.party();
@@ -68,8 +68,8 @@ public class Battleship {
 				redo = Config.readmsg();
 				if (redo.equals("oui")) {
 					numberofparty = +1;
-					newgame.ActivePlayer.reset();
-					newgame.OppositePlayer.reset();
+					newgame.activeplayer.reset();
+					newgame.oppositeplayer.reset();
 				}
 			}
 			System.out.println("Voulez faire une nouvelle partie ? oui/non");
