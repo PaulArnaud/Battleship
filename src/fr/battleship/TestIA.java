@@ -31,20 +31,14 @@ public class TestIA {
 				newgame = new Game(newgame.adversary(first), first);
 				first = newgame.activeplayer;
 			}
-			// System.out.println("Mise en place des bateaux de " +
-			// newgame.ActivePlayer.getPlayername());
 			for (int i = 0; i < Config.tab.length; i++) {
 				newgame.activeplayer.implementboat(Config.tab[i]);
 			}
-			// System.out.println("Mise en place des bateaux de " +
-			// newgame.OppositePlayer.getPlayername());
 			for (int i = 0; i < Config.tab.length; i++) {
 				newgame.oppositeplayer.implementboat(Config.tab[i]);
 			}
-			// System.out.println("Début de la partie !!!!!!!!!");
 			Player winner = newgame.party();
 			winner.score++;
-			// System.out.println(winner.getPlayername() + " a gagné");
 
 			newgame.activeplayer.reset();
 			newgame.oppositeplayer.reset();
@@ -63,20 +57,14 @@ public class TestIA {
 				newgame = new Game(newgame.adversary(first), first);
 				first = newgame.activeplayer;
 			}
-			// System.out.println("Mise en place des bateaux de " +
-			// newgame.ActivePlayer.getPlayername());
 			for (int i = 0; i < Config.tab.length; i++) {
 				newgame.activeplayer.implementboat(Config.tab[i]);
 			}
-			// System.out.println("Mise en place des bateaux de " +
-			// newgame.OppositePlayer.getPlayername());
 			for (int i = 0; i < Config.tab.length; i++) {
 				newgame.oppositeplayer.implementboat(Config.tab[i]);
 			}
-			// System.out.println("Début de la partie !!!!!!!!!");
 			Player winner = newgame.party();
 			winner.score++;
-			// System.out.println(winner.getPlayername() + " a gagné");
 
 			newgame.activeplayer.reset();
 			newgame.oppositeplayer.reset();
@@ -95,20 +83,14 @@ public class TestIA {
 				newgame = new Game(newgame.adversary(first), first);
 				first = newgame.activeplayer;
 			}
-			// System.out.println("Mise en place des bateaux de " +
-			// newgame.ActivePlayer.getPlayername());
 			for (int i = 0; i < Config.tab.length; i++) {
 				newgame.activeplayer.implementboat(Config.tab[i]);
 			}
-			// System.out.println("Mise en place des bateaux de " +
-			// newgame.OppositePlayer.getPlayername());
 			for (int i = 0; i < Config.tab.length; i++) {
 				newgame.oppositeplayer.implementboat(Config.tab[i]);
 			}
-			// System.out.println("Début de la partie !!!!!!!!!");
 			Player winner = newgame.party();
 			winner.score++;
-			// System.out.println(winner.getPlayername() + " a gagné");
 
 			newgame.activeplayer.reset();
 			newgame.oppositeplayer.reset();
@@ -116,6 +98,9 @@ public class TestIA {
 		}
 		pgmresult2 = computerlvl3.score;
 		medresult3 = computerlvl2.score;
+		
+		computerlvl2.score = 0;
+		computerlvl3.score = 0;
 
 		File f = new File("ai_proof.csv");
 
@@ -126,7 +111,7 @@ public class TestIA {
 			fw.write("AI Level Medium;" + medresult3 + "AI Level Hard;" + pgmresult2 + "\n");
 			fw.close();
 		} catch (IOException e) {
-			System.out.println("Impossible d'écrire dans le fichier");
+			System.out.println("Impossible d'ï¿½crire dans le fichier");
 		}
 
 		System.out.println(noobresult2 + " " + noobresult3 + " " + medresult1 + " " + medresult3 + " " + pgmresult1
