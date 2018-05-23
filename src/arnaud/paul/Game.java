@@ -1,8 +1,6 @@
 package arnaud.paul;
 
 public class Game {
-	// notion de joueur actif et oppos� ( seulement pour le mode 2joueur) sinon le
-	// joueur est le joueur actif de fa�on permanente contre l'ordi
 	public Player activeplayer;
 	public Player oppositeplayer;
 
@@ -42,7 +40,7 @@ public class Game {
 		this.oppositeplayer = TempPlayer;
 	}
 
-	// fonction vraie ou fausse si la partie est termin�e ou non
+	// fonction vraie ou fausse si la partie est terminée ou non
 	public boolean IsOver() {
 		return activeplayer.isDown() || oppositeplayer.isDown();
 	}
@@ -98,7 +96,7 @@ public class Game {
 			}
 			changePlayer();
 		}
-		// on regarde qui a gagn� et qui a perdu
+		// on regarde qui a gagné et qui a perdu
 		if (activeplayer.length() == 0) {
 			return oppositeplayer;
 		} else {

@@ -20,7 +20,7 @@ public class Config {
 	public static String limtop = "0";
 	public static int limtoptoint = Integer.parseInt(limtop);
 	public static String type;
-	public static String[] tab = { "carrier", "submarine"/* ,"destroyer","battleship","cruiser" */ };
+	public static String[] tab = { "carrier"/*, "submarine" ,"destroyer","battleship","cruiser" */ };
 	public static int vs;
 	public static boolean modeIA;
 
@@ -274,15 +274,15 @@ public class Config {
 
 	public static String boatsize(String a) {
 		if (a.equals("carrier")) {
-			return "(size = 5)";
+			return "(taille = 5)";
 		} else if (a.equals("battleship")) {
-			return "(size = 4)";
+			return "(taille = 4)";
 		} else if (a.equals("submarine") || a.equals("cruiser")) {
-			return "(size = 3)";
+			return "(taille = 3)";
 		} else if (a.equals("destroyer")) {
-			return "(size = 2)";
+			return "(taille = 2)";
 		} else {
-			return "(size = unknown)";
+			return "(taille = unknown)";
 		}
 	}
 
